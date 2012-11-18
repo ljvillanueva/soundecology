@@ -1,11 +1,9 @@
 soundecol.Rproj
 .Rbuildignore
 .Rproj.user
-.Rhistory
-
+.RData
 #From https://github.com/github/gitignore/blob/master/R.gitignore
 # History files
 .Rhistory
-
 # Example code in package build process
 *-Ex.R
