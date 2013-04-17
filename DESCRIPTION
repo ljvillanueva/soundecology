@@ -6,5 +6,5 @@ Date: 2012-10-19
 Author: Luis J. Villanueva-Rivera
 Maintainer: Luis J. Villanueva-Rivera <ljvillanueva@coquipr.com>
 Description: Functions for soundscape ecology and other research in ecology that uses audio recordings. From the paper: Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi:10.1007/s10980-011-9636-9.
-Depends: tuneR, seewave, ineq
+Depends: tuneR, ineq
 License: GPL-3
