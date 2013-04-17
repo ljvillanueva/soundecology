@@ -7,5 +7,5 @@ soundecol.Rproj
 .Rhistory
 # Example code in package build process
 *-Ex.R
-*.wav
+*.flac
 check
