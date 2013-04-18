@@ -14,10 +14,11 @@
 require("tuneR")
 #require("seewave")
 require("pracma")
+require("ineq")
 
 source("R/seewave_simplified.R")
-source("R/boelman.R")
+source("R/acoustic_div_shannon.R")
 
 soundfile <- readWave("test_scripts/testsound.wav")
 
-bioacoustic_index(soundfile)
+acoustic_diversity(soundfile)

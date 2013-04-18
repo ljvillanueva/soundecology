@@ -13,11 +13,9 @@
 
 require("tuneR")
 #require("seewave")
-require("pracma")
 
 source("R/seewave_simplified.R")
-source("R/boelman.R")
 
 soundfile <- readWave("test_scripts/testsound.wav")
 
-bioacoustic_index(soundfile)
+#bioacoustic_index(soundfile)
