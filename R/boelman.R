@@ -98,7 +98,6 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=1024)
 		
 		cat("  Mono channel: ")
 		cat(left_area)
-		AUC_r = trapz(specA_left_segment_2)
 		cat("\n\n")
 		right_area <- NA
 	}
