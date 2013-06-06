@@ -12,7 +12,7 @@
 
 
 require("tuneR")
-#require("seewave")
+require("seewave")
 require("pracma")
 
 source("R/seewave_simplified.R")

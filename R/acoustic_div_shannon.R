@@ -67,7 +67,7 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		
 		#Average
 		Score_left=(-(Score1))/length(Freq)
-		
+		Shannon_left <- diversity(Score)
 		
 		#RIGHT CHANNEL
 		
@@ -87,15 +87,24 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		
 		#Average
 		Score_right=(-(Score1))/length(Freq)
-		
+		Shannon_right <- diversity(Score)
 		
 		cat(" ==============================================\n")
 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
+		
+		left_bandvals_return <- rep(NA, length(Freq))
+		right_bandvals_return <- rep(NA, length(Freq))
+		left_bandrange_return <- rep(NA, length(Freq))
+		right_bandrange_return <- rep(NA, length(Freq))
 		
 		cat(" Proportion over threshold for each frequency band (in csv format): \n\n")
 		cat("Frequency range (Hz), left channel proportion, right channel proportion\n")
 		for (j in seq(length(Freq),1,by=-1)) {
 			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), ",", round(right_vals[j],6), "\n", sep=""))
+			left_bandvals_return[j] = round(left_vals[j],6)
+			right_bandvals_return[j] = round(right_vals[j],6)
+			left_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
+			right_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
 		}
 		
 		cat("\n Plot of proportions in each band: \n\n")
@@ -154,9 +163,13 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		
 		cat("\n  Acoustic diversity (Shannon's Index): \n")
 		cat(paste("   Left channel: ", round(Score_left,6), "\n", sep=""))
-		cat(paste("   Right channel: ", round(Score_right,6), "\n\n", sep=""))
+		cat(paste("   Right channel: ", round(Score_right,6), "\n", sep=""))
 		left_adi_return = round(Score_left,6)
 		right_adi_return = round(Score_right,6)
+		
+		cat("  Shannon Index: ")
+		cat(paste("   Left channel: ", round(Shannon_left, 6), "\n", sep=""))
+		cat(paste("   Right channel: ", round(Shannon_right, 6), "\n", sep=""))
 		
 		cat("  Band Eveness (Gini coefficient): \n")
 		cat(paste("   Left channel: ", round(Gini(left_vals),6), "\n", sep=""))
@@ -197,7 +210,8 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		
 		#Average
 		Score_left=(-(Score1))/length(Freq)
-		
+		Shannon_left <- diversity(Score)
+		Shannon_right <- NA
 		
 		cat(" ==============================================\n")
 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
@@ -206,8 +220,14 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		cat("Frequency range (Hz), proportion\n")
 		
 		#printed in inverse order to keep the low frequencies in the bottom, like in a spectrogram
+		left_bandvals_return <- rep(NA, length(Freq))
+		right_bandvals_return <- rep(NA, length(Freq))
+		left_bandrange_return <- rep(NA, length(Freq))
+		right_bandrange_return <- rep(NA, length(Freq))
 		for (j in seq(length(Freq),1,by=-1)) {
 			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), "\n", sep=""))
+			left_bandvals_return[j] = round(left_vals[j],6)
+			left_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
 		}
 		
 		cat("\n Plot of proportions in each band: \n\n")
@@ -236,15 +256,18 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 			rm(temp_val)
 		}
 		
-		cat("\n  Acoustic diversity (Shannon's Index): ")
+		cat("\n  Acoustic Diversity Index: ")
 		cat(paste(round(Score_left,6), "\n", sep=""))
 		left_adi_return = round(Score_left,6)
 		right_adi_return = 0
 		
+		cat("  Shannon Index: ")
+		cat(paste(round(Shannon_left, 6), "\n", sep=""))
+				
 		cat("  Band Eveness (Gini coefficient): ")
 		cat(paste(round(Gini(left_vals),6), "\n", sep=""))
 		left_gini_return = round(Gini(left_vals),6)
 		right_gini_return = 0
 	}
-	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, gini_left=left_gini_return, gini_right=right_gini_return))
+	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, shannon_left=Shannon_left, shannon_right=Shannon_right, gini_left=left_gini_return, gini_right=right_gini_return, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
 }
