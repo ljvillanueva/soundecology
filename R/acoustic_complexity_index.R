@@ -64,9 +64,11 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 		
 		ACI_left_vals <- rep(NA, no_j)
 		ACI_fl_left_vector <- rep(NA, m)
-				
+		ACI_left_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
+		
 		ACI_right_vals <- rep(NA, no_j)
 		ACI_fl_right_vector <- rep(NA, m)
+		ACI_right_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
 		
 		#Left channel
 		#For each frequency bin fl
@@ -76,11 +78,11 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 			for (j_index in 1:no_j) {
 				min_col <- j_index * I_per_j - I_per_j + 1
 				max_col <- j_index * I_per_j
-				
-				
+								
 				D <- get_d(specA_left, q_index, min_col, max_col)
 				sum_I <- sum(specA_left[q_index,min_col:max_col])
 				ACI_left_vals[j_index] <- D / sum_I
+				ACI_left_matrix[q_index, j_index] <- D / sum_I
 			}
 			
 			ACI_fl_left_vector[q_index] <- sum(ACI_left_vals)
@@ -95,12 +97,12 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 			#For each j period of time
 			for (j_index in 1:no_j) {
 				min_col <- j_index * I_per_j - I_per_j + 1
-				max_col <- j_index * I_per_j
-				
+				max_col <- j_index * I_per_j				
 				
 				D <- get_d(specA_right, q_index, min_col, max_col)
 				sum_I <- sum(specA_right[q_index,min_col:max_col])
 				ACI_right_vals[j_index] <- D / sum_I
+				ACI_right_matrix[q_index, j_index] <- D / sum_I
 			}
 			
 			ACI_fl_right_vector[q_index] <- sum(ACI_right_vals)
@@ -145,9 +147,11 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 		
 		ACI_left_vals <- rep(NA, no_j)
 		ACI_fl_left_vector <- rep(NA, m)
+		ACI_left_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
 		
 		ACI_right_vals <- rep(NA, no_j)
 		ACI_fl_right_vector <- rep(NA, m)
+		ACI_right_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
 		
 		#Left channel
 		#For each frequency bin fl
@@ -157,11 +161,11 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 			for (j_index in 1:no_j) {
 				min_col <- j_index * I_per_j - I_per_j + 1
 				max_col <- j_index * I_per_j
-				
-				
+								
 				D <- get_d(specA_left, q_index, min_col, max_col)
 				sum_I <- sum(specA_left[q_index,min_col:max_col])
 				ACI_left_vals[j_index] <- D / sum_I
+				ACI_left_matrix[q_index, j_index] <- D / sum_I
 			}
 			
 			ACI_fl_left_vector[q_index] <- sum(ACI_left_vals)
@@ -177,5 +181,6 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 	}
 	
 	invisible(list(aci_tot_left=ACI_tot_left, aci_tot_right=ACI_tot_right, 
-				   ACI_fl_left_vals=ACI_fl_left_vector, ACI_fl_right_vals=ACI_fl_right_vector))
+				   aci_fl_left_vals=ACI_fl_left_vector, aci_fl_right_vals=ACI_fl_right_vector,
+				   aci_left_matrix=ACI_left_matrix, aci_right_matrix=ACI_right_matrix))
 }
