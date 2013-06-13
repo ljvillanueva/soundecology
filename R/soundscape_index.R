@@ -1,10 +1,23 @@
 #
 #Gage's Soundscape Index
-#From: N. Pieretti ∗ , A. Farina, D. Morri. 2011. A new methodology to infer
-# the singing activity of an avian community: The Acoustic Complexity Index (ACI).
-# Ecological Indicators 11: 868–873.
+# From REAL - Remote Environmental Assessment Laboratory
+# http://www.real.msu.edu/
 #
-# Normalized Difference Soundscape Index (NDSI) is a numeric indicator of a
+# Also from: Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. 
+#  Measuring and interpreting the temporal variability in the soundscape
+#  at four places in Sequoia National Park. Landscape Ecol. DOI 10.1007/s10980-011-9639-6
+#
+# Also from: Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
+#  The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
+#  Studying Soundscape Ecology. Ecological Informatics 12: 50–67. doi:10.1016/j.ecoinf.2012.08.001.
+#
+# "The samples were converted to 22 kHz monaural. A normalized Power Spectrum
+#  Density value (PSD in Watt/Hz) (Welch 1967) was
+#  computed for each 1 kHz interval for all recordings
+#  by running a script programmed by Gage and Joo
+#  using MATLAB (Gilat 2004)."
+#
+# "Normalized Difference Soundscape Index (NDSI) is a numeric indicator of a
 #  soundscape's relative biological composition to human disturbance based
 #  on the amount of acoustic energy in different frequency bands. The distribution 
 #  of sound frequencies in acoustic samples was computed to determine what 
@@ -19,31 +32,15 @@
 #  where α, β represent the proportion of acoustic energy of Anthrophony and 
 #  Biophony, respectively. The value of the index ranges from -1 to 1. If the 
 #  value is negative, mechanical sounds dominate the soundscape. If the value 
-#  approaches 1, most of the soundscape consists of biological sounds at the site.
+#  approaches 1, most of the soundscape consists of biological sounds at the site."
 #
-#  The NDSI is computed as the ratio of the sound intensity found in the 
+#  "The NDSI is computed as the ratio of the sound intensity found in the 
 #  frequencies where biological sounds (biophony) are most prevalent (2-8 kHz)
 #  to the frequencies where mechanical sounds (technophony) are most prevalent
 #  (1-2 kHz). NDSI has values in the range +1 to -1, with +1 indicating that 
 #  a signal contains only biophony. As shown in the figure, NDSI has a larger 
-#  biophonic component between 2100 and 0730 hours.
+#  biophonic component between 2100 and 0730 hours."
 #
-# From REAL - Remote Environmental Assessment Laboratory
-# http://www.real.msu.edu/
-#
-# The samples were converted to 22 kHz monaural. A normalized Power Spectrum
-#  Density value (PSD in Watt/Hz) (Welch 1967) was
-#  computed for each 1 kHz interval for all recordings
-#  by running a script programmed by Gage and Joo
-#  using MATLAB (Gilat 2004).
-#
-# From Bernie Krause • Stuart H. Gage • Wooyeong Joo. 2011. 
-#  Measuring and interpreting the temporal variability in the soundscape
-#  at four places in Sequoia National Park. Landscape Ecol. DOI 10.1007/s10980-011-9639-6
-#
-# Also from: Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
-#  The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
-#  Studying Soundscape Ecology. Ecological Informatics 12: 50–67. doi:10.1016/j.ecoinf.2012.08.001.
 #
 
 ndsi <- function(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000){
