@@ -161,13 +161,13 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 			rm(temp_val)
 		}
 		
-		cat("\n  Acoustic diversity (Shannon's Index): \n")
+		cat("\n  Acoustic diversity: \n")
 		cat(paste("   Left channel: ", round(Score_left,6), "\n", sep=""))
 		cat(paste("   Right channel: ", round(Score_right,6), "\n", sep=""))
 		left_adi_return = round(Score_left,6)
 		right_adi_return = round(Score_right,6)
 		
-		cat("  Shannon Index: ")
+		cat("  Acoustic Diversity Index (Shannon Index): ")
 		cat(paste("   Left channel: ", round(Shannon_left, 6), "\n", sep=""))
 		cat(paste("   Right channel: ", round(Shannon_right, 6), "\n", sep=""))
 		
@@ -261,7 +261,7 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		left_adi_return = round(Score_left,6)
 		right_adi_return = 0
 		
-		cat("  Shannon Index: ")
+		cat("  Acoustic Diversity Index (Shannon Index): ")
 		cat(paste(round(Shannon_left, 6), "\n", sep=""))
 				
 		cat("  Band Eveness (Gini coefficient): ")
