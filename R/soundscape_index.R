@@ -42,6 +42,8 @@
 #  biophonic component between 2100 and 0730 hours."
 #
 #
+# REQUIRES the packages tuneR, seewave, pracma
+#
 
 ndsi <- function(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000){
 	
