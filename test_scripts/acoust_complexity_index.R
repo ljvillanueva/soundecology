@@ -2,7 +2,7 @@
 #
 
 require("tuneR")
-#require("seewave")
+require("seewave")
 #require("pracma")
 #require("ineq")
 

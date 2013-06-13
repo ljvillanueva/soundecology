@@ -36,14 +36,14 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 	#Stereo file
 	if (soundfile@stereo==TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
-		left<-channel(soundfile, which = c("left"))
-		right<-channel(soundfile, which = c("right"))
+		left <- channel(soundfile, which = c("left"))
+		right <- channel(soundfile, which = c("right"))
 		rm(soundfile)
 		
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, dB=NULL)$amp
-		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, dB=NULL)$amp
+		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
+		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
 		
 		rm(left,right)
 		
@@ -126,8 +126,8 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 		
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, dB=NULL)$amp
-				
+		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
+		
 		rm(left)
 		
 		#LEFT CHANNEL
