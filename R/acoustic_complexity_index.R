@@ -3,9 +3,10 @@
 #From: N. Pieretti ∗ , A. Farina, D. Morri. 2011. A new methodology to infer
 # the singing activity of an avian community: The Acoustic Complexity Index (ACI).
 # Ecological Indicators 11: 868–873.
-
 #
-acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
+#Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina
+#
+acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 	
 	#function that gets the difference of values
 	# probably a very inefficient way, find better way
@@ -180,7 +181,7 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=516){
 		cat("\n\n")
 	}
 	
-	invisible(list(aci_tot_left=ACI_tot_left, aci_tot_right=ACI_tot_right, 
+	invisible(list(AciTotAll_left=ACI_tot_left, AciTotAll_right=ACI_tot_right, 
 				   aci_fl_left_vals=ACI_fl_left_vector, aci_fl_right_vals=ACI_fl_right_vector,
 				   aci_left_matrix=ACI_left_matrix, aci_right_matrix=ACI_right_matrix))
 }
