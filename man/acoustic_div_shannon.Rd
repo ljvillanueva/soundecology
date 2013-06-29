@@ -19,11 +19,17 @@ acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-
 	}
 
 \value{
-	Returns a list of values with the elements:
-	\item{coefficients}{ a named vector of coefficients }
-	\item{vcov}{ covariance matrix of coefficients }
-	\item{fitted.values}{ fitted values }
-	\item{residuals}{ residuals }
+	Returns a list with three objects per channel
+	\item{adi_left}{ original ADI value for the left channel }
+	\item{adi_right}{ original ADI value for the right channel }
+	\item{shannon_left}{ ADI value calculated with the Shannon index for the left channel }
+	\item{shannon_right}{ ADI value calculated with the Shannon index for the right channel }
+	\item{gini_left}{ Gini index for the left channel }
+	\item{gini_right}{ Gini index for the right channel }
+	\item{left_band_values}{ vector of ocupancy values for each band for the left channel }
+	\item{right_band_values}{ vector of ocupancy values for each band for the right channel }
+	\item{left_bandrange_values}{ vector of frequency values for each band for the left channel }
+	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}
 
 \author{Luis J. Villanueva-Rivera}

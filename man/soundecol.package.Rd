@@ -13,7 +13,7 @@
 		Package: \tab soundecol\cr
 		Type: \tab Package\cr
 		Version: \tab 0.1\cr
-		Date: \tab 2013-06-27\cr
+		Date: \tab 2013-06-29\cr
 		License: \tab GPLv3\cr
 		}
 	}
@@ -22,6 +22,3 @@ Luis J. Villanueva-Rivera
 }
 
 \keyword{ soundecol }
-
-%\examples{
-%}

@@ -19,11 +19,9 @@ bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)
 	}
 
 \value{
-	Returns a list of values with the elements:
-	\item{coefficients}{ a named vector of coefficients }
-	\item{vcov}{ covariance matrix of coefficients }
-	\item{fitted.values}{ fitted values }
-	\item{residuals}{ residuals }
+	Returns a list with three objects per channel
+	\item{left_area}{ area under the curve for the left channel }
+	\item{right_area}{ area under the curve for the right channel }
 	}
 
 \author{Luis J. Villanueva-Rivera}

@@ -20,11 +20,9 @@ ndsi(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz
 	}
 
 \value{
-	Returns a list of values with the elements:
-	\item{coefficients}{ a named vector of coefficients }
-	\item{vcov}{ covariance matrix of coefficients }
-	\item{fitted.values}{ fitted values }
-	\item{residuals}{ residuals }
+	Returns a list with three objects per channel
+	\item{ndsi_left}{ NDSI value for the left channel }
+	\item{ndsi_right}{ NDSI value for the left channel }
 	}
 
 \author{Luis J. Villanueva-Rivera}

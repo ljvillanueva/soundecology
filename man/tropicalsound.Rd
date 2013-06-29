@@ -4,13 +4,13 @@
 
 \title{tropicalsound sound example}
 
-\description{Sample sound data of a recording of a tropical chorus of frogs.}
+\description{Sample sound of a digital recording of a chorus of tropical frogs.}
 
 \usage{
 data(tropicalsound)
 }
 
-\format{A Wave object.}
+\format{A \code{"Wave"} object.}
 
 \details{
   Duration = 20 sec. Sampling rate = 22050 Hz.

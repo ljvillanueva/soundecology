@@ -18,11 +18,13 @@
 	}
 
 \value{
-	An object of class \code{Wave}, basically a list including elements
-	\item{coefficients}{ a named vector of coefficients }
-	\item{vcov}{ covariance matrix of coefficients }
-	\item{fitted.values}{ fitted values }
-	\item{residuals}{ residuals }
+	Returns a list with three objects per channel
+	\item{AciTotAll_left}{ the ACI total for the left channel }
+	\item{AciTotAll_right}{ the ACI total for the right channel }
+	\item{aci_fl_left_vals}{ values of ACI(fl) for the left channel }
+	\item{aci_fl_right_vals}{ values of ACI(fl) for the right channel }
+	\item{aci_left_matrix}{ Matrix of all values before calculating ACI(fl) for the left channel }
+	\item{aci_right_matrix}{ Matrix of all values before calculating ACI(fl) for the right channel }
 	}
 
 \author{Luis J. Villanueva-Rivera}
