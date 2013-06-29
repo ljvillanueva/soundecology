@@ -1,8 +1,8 @@
 #
 #Acoustic Complexity Index
-#From: N. Pieretti ∗ , A. Farina, D. Morri. 2011. A new methodology to infer
+#From: N. Pieretti, A. Farina, D. Morri. 2011. A new methodology to infer
 # the singing activity of an avian community: The Acoustic Complexity Index (ACI).
-# Ecological Indicators 11: 868–873.
+# Ecological Indicators 11: 868-873.
 #
 #Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina
 #
@@ -39,8 +39,7 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
 		left <- channel(soundfile, which = c("left"))
 		right <- channel(soundfile, which = c("right"))
-		rm(soundfile)
-		
+				
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
 		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
@@ -123,12 +122,10 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 		cat("\n This is a mono file.\n")
 		
 		left<-channel(soundfile, which = c("left"))
-		rm(soundfile)
-		
+				
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
 		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
-		
 		rm(left)
 		
 		#LEFT CHANNEL

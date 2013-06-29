@@ -10,6 +10,7 @@
 # Several parts where changed, in particular log math, so this won't be
 # directly comparable to the original code in the paper.
 #
+# Requires: tuneR, seewave, pracma
 
 bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 	#Get sampling rate
@@ -47,12 +48,13 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		specA_left_segment <- specA_left[min_row:max_row]
 		specA_right_segment <- specA_right[min_row:max_row]
 		freq_range <- max_freq - min_freq
+		freqs <- seq(from = min_freq, to = max_freq, length.out = length(specA_left_segment))
 		
 		specA_left_segment_normalized <- specA_left_segment - min(specA_left_segment)
 		specA_right_segment_normalized <- specA_right_segment - min(specA_right_segment)
 		
-		left_area <- moredB(specA_left_segment_normalized) * freq_range
-		right_area <- moredB(specA_right_segment_normalized) * freq_range
+		left_area <- trapz(freqs, specA_left_segment_normalized)
+		right_area <- trapz(freqs, specA_right_segment_normalized)
 		
 		cat("\n")
 		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
@@ -86,10 +88,11 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		#Select rows
 		specA_left_segment <- specA_left[min_row:max_row]
 		freq_range <- max_freq - min_freq
+		freqs <- seq(from = min_freq, to = max_freq, length.out = length(specA_left_segment))
 		
 		specA_left_segment_normalized <- specA_left_segment - min(specA_left_segment)
 		
-		left_area <- moredB(specA_left_segment_normalized) * freq_range
+		left_area <- trapz(freqs, specA_left_segment_normalized)
 		
 		cat("\n")
 		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))

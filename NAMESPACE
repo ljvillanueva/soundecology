@@ -1,1 +1,2 @@
+import("tuneR", "seewave", "vegan", "pracma")
 exportPattern("^[[:alpha:]]+")
