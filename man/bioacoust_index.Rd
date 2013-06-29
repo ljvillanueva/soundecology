@@ -8,16 +8,14 @@
 Inspired on Matlab code courtesy of NT Boelman.}
 
 \usage{
-bioacoustic_index(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
+bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)
 }
 
 \arguments{
 	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
-	\item{save_to_text}{ boolean to save the values to a text file. }
+	\item{min_freq}{ minimum frequency to use when calculating the value, in Hertz. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
-	\item{db_threshold}{ threshold to use in the calculation. }
-	\item{freq_step}{ size of frequency bands. }
-	\item{\dots}{ not used. }
+	\item{fft_w}{ FFT window size. }
 	}
 
 \value{
@@ -39,7 +37,7 @@ bioacoustic_index(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-5
 	%}
 
 \references{
-Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion resistance in Hawaii: bioacoustics, field surveys, and airborne remote sensing. Ecol Applications 17(8):2137-44.}
+Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion resistance in Hawaii: bioacoustics, field surveys, and airborne remote sensing. Ecological Applications 17:2137-2144.}
 
 \keyword{soundecol}
 \keyword{acoustic_diversity}

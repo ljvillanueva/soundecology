@@ -15,7 +15,6 @@
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{j}{ the cluster size, in seconds. }
 	\item{fft_w}{ FFT window to use. }
-	\item{\dots}{ not used. }
 	}
 
 \value{
@@ -37,7 +36,7 @@
 	}
 
 \references{
- Pieretti, N., A. Farina, and D. Morri. 2011. A new methodology to infer the singing activity of an avian community: The Acoustic Complexity Index (ACI). Ecological Indicators 11: 868-873.}
+ Pieretti, N., A. Farina, and D. Morri. 2011. A new methodology to infer the singing activity of an avian community: The Acoustic Complexity Index (ACI). Ecological Indicators 11: 868-873. doi: 10.1016/j.ecolind.2010.11.005}
 
 \keyword{soundecol}
 \keyword{acoustic_complexity}

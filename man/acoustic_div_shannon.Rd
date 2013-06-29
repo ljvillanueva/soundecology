@@ -16,7 +16,6 @@ acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{db_threshold}{ threshold to use in the calculation. }
 	\item{freq_step}{ size of frequency bands. }
-	\item{\dots}{ not used. }
 	}
 
 \value{
@@ -38,7 +37,7 @@ acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-
 	%}
 
 \references{
-Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi:10.1007/s10980-011-9636-9.}
+Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi: 10.1007/s10980-011-9636-9.}
 
 \keyword{soundecol}
 \keyword{acoustic_diversity}
