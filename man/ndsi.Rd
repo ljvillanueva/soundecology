@@ -1,13 +1,13 @@
-\name{acoustic_diversity}
+\name{ndsi}
 
-\alias{acoustic_diversity}
+\alias{ndsi}
 
-\title{Acoustic Diversity Index}
+\title{Normalized Difference Soundscape Index}
 
-\description{Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011.}
+\description{Normalized Difference Soundscape Index from REAL and Krause, \emph{et al.} 2011.}
 
 \usage{
-acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
+ndsi(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
 }
 
 \arguments{
@@ -38,7 +38,9 @@ acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-
 	%}
 
 \references{
-Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi:10.1007/s10980-011-9636-9.}
+Remote Environmental Assessment Laboratory. http://www.real.msu.edu
+
+Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. Measuring and interpreting the temporal variability in the soundscape at four places in Sequoia National Park. Landscape Ecology 26: 1247-1256. DOI 10.1007/s10980-011-9639-6.}
 
 \keyword{soundecol}
-\keyword{acoustic_diversity}
+\keyword{ndsi}

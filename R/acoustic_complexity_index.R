@@ -27,8 +27,9 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 	#Get Nyquist frequency in Hz
 	nyquist_freq <- (samplingrate/2)
 	if (max_freq>nyquist_freq) {
-		cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep=""))
-		break
+		cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep=""))
+		max_freq <- nyquist_freq
+		#break
 	}
 	
 	#window length for the spectro and spec functions

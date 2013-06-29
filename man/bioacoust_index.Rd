@@ -1,13 +1,14 @@
-\name{acoustic_diversity}
+\name{bioacoustic_index}
 
-\alias{acoustic_diversity}
+\alias{bioacoustic_index}
 
-\title{Acoustic Diversity Index}
+\title{Bioacoustic Index}
 
-\description{Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011.}
+\description{Bioacoustic Index from Boelman, \emph{et al.} 2007. 
+Inspired on Matlab code courtesy of NT Boelman.}
 
 \usage{
-acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
+bioacoustic_index(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
 }
 
 \arguments{
@@ -38,7 +39,7 @@ acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-
 	%}
 
 \references{
-Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi:10.1007/s10980-011-9636-9.}
+Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion resistance in Hawaii: bioacoustics, field surveys, and airborne remote sensing. Ecol Applications 17(8):2137-44.}
 
 \keyword{soundecol}
 \keyword{acoustic_diversity}

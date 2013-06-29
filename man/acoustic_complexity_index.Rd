@@ -28,13 +28,13 @@
 
 \author{Luis J. Villanueva-Rivera}
 
-%\examples{
-	%library("seewave")
-	%data(tropicalsound)
-	%ACI <- acoustic_complexity(tropicalsound)
-	%summary(ACI)
-	%print(ACI$AciTotAll_left)
-	%}
+\examples{
+	library("seewave")
+	data(tropicalsound)
+	ACI <- acoustic_complexity(tropicalsound)
+	summary(ACI)
+	print(ACI$AciTotAll_left)
+	}
 
 \references{
  Pieretti, N., A. Farina, and D. Morri. 2011. A new methodology to infer the singing activity of an avian community: The Acoustic Complexity Index (ACI). Ecological Indicators 11: 868-873.}
