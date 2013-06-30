@@ -37,5 +37,5 @@ bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)
 \references{
 Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion resistance in Hawaii: bioacoustics, field surveys, and airborne remote sensing. Ecological Applications 17:2137-2144.}
 
-\keyword{soundecol}
+\keyword{soundecology}
 \keyword{acoustic_diversity}
