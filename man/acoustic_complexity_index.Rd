@@ -40,5 +40,5 @@
 \references{
  Pieretti, N., A. Farina, and D. Morri. 2011. A new methodology to infer the singing activity of an avian community: The Acoustic Complexity Index (ACI). Ecological Indicators 11: 868-873. doi: 10.1016/j.ecolind.2010.11.005}
 
-\keyword{soundecol}
+\keyword{soundecology}
 \keyword{acoustic_complexity}
