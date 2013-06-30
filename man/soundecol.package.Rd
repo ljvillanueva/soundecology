@@ -1,16 +1,16 @@
-\name{soundecol}
+\name{soundecology}
 
-\alias{soundecol}
+\alias{soundecology}
 
 \docType{package}
 
 \title{Soundscape ecology}
 
-\description{Indices for soundscape ecology and other research in ecology that uses audio recordings. Check each function for the reference paper for each index.}
+\description{Functions to calculate indices for soundscape ecology and other research in ecology that uses audio recordings.}
 
 \details{
 	\tabular{ll}{
-		Package: \tab soundecol\cr
+		Package: \tab soundecology\cr
 		Type: \tab Package\cr
 		Version: \tab 0.1\cr
 		Date: \tab 2013-06-29\cr
@@ -21,4 +21,4 @@
 Luis J. Villanueva-Rivera
 }
 
-\keyword{ soundecol }
+\keyword{ soundecology }
