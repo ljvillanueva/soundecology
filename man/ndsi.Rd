@@ -7,7 +7,8 @@
 \description{Normalized Difference Soundscape Index from REAL and Kasten, \emph{et al.} 2012.}
 
 \usage{
-ndsi(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000)
+ndsi(soundfile, anthro_min=1000, anthro_max=2000, 
+	bio_min=2000, bio_max=8000, hz_interval=1000)
 }
 
 \arguments{

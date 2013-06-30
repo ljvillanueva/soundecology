@@ -7,7 +7,8 @@
 \description{Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011.}
 
 \usage{
-acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000)
+acoustic_diversity(soundfile, save_to_text=FALSE, max_freq=10000,
+db_threshold=-50, freq_step=1000)
 }
 
 \arguments{
