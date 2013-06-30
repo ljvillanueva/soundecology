@@ -30,7 +30,6 @@
 \author{Luis J. Villanueva-Rivera}
 
 \examples{
-	library("seewave")
 	data(tropicalsound)
 	ACI <- acoustic_complexity(tropicalsound)
 	summary(ACI)
