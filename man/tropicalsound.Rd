@@ -20,5 +20,5 @@ data(tropicalsound)
   Recording made at a tropical rainforest in Puerto Rico by Luis J. Villanueva-Rivera.
 }
 
-\keyword{soundecol}
+\keyword{soundecology}
 \keyword{tropicalsound}
