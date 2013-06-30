@@ -5,7 +5,9 @@
 \title{Bioacoustic Index}
 
 \description{Bioacoustic Index from Boelman, \emph{et al.} 2007. 
-Inspired on Matlab code courtesy of NT Boelman.}
+Inspired on Matlab code courtesy of NT Boelman.
+Several parts where changed, in particular log math, so this won't be
+directly comparable to the original code in the paper.}
 
 \usage{
 bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)

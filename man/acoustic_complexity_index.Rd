@@ -4,7 +4,8 @@
 
 \title{Acoustic Complexity Index}
 
-\description{Acoustic Complexity Index from Pieretti, \emph{et al.} 2011.}
+\description{Acoustic Complexity Index from Pieretti, \emph{et al.} 2011. 
+	Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina.}
 
 \usage{
 	acoustic_complexity(soundfile, max_freq=22050, j=5, fft_w=512)

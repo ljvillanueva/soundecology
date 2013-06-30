@@ -4,7 +4,7 @@
 
 \title{Normalized Difference Soundscape Index}
 
-\description{Normalized Difference Soundscape Index from REAL and Krause, \emph{et al.} 2011.}
+\description{Normalized Difference Soundscape Index from REAL and Kasten, \emph{et al.} 2012.}
 
 \usage{
 ndsi(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000)
@@ -38,7 +38,9 @@ ndsi(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz
 \references{
 Remote Environmental Assessment Laboratory. http://www.real.msu.edu
 
-Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. Measuring and interpreting the temporal variability in the soundscape at four places in Sequoia National Park. Landscape Ecology 26: 1247-1256. doi: 10.1007/s10980-011-9639-6.}
+Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
+The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
+Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi: 10.1016/j.ecoinf.2012.08.001}
 
 \keyword{soundecology}
 \keyword{ndsi}
