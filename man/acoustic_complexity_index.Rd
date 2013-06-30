@@ -5,7 +5,12 @@
 \title{Acoustic Complexity Index}
 
 \description{Acoustic Complexity Index from Pieretti, \emph{et al.} 2011. 
-	Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina.}
+The ACI is based on the "observation that many biotic sounds, such as bird songs, are 
+characterized by an intrinsic variability of intensities, while some types
+of human generated noise (such as car passing or airplane transit)
+present very constant intensity values" (Pieretti, \emph{et al.} 2011).
+
+The index was found to be equivalent to the one calculated using SoundscapeMeter v1.0.14.05.2012, courtesy of A. Farina.}
 
 \usage{
 	acoustic_complexity(soundfile, max_freq=22050, j=5, fft_w=512)

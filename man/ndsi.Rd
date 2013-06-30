@@ -4,7 +4,12 @@
 
 \title{Normalized Difference Soundscape Index}
 
-\description{Normalized Difference Soundscape Index from REAL and Kasten, \emph{et al.} 2012.}
+\description{Normalized Difference Soundscape Index from REAL and Kasten, \emph{et al.} 2012. The index
+seeks to "estimate the level of anthropogenic disturbance on the soundscape by
+computing the ratio of human-generated (anthrophony) to biological
+(biophony) acoustic components found in field collected sound samples" (Kasten, \emph{et al.} 2012).
+
+In the process of testing with the original code...}
 
 \usage{
 ndsi(soundfile, anthro_min=1000, anthro_max=2000, 
