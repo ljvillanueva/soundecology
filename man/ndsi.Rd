@@ -40,5 +40,5 @@ Remote Environmental Assessment Laboratory. http://www.real.msu.edu
 
 Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. Measuring and interpreting the temporal variability in the soundscape at four places in Sequoia National Park. Landscape Ecology 26: 1247-1256. doi: 10.1007/s10980-011-9639-6.}
 
-\keyword{soundecol}
+\keyword{soundecology}
 \keyword{ndsi}
