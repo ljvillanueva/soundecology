@@ -6,7 +6,7 @@
 
 \title{Soundscape ecology}
 
-\description{Functions to calculate indices for soundscape ecology and other research in ecology that uses audio recordings.}
+\description{Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.}
 
 \details{
 	\tabular{ll}{

@@ -4,7 +4,7 @@ Version: 0.1
 Date: 2013-06-29
 Author: Luis J. Villanueva-Rivera
 Maintainer: Luis J. Villanueva-Rivera <ljvillanueva@coquipr.com>
-Description: Functions to calculate indices for soundscape ecology and other research in ecology that uses audio recordings.
+Description: Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.
 Depends: R(>= 2.14.0)
 Imports: tuneR, ineq, vegan, pracma, seewave
 License: GPL-3
