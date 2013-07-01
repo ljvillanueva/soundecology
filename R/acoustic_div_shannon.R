@@ -1,5 +1,10 @@
 #
-acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_threshold=-50, freq_step=1000){
+acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000){
+	
+	#to add later, save each step to files, for all indices
+	#if (save_to_text==TRUE & is.na(file_prefix)){
+	#	stop(" To be able to save the results to files, file_prefix must not be NA.")
+	#}
 	
 	#function that gets the proportion of values over a db value in a specific band
 	# of frequencies. Frequency is in Hz
@@ -43,8 +48,8 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		rm(left,right)
 		
 		if (max_freq>nyquist_freq) {
-			cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep=""))
-			break
+			cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep=""))
+			max_freq <- nyquist_freq
 		}
 		
 		Freq<-seq(from=0, to=max_freq-freq_step, by=freq_step)
@@ -188,8 +193,8 @@ acoustic_diversity<-function(soundfile, save_to_text=FALSE, max_freq=10000, db_t
 		rm(soundfile)
 		
 		if (max_freq>nyquist_freq) {
-			cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep=""))
-			break
+			cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep=""))
+			max_freq <- nyquist_freq
 		}
 		
 		Freq<-seq(from=0, to=max_freq-freq_step, by=freq_step)

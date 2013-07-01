@@ -4,7 +4,7 @@
 
 \title{Normalized Difference Soundscape Index}
 
-\description{Normalized Difference Soundscape Index from REAL and Kasten, \emph{et al.} 2012. The index
+\description{Normalized Difference Soundscape Index (NDSI) from REAL and Kasten, \emph{et al.} 2012. The NDSI
 seeks to "estimate the level of anthropogenic disturbance on the soundscape by
 computing the ratio of human-generated (anthrophony) to biological
 (biophony) acoustic components found in field collected sound samples" (Kasten, \emph{et al.} 2012).
@@ -45,7 +45,7 @@ ndsi(soundfile, anthro_min=1000, anthro_max=2000,
 Remote Environmental Assessment Laboratory. http://www.real.msu.edu
 
 Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
-The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
+The Remote Environmental Assessment Laboratory's Acoustic Library: An Archive for 
 Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi: 10.1016/j.ecoinf.2012.08.001}
 
 \keyword{soundecology}

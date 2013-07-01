@@ -4,7 +4,7 @@
 
 \title{Acoustic Complexity Index}
 
-\description{Acoustic Complexity Index from Pieretti, \emph{et al.} 2011. 
+\description{Acoustic Complexity Index (ACI) from Pieretti, \emph{et al.} 2011. 
 The ACI is based on the "observation that many biotic sounds, such as bird songs, are 
 characterized by an intrinsic variability of intensities, while some types
 of human generated noise (such as car passing or airplane transit)
