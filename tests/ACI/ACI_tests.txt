@@ -1,0 +1,20 @@
+cor.test(vals[,2], vals[,3])
+
+	Pearson's product-moment correlation
+
+data:  vals[, 2] and vals[, 3] 
+t = 31.6549, df = 248, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0 
+95 percent confidence interval:
+ 0.8676338 0.9174774 
+sample estimates:
+      cor 
+0.8953239 
+
+> wilcox.test(vals[,3], vals[,2], paired=TRUE)
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  vals[, 3] and vals[, 2] 
+V = 30862, p-value < 2.2e-16
+alternative hypothesis: true location shift is not equal to 0 
