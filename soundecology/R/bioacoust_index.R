@@ -10,7 +10,7 @@
 # Several parts where changed, in particular log math, so this won't be
 # directly comparable to the original code in the paper.
 #
-# Requires: tuneR, seewave, pracma
+# Requires: tuneR, seewave
 
 bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 	#Get sampling rate

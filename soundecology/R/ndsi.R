@@ -45,7 +45,7 @@
 # REQUIRES the packages tuneR, seewave, pracma
 #
 
-ndsi <- function(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000){
+ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000){
 	
 	#Some general values
 	#Get sampling rate
@@ -68,13 +68,10 @@ ndsi <- function(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_
 		right<-channel(soundfile, which = c("right"))
 		rm(soundfile)
 		
-		freq_per_row = 10
-		wlen=samplingrate/freq_per_row
-		
 		#matrix of values
 		cat("\n Calculating PSD... Please wait... \n")
-		specA_left <- spec(left, f=samplingrate, wl=wlen, plot=FALSE, PSD=TRUE)
-		specA_right <- spec(right, f=samplingrate, wl=wlen, plot=FALSE, PSD=TRUE)
+		specA_left <- spec(left, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
+		specA_right <- spec(right, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
 		
 		rm(left,right)
 		
@@ -128,12 +125,9 @@ ndsi <- function(soundfile, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_
 		left<-channel(soundfile, which = c("left"))
 		rm(soundfile)
 		
-		freq_per_row = 10
-		wlen=samplingrate/freq_per_row
-		
 		#matrix of values
 		cat("\n Calculating PSD... Please wait... \n")
-		specA_left <- spec(left, f=samplingrate, wl=wlen, plot=FALSE, PSD=TRUE)
+		specA_left <- spec(left, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
 		
 		rm(left)
 		

@@ -18,6 +18,7 @@ ndsi(soundfile, anthro_min=1000, anthro_max=2000,
 
 \arguments{
 	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
+	\item{fft_w}{ FFT window size.}
 	\item{anthro_min}{ minimum value of the range of frequencies of the anthrophony.}
 	\item{anthro_max}{ maximum value of the range of frequencies of the anthrophony.}
 	\item{bio_min}{ minimum value of the range of frequencies of the biophony.}
