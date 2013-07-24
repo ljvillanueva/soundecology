@@ -29,32 +29,40 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 	#Stereo file
 	if (soundfile@stereo==TRUE) {
 		cat("\n Stereo file.\n")
-		left <- channel(soundfile, which = c("left"))
-		right <- channel(soundfile, which = c("right"))
+		left<-channel(soundfile, which = c("left"))
+		right<-channel(soundfile, which = c("right"))
 		
 		#Get values
 		cat("\n Getting values from file... Please wait... \n")
-		specA_left <- meanspec(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")[,2]
-		specA_right <- meanspec(right, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")[,2]
+		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
+		spec_right <- spectro(right, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
+		#Clear from memory
 		rm(left)
 		rm(right)
 		
+		#Get average in time
+		specA_left <- apply(spec_left, 1, meandB)
+		specA_right <- apply(spec_right, 1, meandB)
+		
+		#How much Hz are covered per row
+		rows_width = length(specA_left) / nyquist_freq
+		
+		min_row = min_freq * rows_width
+		max_row = max_freq * rows_width
+		
 		#Select rows
-		rows_width = nyquist_freq / length(specA_left)
-		
-		min_row = floor(min_freq / rows_width)
-		max_row = ceil(max_freq / rows_width)
-		
 		specA_left_segment <- specA_left[min_row:max_row]
 		specA_right_segment <- specA_right[min_row:max_row]
+		
 		freq_range <- max_freq - min_freq
 		freqs <- seq(from = min_freq, to = max_freq, length.out = length(specA_left_segment))
 		
 		specA_left_segment_normalized <- specA_left_segment - min(specA_left_segment)
 		specA_right_segment_normalized <- specA_right_segment - min(specA_right_segment)
 		
-		left_area <- trapz(freqs, specA_left_segment_normalized)
-		right_area <- trapz(freqs, specA_right_segment_normalized)
+		#left_area <- trapz(freqs, specA_left_segment_normalized)
+		left_area <- sum(specA_left_segment_normalized * rows_width)
+		right_area <- sum(specA_left_segment_normalized * rows_width)
 		
 		cat("\n")
 		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
@@ -92,7 +100,8 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		
 		specA_left_segment_normalized <- specA_left_segment - min(specA_left_segment)
 		
-		left_area <- trapz(freqs, specA_left_segment_normalized)
+		#left_area <- trapz(freqs, specA_left_segment_normalized)
+		left_area <- sum(specA_left_segment_normalized * rows_width)
 		
 		cat("\n")
 		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
