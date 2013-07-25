@@ -78,6 +78,8 @@ ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min
 		#LEFT CHANNEL
 		specA_rows <- dim(specA_left)[1]
 		
+		freq_per_row <- floor(specA_rows/nyquist_freq)
+		
 		delta_fl <- nyquist_freq / specA_rows
 
 		anthro_vals_range <- anthro_max - anthro_min
@@ -133,6 +135,8 @@ ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min
 		
 		#LEFT CHANNEL
 		specA_rows <- dim(specA_left)[1]
+		
+		freq_per_row <- floor(specA_rows/nyquist_freq)
 		
 		anthro_vals_range <- anthro_max - anthro_min
 		bio_vals_range <- bio_max - bio_min

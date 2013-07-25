@@ -10,15 +10,15 @@ characterized by an intrinsic variability of intensities, while some types
 of human generated noise (such as car passing or airplane transit)
 present very constant intensity values" (Pieretti, \emph{et al.} 2011).
 
-The index was found to be equivalent to the one calculated using SoundscapeMeter v1.0.14.05.2012, courtesy of A. Farina.}
+The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.2012, courtesy of A. Farina.}
 
 \usage{
-	acoustic_complexity(soundfile, max_freq=22050, j=5, fft_w=512)
+	acoustic_complexity(soundfile, max_freq=NA, j=5, fft_w=512)
 	}
 
 \arguments{
 	\item{soundfile}{ an object of class Wave loaded with the function readWave of the tuneR package. }
-	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
+	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. The default is the maximun for the file. }
 	\item{j}{ the cluster size, in seconds. }
 	\item{fft_w}{ FFT window to use. }
 	}
@@ -38,8 +38,9 @@ The index was found to be equivalent to the one calculated using SoundscapeMeter
 \examples{
 	data(tropicalsound)
 	ACI <- acoustic_complexity(tropicalsound)
-	summary(ACI)
 	print(ACI$AciTotAll_left)
+	
+	summary(ACI)
 	}
 
 \references{

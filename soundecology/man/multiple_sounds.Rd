@@ -4,10 +4,10 @@
 
 \title{Multiple sound files}
 
-\description{Function to extract the specified index from all the wav files in a directory.}
+\description{Function to extract the specified index from all the wav files in a directory. The results are saved to a csv file.}
 
 \usage{
-multiple_sounds(directory, resultfile, soundindex, ...)
+multiple_sounds(directory, resultfile, soundindex, no_cores=1, ...)
 }
 
 \arguments{
@@ -22,10 +22,44 @@ multiple_sounds(directory, resultfile, soundindex, ...)
          \item \code{H} from the \code{seewave} package
        }
 	}
-	\item{...}{ additional variables to pass to the selected function. See each function's help for details. }
+	\item{no_cores}{ number of cores to use when calculating the indices. Can be \code{"max"} to use all cores, \code{"-1"} to use all but one core, or any positive integer. Default is 1. Uses the parallel package.}
+	\item{...}{ additional variables to pass to the selected function. See each function's help for details.}
 	}
 
 \author{Luis J. Villanueva-Rivera}
+
+\examples{
+	\dontrun{
+		#Calculate the ACI of all the wav
+		# files in the directory "/home/user/wavs/"
+		# using the function acoustic_complexity
+		multiple_sounds(directory="/home/user/wavs/", 
+			resultfile="/home/user/results.csv", 
+			soundindex="acoustic_complexity")
+		
+		#Calculate the same as above using 12000Hz as the
+		# maximum frequency instead of the default.
+		multiple_sounds(directory="/home/user/wavs/", 
+			resultfile="/home/user/results.csv", 
+			soundindex="acoustic_complexity", max_freq=12000)
+			
+		#Calculate the same as above using two cores
+		multiple_sounds(directory="/home/user/wavs/", 
+			resultfile="/home/user/results.csv", 
+			soundindex="acoustic_complexity", no_cores=2)
+			
+		#Calculate the same as above using all the cores
+		# the computer has
+		multiple_sounds(directory="/home/user/wavs/", 
+			resultfile="/home/user/results.csv", 
+			soundindex="acoustic_complexity", no_cores="max")
+			
+		#Calculate the same as above using all but one cores
+		multiple_sounds(directory="/home/user/wavs/", 
+			resultfile="/home/user/results.csv", 
+			soundindex="acoustic_complexity", no_cores=-1)
+		}
+	}
 
 \keyword{soundecology}
 \keyword{multiple_sounds}

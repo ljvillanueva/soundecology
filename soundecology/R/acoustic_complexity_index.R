@@ -4,7 +4,7 @@
 # the singing activity of an avian community: The Acoustic Complexity Index (ACI).
 # Ecological Indicators 11: 868-873.
 #
-#Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina
+#Tested with SoundscapeMeter 1.0.14.05.2012, courtesy of A. Farina
 #
 acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 	
@@ -59,24 +59,24 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		delta_fl <- nyquist_freq / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 				
-		m <- floor(duration / j)
-		q <- specA_rows
+		#m <- floor(duration / j)
+		#q <- specA_rows
 		no_j <- floor(duration / j)
 		
 		#Number of values, in each row, for each j period (no. of columns)
 		I_per_j <- floor(j/delta_tk)
 		
 		ACI_left_vals <- rep(NA, no_j)
-		ACI_fl_left_vector <- rep(NA, m)
-		ACI_left_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
+		ACI_fl_left_vector <- rep(NA, no_j)
+		ACI_left_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
 		
 		ACI_right_vals <- rep(NA, no_j)
-		ACI_fl_right_vector <- rep(NA, m)
-		ACI_right_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
+		ACI_fl_right_vector <- rep(NA, no_j)
+		ACI_right_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
 		
 		#Left channel
 		#For each frequency bin fl
-		for (q_index in 1:q) {
+		for (q_index in 1:specA_rows) {
 			
 			#For each j period of time
 			for (j_index in 1:no_j) {
@@ -96,7 +96,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		
 		#Right channel
 		#For each frequency bin fl
-		for (q_index in 1:q) {
+		for (q_index in 1:specA_rows) {
 			
 			#For each j period of time
 			for (j_index in 1:no_j) {
@@ -140,24 +140,24 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		delta_fl <- nyquist_freq / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 		
-		m <- floor(duration / j)
-		q <- specA_rows
 		no_j <- floor(duration / j)
+		#q <- specA_rows
+		#m <- floor(duration / j)
 		
 		#Number of values, in each row, for each j period (no. of columns)
 		I_per_j <- floor(j/delta_tk)
 		
 		ACI_left_vals <- rep(NA, no_j)
-		ACI_fl_left_vector <- rep(NA, m)
-		ACI_left_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
+		ACI_fl_left_vector <- rep(NA, no_j)
+		ACI_left_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
 		
 		ACI_right_vals <- rep(NA, no_j)
-		ACI_fl_right_vector <- rep(NA, m)
-		ACI_right_matrix <- data.frame(matrix(NA, nrow = q, ncol = m))
+		ACI_fl_right_vector <- rep(NA, no_j)
+		ACI_right_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
 		
 		#Left channel
 		#For each frequency bin fl
-		for (q_index in 1:q) {
+		for (q_index in 1:specA_rows) {
 			
 			#For each j period of time
 			for (j_index in 1:no_j) {

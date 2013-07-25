@@ -34,13 +34,13 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 
 \author{Luis J. Villanueva-Rivera}
 
-%\examples{
-	%library("seewave")
-	%data(tropicalsound)
-	%ACI <- acoustic_complexity(tropicalsound)
-	%summary(ACI)
-	%print(ACI$AciTotAll_left)
-	%}
+\examples{
+	data(tropicalsound)
+	ADI <- acoustic_diversity(tropicalsound)
+	print(ADI$shannon_left)
+	
+	summary(ADI)
+	}
 
 \references{
 Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi: 10.1007/s10980-011-9636-9.}
