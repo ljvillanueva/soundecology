@@ -12,7 +12,7 @@ multiple_sounds(directory, resultfile, soundindex, ...)
 
 \arguments{
 	\item{directory}{ a valid directory, readable by the user, that contains the wav files. }
-	\item{resultfile}{ name of the text file to which write the results in csv format.}
+	\item{resultfile}{ name of the text file to which write the results in comma-separated values format.}
 	\item{soundindex}{ which index to calculate: 
 		\itemize{
          \item \code{ndsi}

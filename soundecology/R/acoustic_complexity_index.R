@@ -6,10 +6,13 @@
 #
 #Tested with SoundscapeMeter.1.0.14.05.2012, courtesy of A. Farina
 #
-acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
+acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
+	
+	if (is.na(max_freq)){
+		max_freq <- soundfile@samp.rate / 2
+	}
 	
 	#function that gets the difference of values
-	# probably a very inefficient way, find better way
 	get_d <- function(spectrum, freq_row, min_col, max_col){
 		D = 0
 		for (k in min_col:(max_col-1)) {
@@ -43,8 +46,8 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 				
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
-		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
+		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
+		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
 		
 		rm(left,right)
 		
@@ -126,7 +129,7 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 				
 		#matrix of values
 		cat("\n Getting values from spectrogram... Please wait... \n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=FALSE, dB=NULL, scale=FALSE)$amp
+		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
 		rm(left)
 		
 		#LEFT CHANNEL
@@ -180,6 +183,8 @@ acoustic_complexity <- function(soundfile, max_freq=22050, j=5, fft_w=512){
 	}
 	
 	invisible(list(AciTotAll_left=ACI_tot_left, AciTotAll_right=ACI_tot_right, 
+				   #AciIfTotAll_left=ACIif_tot_left, AciIfTotAll_right=ACIif_tot_right, 
 				   aci_fl_left_vals=ACI_fl_left_vector, aci_fl_right_vals=ACI_fl_right_vector,
+				   #aci_if_left_vals=ACI_if_left_vector, aci_if_right_vals=ACI_if_right_vector,
 				   aci_left_matrix=ACI_left_matrix, aci_right_matrix=ACI_right_matrix))
 }
