@@ -37,11 +37,21 @@
 <a name="indices" class="anchor" href="#indices"><span class="octicon octicon-link"></span></a>Indices</h3>
 
 <ul>
-<li>Acoustic Complexity Index (Pieretti, <em>et al.</em> 2011)</li>
-<li>Acoustic Diversity Index (Villanueva-Rivera <em>et al.</em> 2011)</li>
-<li>Bioacoustic Index (Boelman <em>et al.</em> 2007)</li>
-<li>Normalized Difference Soundscape Index (REAL and Kasten <em>et al.</em> 2011)</li>
+<li>acoustic_complexity: Acoustic Complexity Index (Pieretti, <em>et al.</em> 2011)</li>
+<li>acoustic_diversity: Acoustic Diversity Index (Villanueva-Rivera <em>et al.</em> 2011)</li>
+<li>bioacoustic_index: Bioacoustic Index (Boelman <em>et al.</em> 2007)</li>
+<li>ndsi: Normalized Difference Soundscape Index (REAL and Kasten <em>et al.</em> 2011)</li>
 </ul><h3>
+<a name="calculate-indices-for-many-files" class="anchor" href="#calculate-indices-for-many-files"><span class="octicon octicon-link"></span></a>Calculate indices for many files</h3>
+
+<p>The function multiple_sounds() lets the user calculate an index for all the wav files in a directory.</p>
+
+<h4>
+<a name="parallel-processing" class="anchor" href="#parallel-processing"><span class="octicon octicon-link"></span></a>Parallel processing</h4>
+
+<p>The multiple_sounds() function has an optional argument, no_cores, that can be used to specify to run the function using several cores in the same computer. This argument uses the parallel package, standard in R since version 2.14.</p>
+
+<h3>
 <a name="references" class="anchor" href="#references"><span class="octicon octicon-link"></span></a>References</h3>
 
 <ul>
