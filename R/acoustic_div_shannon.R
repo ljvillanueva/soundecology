@@ -72,7 +72,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		
 		#Average
 		Score_left=(-(Score1))/length(Freq)
-		Shannon_left <- diversity(Score)
+		Shannon_left <- diversity(Score, index = "shannon")
 		
 		#RIGHT CHANNEL
 		
@@ -92,7 +92,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		
 		#Average
 		Score_right=(-(Score1))/length(Freq)
-		Shannon_right <- diversity(Score)
+		Shannon_right <- diversity(Score, index = "shannon")
 		
 		cat(" ==============================================\n")
 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
@@ -215,7 +215,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		
 		#Average
 		Score_left=(-(Score1))/length(Freq)
-		Shannon_left <- diversity(Score)
+		Shannon_left <- diversity(Score, index = "shannon")
 		Shannon_right <- NA
 		
 		cat(" ==============================================\n")
