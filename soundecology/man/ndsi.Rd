@@ -12,12 +12,13 @@ computing the ratio of human-generated (anthrophony) to biological
 In the process of testing with the original code...}
 
 \usage{
-ndsi(soundfile, anthro_min=1000, anthro_max=2000, 
+ndsi(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, 
 	bio_min=2000, bio_max=8000, hz_interval=1000)
 }
 
 \arguments{
 	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
+	\item{fft_w}{ FFT window size.}
 	\item{anthro_min}{ minimum value of the range of frequencies of the anthrophony.}
 	\item{anthro_max}{ maximum value of the range of frequencies of the anthrophony.}
 	\item{bio_min}{ minimum value of the range of frequencies of the biophony.}
@@ -33,13 +34,13 @@ ndsi(soundfile, anthro_min=1000, anthro_max=2000,
 
 \author{Luis J. Villanueva-Rivera}
 
-%\examples{
-	%library("seewave")
-	%data(tropicalsound)
-	%ACI <- acoustic_complexity(tropicalsound)
-	%summary(ACI)
-	%print(ACI$AciTotAll_left)
-	%}
+\examples{
+	data(tropicalsound)
+	NDSI <- ndsi(tropicalsound)
+	print(NDSI$ndsi_left)
+	
+	summary(NDSI)
+	}
 
 \references{
 Remote Environmental Assessment Laboratory. http://www.real.msu.edu

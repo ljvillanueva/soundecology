@@ -32,13 +32,14 @@ bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)
 
 \author{Luis J. Villanueva-Rivera}
 
-%\examples{
-	%library("seewave")
-	%data(tropicalsound)
-	%ACI <- acoustic_complexity(tropicalsound)
-	%summary(ACI)
-	%print(ACI$AciTotAll_left)
-	%}
+
+\examples{
+	data(tropicalsound)
+	bioindex <- bioacoustic_index(tropicalsound)
+	print(bioindex$left_area)
+	
+	summary(bioindex)
+	}
 
 \references{
 Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion resistance in Hawaii: bioacoustics, field surveys, and airborne remote sensing. Ecological Applications 17:2137-2144.}

@@ -20,5 +20,11 @@ data(tropicalsound)
   Recording made at a tropical rainforest in Puerto Rico by Luis J. Villanueva-Rivera.
 }
 
+\examples{
+	data(tropicalsound)
+	
+	tropicalsound
+	}
+	
 \keyword{soundecology}
 \keyword{tropicalsound}
