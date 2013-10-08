@@ -42,10 +42,10 @@
 #  biophonic component between 2100 and 0730 hours."
 #
 #
-# REQUIRES the packages tuneR, seewave, pracma
+# REQUIRES the packages tuneR, seewave, pracma, oce
 #
 
-ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=8000, hz_interval=1000){
+ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=11000, hz_interval=1000){
 	
 	#Some general values
 	#Get sampling rate
@@ -56,65 +56,130 @@ ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min
 	nyquist_freq <- (samplingrate/2)
 	
 	#Check errors
-	#if (max(anthro_max, bio_max)>nyquist_freq) {
-	#	cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep=""))
-	#	break
-	#}
-	
+	if (bio_max > nyquist_freq) {
+	  stop(paste("The maximum frequency of biophony (", bio_max, " Hz) can not be higher than the maximum frequency of the file (", nyquist_freq, " Hz)\n\n Change the value of bio_max to less than ", nyquist_freq, "\n\n", sep=""))
+	}
+  
+	if (anthro_max > bio_min) {
+	  stop(paste("The maximum frequency of anthrophony (", anthro_max, " Hz) can not be higher than the minimum frequency of biophony (", bio_min, " Hz)\n\n Change the value of anthro_max to equal or less than bio_min\n\n", sep=""))
+	}
+  
+	if (anthro_max < anthro_min) {
+	  stop(paste("The minimum frequency of anthrophony (", anthro_min, " Hz) can not be higher than the maximum frequency of anthrophony (", anthro_max, " Hz)\n\n Change the value of anthro_min to less than anthro_max\n\n", sep=""))
+	}
+  
+	if (bio_max < bio_min) {
+	  stop(paste("The minimum frequency of biophony (", bio_min, " Hz) can not be higher than the maximum frequency of biophony (", bio_max, " Hz)\n\n Change the value of anthro_min to less than anthro_max\n\n", sep=""))
+	}
+	 
+  
 	#Stereo file
 	if (soundfile@stereo==TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
-		left<-channel(soundfile, which = c("left"))
-		right<-channel(soundfile, which = c("right"))
+		
+		left <- channel(soundfile, which = c("left"))
+		right <- channel(soundfile, which = c("right"))
 		rm(soundfile)
 		
-		#matrix of values
-		cat("\n Calculating PSD... Please wait... \n")
-		specA_left <- spec(left, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
-		specA_right <- spec(right, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
-		
-		rm(left,right)
-		
 		#LEFT CHANNEL
-		specA_rows <- dim(specA_left)[1]
+		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)
+		specA_left <- pwelch(left1, fs=samplingrate, nfft=fft_w, plot=FALSE)
+		rm(soundfile)
 		
-		freq_per_row <- floor(specA_rows/nyquist_freq)
+		#with pwelch
+		specA_left <- specA_left$spec
+		specA_rows <- length(specA_left)
 		
-		delta_fl <- nyquist_freq / specA_rows
-
+		freq_per_row <- specA_rows/nyquist_freq
+		
 		anthro_vals_range <- anthro_max - anthro_min
 		bio_vals_range <- bio_max - bio_min
+		bio_bins <- round(bio_vals_range/hz_interval)
 		
-		antro_rows <- anthro_vals_range / freq_per_row
-		bio_rows <- bio_vals_range / freq_per_row
+		anthro_bins <- rep(NA, round(anthro_vals_range/hz_interval))
+		bio_bins <- rep(NA, round(bio_vals_range/hz_interval))
 		
-		#anthorphony_vals <- data.frame(matrix(NA, nrow = antro_rows, ncol = 2))
-		#biophony_vals <- data.frame(matrix(NA, nrow = bio_rows, ncol = 2))
+		anthro_min_row <- round(anthro_min * freq_per_row)
+		anthro_max_row <- round(anthro_max * freq_per_row)
+		bio_step_range <- freq_per_row * (bio_vals_range/length(bio_bins))
+		bio_min_row <- round(bio_min * freq_per_row)
+		bio_max_row <- bio_min_row + bio_step_range
 		
-		anthro_min_row <- round(anthro_min / freq_per_row)
-		anthro_max_row <- round(anthro_max / freq_per_row)
-		bio_min_row <- round(bio_min / freq_per_row)
-		bio_max_row <- round(bio_max / freq_per_row)
+		#Anthrophony		
+		for (i in 1:length(anthro_bins)){
+		  anthro_bins[i] <- trapz(specA_left[anthro_min_row:anthro_max_row])
+		}
 		
-		#Left channel
-		
-		anthrophony_vals <- specA_left[anthro_min_row:anthro_max_row,1:2]
-		biophony_vals <- specA_left[bio_min_row:bio_max_row,1:2]
-		
-		anthrophony_auc <- trapz(anthrophony_vals[,1], anthrophony_vals[,2])
-		biophony_auc <- trapz(biophony_vals[,1], biophony_vals[,2])
-		
-		NDSI_left = (biophony_auc - anthrophony_auc) / (biophony_auc + anthrophony_auc)
+		#Biophony  	
+		for (i in 1:length(bio_bins)){
 
+		  bio_bins[i] <- trapz(specA_left[bio_min_row:bio_max_row])
+		  
+		  bio_min_row <- bio_min_row + bio_step_range
+		  bio_max_row <- bio_max_row + bio_step_range
+		}
+		
+		freqbins <- rep(NA, sum(length(anthro_bins), length(bio_bins)))
+		freqbins <- c(anthro_bins, bio_bins)
+		freqbins = freqbins / norm(as.matrix(freqbins), "F");
+		
+		
+		freqbins.SumAll <- sum(freqbins)
+		freqbins.SumBio <- sum(freqbins[2:length(freqbins)])
+		freqbins.Anthro <- freqbins[1]
+		
+		NDSI_left <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
+		
 		#Right channel
-		anthrophony_vals <- specA_right[anthro_min_row:anthro_max_row,1:2]
-		biophony_vals <- specA_right[bio_min_row:bio_max_row,1:2]
+		#LEFT CHANNEL
+		right1 <- cutw(left, from=0, to=length(right@left)/right@samp.rate)
+		specA_right <- pwelch(right1, fs=samplingrate, nfft=fft_w, plot=FALSE)
+		rm(soundfile)
 		
-		anthrophony_auc <- trapz(anthrophony_vals[,1], anthrophony_vals[,2])
-		biophony_auc <- trapz(biophony_vals[,1], biophony_vals[,2])
+		#with pwelch
+		specA_left <- specA_left$spec
+		specA_rows <- length(specA_right)
 		
-		NDSI_right = (biophony_auc - anthrophony_auc) / (biophony_auc + anthrophony_auc)
+		freq_per_row <- specA_rows/nyquist_freq
+		
+		anthro_vals_range <- anthro_max - anthro_min
+		bio_vals_range <- bio_max - bio_min
+		bio_bins <- round(bio_vals_range/hz_interval)
+		
+		anthro_bins <- rep(NA, round(anthro_vals_range/hz_interval))
+		bio_bins <- rep(NA, round(bio_vals_range/hz_interval))
+		
+		anthro_min_row <- round(anthro_min * freq_per_row)
+		anthro_max_row <- round(anthro_max * freq_per_row)
+		bio_step_range <- freq_per_row * (bio_vals_range/length(bio_bins))
+		bio_min_row <- round(bio_min * freq_per_row)
+		bio_max_row <- bio_min_row + bio_step_range
+		
+		#Anthrophony		
+		for (i in 1:length(anthro_bins)){
+		  anthro_bins[i] <- trapz(specA_right[anthro_min_row:anthro_max_row])
+		}
+		
+		#Biophony  	
+		for (i in 1:length(bio_bins)){
+		  bio_bins[i] <- trapz(specA_right[bio_min_row:bio_max_row])
+		  
+		  bio_min_row <- bio_min_row + bio_step_range
+		  bio_max_row <- bio_max_row + bio_step_range
+		}
+		
+		freqbins <- rep(NA, sum(length(anthro_bins), length(bio_bins)))
+		freqbins <- c(anthro_bins, bio_bins)
+		freqbins = freqbins / norm(as.matrix(freqbins), "F");
+		
+		
+		freqbins.SumAll <- sum(freqbins)
+		freqbins.SumBio <- sum(freqbins[2:length(freqbins)])
+		freqbins.Anthro <- freqbins[1]
+		
+		NDSI_right <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
 				
+    
 		cat("\n NDSI left channel: ")
 		cat(NDSI_left)
 		cat("\n")
@@ -124,45 +189,60 @@ ndsi <- function(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, bio_min
 	} else 
 	{
 		cat("\n This is a mono file.\n")
+		
+		#LEFT CHANNEL
 		left<-channel(soundfile, which = c("left"))
 		rm(soundfile)
 		
-		#matrix of values
-		cat("\n Calculating PSD... Please wait... \n")
-		specA_left <- spec(left, f=samplingrate, wl=fft_w, plot=FALSE, PSD=TRUE)
+		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)
+		specA_left <- pwelch(left1, fs=samplingrate, nfft=fft_w, plot=FALSE)
+		rm(soundfile)
+    
+    #with pwelch
+		specA_left <- specA_left$spec
+		specA_rows <- length(specA_left)
 		
-		rm(left)
-		
-		#LEFT CHANNEL
-		specA_rows <- dim(specA_left)[1]
-		
-		freq_per_row <- floor(specA_rows/nyquist_freq)
+		freq_per_row <- specA_rows/nyquist_freq
 		
 		anthro_vals_range <- anthro_max - anthro_min
 		bio_vals_range <- bio_max - bio_min
+		bio_bins <- round(bio_vals_range/hz_interval)
 		
-		antro_rows <- anthro_vals_range / freq_per_row
-		bio_rows <- bio_vals_range / freq_per_row
+		anthro_bins <- rep(NA, round(anthro_vals_range/hz_interval))
+		bio_bins <- rep(NA, round(bio_vals_range/hz_interval))
 		
-		#anthorphony_vals <- data.frame(matrix(NA, nrow = antro_rows, ncol = 2))
-		#biophony_vals <- data.frame(matrix(NA, nrow = bio_rows, ncol = 2))
+		anthro_min_row <- round(anthro_min * freq_per_row)
+		anthro_max_row <- round(anthro_max * freq_per_row)
+		bio_step_range <- freq_per_row * (bio_vals_range/length(bio_bins))
+		bio_min_row <- round(bio_min * freq_per_row)
+		bio_max_row <- bio_min_row + bio_step_range
 		
-		anthro_min_row <- round(anthro_min / freq_per_row)
-		anthro_max_row <- round(anthro_max / freq_per_row)
-		bio_min_row <- round(bio_min / freq_per_row)
-		bio_max_row <- round(bio_max / freq_per_row)
+		#Anthrophony		
+		for (i in 1:length(anthro_bins)){
+		  anthro_bins[i] <- trapz(specA_left[anthro_min_row:anthro_max_row])
+		}
 		
-		#Left channel
+		#Biophony  	
+		for (i in 1:length(bio_bins)){
+
+		  bio_bins[i] <- trapz(specA_left[bio_min_row:bio_max_row])
+		  
+		  bio_min_row <- bio_min_row + bio_step_range
+		  bio_max_row <- bio_max_row + bio_step_range
+		}
 		
-		anthrophony_vals <- specA_left[anthro_min_row:anthro_max_row,1:2]
-		biophony_vals <- specA_left[bio_min_row:bio_max_row,1:2]
+		freqbins <- rep(NA, sum(length(anthro_bins), length(bio_bins)))
+		freqbins <- c(anthro_bins, bio_bins)
+		freqbins = freqbins / norm(as.matrix(freqbins), "F");
 		
-		anthrophony_auc <- trapz(anthrophony_vals[,1], anthrophony_vals[,2])
-		biophony_auc <- trapz(biophony_vals[,1], biophony_vals[,2])
 		
-		NDSI_left = (biophony_auc - anthrophony_auc) / (biophony_auc + anthrophony_auc)
-		
-		#Right channel
+    freqbins.SumAll <- sum(freqbins)
+		freqbins.SumBio <- sum(freqbins[2:length(freqbins)])
+		freqbins.Anthro <- freqbins[1]
+    
+    NDSI_left <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
+    
+    #Right channel
 		NDSI_right = NA
 		
 		cat("\n NDSI: ")

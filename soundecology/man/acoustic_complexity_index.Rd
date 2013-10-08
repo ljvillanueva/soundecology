@@ -33,7 +33,9 @@ The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.
 	\item{aci_right_matrix}{ Matrix of all values before calculating ACI(fl) for the right channel }
 	}
 
-\author{Luis J. Villanueva-Rivera}
+\author{
+Luis J. Villanueva-Rivera and Bryan C. Pijanowski
+}
 
 \examples{
 	data(tropicalsound)

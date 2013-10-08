@@ -36,10 +36,12 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 		stop(paste("Could not find any .wav files in the specified directory:\n    ", directory))
 	}
 	
-	#Create empty results file
-	cat("", file=resultfile, append=FALSE)
-	
+
+  
 	if (soundindex == "bioacoustic_index"){
+    
+	  fileheader <- c("FILENAME,INDEX,FFT_W,MIN_FREQ,MAX_FREQ,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+    
 		getindex <- function(soundfile, ...){
 			library(soundecology)
 			#Get args
@@ -61,9 +63,9 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				fft_w = formals(bioacoustic_index)$fft_w
 			}
 		
-			if (file.access(resultfile) == -1) {
-				cat("FILENAME,INDEX,FFT_W,MIN_FREQ,MAX_FREQ,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
-			}
+# 			if (file.access(resultfile) == -1) {
+# 				cat("FILENAME,INDEX,FFT_W,MIN_FREQ,MAX_FREQ,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+# 			}
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			
 			return_list <- bioacoustic_index(this_soundfile, ...)
@@ -71,6 +73,9 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			cat(paste(soundfile, ",", soundindex, ",", fft_w, ",", min_freq, ",", max_freq, ",", return_list$left_area, ",", return_list$right_area, "\n", sep=""), file=resultfile, append=TRUE)
 			}
 	}else if (soundindex == "acoustic_diversity"){
+    
+	  fileheader <- c("FILENAME,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+	      
 		getindex <- function(soundfile, ...){
 			library(soundecology)
 				
@@ -93,15 +98,18 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				freq_step = formals(acoustic_diversity)$freq_step
 			}
 		
-			if (file.access(resultfile) == -1) {
-				cat("FILENAME,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
-			}
+# 			if (file.access(resultfile) == -1) {
+# 				cat("FILENAME,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+# 			}
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			return_list <- acoustic_diversity(this_soundfile, ...)
 		
 			cat(paste(soundfile, ",", soundindex, ",", max_freq, ",", db_threshold, ",", freq_step, ",", return_list$shannon_left, ",", return_list$shannon_right, "\n", sep=""), file=resultfile, append=TRUE)
 			}
 	}else if (soundindex == "acoustic_complexity"){
+    
+	  fileheader <- c("FILENAME,INDEX,FFT_W,MAX_FREQ,J,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+    
 		getindex <- function(soundfile, ...){
 			library(soundecology)
 			
@@ -124,15 +132,18 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				fft_w = formals(acoustic_complexity)$fft_w
 			}
 
-			if (file.access(resultfile) == -1) {
-				cat("FILENAME,INDEX,FFT_W,MAX_FREQ,J,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
-			}
+# 			if (file.access(resultfile) == -1) {
+# 				cat("FILENAME,INDEX,FFT_W,MAX_FREQ,J,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+# 			}
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			return_list <- acoustic_complexity(this_soundfile, ...)
 			
 			cat(paste(soundfile, ",", soundindex, ",", fft_w, ",", max_freq, ",", j, ",", return_list$AciTotAll_left, ",", return_list$AciTotAll_right, "\n", sep=""), file=resultfile, append=TRUE)
 			}
 	}else if (soundindex == "ndsi"){
+    
+	  fileheader <- c("FILENAME,INDEX,FFT_W,ANTHRO_MIN,ANTHRO_MAX,BIO_MIN,BIO_MAX,HZ_INTERVAL,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+    
 		getindex <- function(soundfile, ...){
 			library(soundecology)
 			
@@ -170,14 +181,17 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				hz_interval = formals(ndsi)$hz_interval
 			}
 						
-			if (file.access(resultfile) == -1) {
-				cat("FILENAME,INDEX,FFT_W,ANTHRO_MIN,ANTHRO_MAX,BIO_MIN,BIO_MAX,HZ_INTERVAL,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
-			}
+# 			if (file.access(resultfile) == -1) {
+# 				cat("FILENAME,INDEX,FFT_W,ANTHRO_MIN,ANTHRO_MAX,BIO_MIN,BIO_MAX,HZ_INTERVAL,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+# 			}
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			return_list <- ndsi(this_soundfile, ...)
 			cat(paste(soundfile, ",", soundindex, ",", fft_w, ",", anthro_min, ",", anthro_max, ",", bio_min, ",", bio_max, ",", hz_interval, ",", return_list$ndsi_left, ",", return_list$ndsi_right, "\n", sep=""), file=resultfile, append=TRUE)
 			}
 	}else if (soundindex == "H"){
+    
+	  fileheader <- c("FILENAME,INDEX,WL,ENVT,MSMOOTH,KSMOOTH,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+    
 		getindex <- function(soundfile, ...){
 			library(soundecology)
 			
@@ -206,9 +220,9 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			}
 			
 			library(soundecology)
-			if (file.access(resultfile) == -1) {
-				cat("FILENAME,INDEX,WL,ENVT,MSMOOTH,KSMOOTH,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
-			}
+# 			if (file.access(resultfile) == -1) {
+# 				cat("FILENAME,INDEX,WL,ENVT,MSMOOTH,KSMOOTH,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+# 			}
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			if (this_soundfile@stereo==TRUE) {
 				left<-channel(this_soundfile, which = c("left"))
@@ -225,12 +239,19 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			}
 		}
 
+  
+#open results file
+sink(resultfile)
+cat(fileheader)
+#Done writing results  
+sink()
+  
 #Use parallel?
 if (no_cores>1){
 	require(parallel)
-	cat(paste("Using parallel in ", no_cores, " cores", "\n\n", sep=""))
+	cat(paste("Running on ", length(wav_files), " files using ", no_cores, " cores", "\n\n", sep=""))
 	
-	cl <- makeCluster(no_cores, type = "PSOCK")
+  cl <- makeCluster(no_cores, type = "PSOCK")
 	
 	res <- parLapply(cl, wav_files, getindex, ...)
 	
@@ -239,9 +260,11 @@ if (no_cores>1){
 	
 	stopCluster(cl)
 }else{
+  
 	for (soundfile in wav_files){
 		getindex(soundfile, ...)
 		}
 	}
 
+	
 }

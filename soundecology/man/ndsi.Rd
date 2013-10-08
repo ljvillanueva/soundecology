@@ -9,11 +9,11 @@ seeks to "estimate the level of anthropogenic disturbance on the soundscape by
 computing the ratio of human-generated (anthrophony) to biological
 (biophony) acoustic components found in field collected sound samples" (Kasten, \emph{et al.} 2012).
 
-In the process of testing with the original code...}
+Tested with Matlab code courtesy of S. Gage.}
 
 \usage{
-ndsi(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000, 
-	bio_min=2000, bio_max=8000, hz_interval=1000)
+ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, 
+	bio_min=2000, bio_max=11000, hz_interval=1000)
 }
 
 \arguments{
@@ -27,12 +27,14 @@ ndsi(soundfile, fft_w=512, anthro_min=1000, anthro_max=2000,
 	}
 
 \value{
-	Returns a list with three objects per channel
+	Returns a list with one object per channel
 	\item{ndsi_left}{ NDSI value for the left channel }
 	\item{ndsi_right}{ NDSI value for the left channel }
 	}
 
-\author{Luis J. Villanueva-Rivera}
+\author{
+Luis J. Villanueva-Rivera and Bryan C. Pijanowski
+}
 
 \examples{
 	data(tropicalsound)
@@ -47,7 +49,8 @@ Remote Environmental Assessment Laboratory. http://www.real.msu.edu
 
 Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
 The Remote Environmental Assessment Laboratory's Acoustic Library: An Archive for 
-Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi: 10.1016/j.ecoinf.2012.08.001}
+Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi: 10.1016/j.ecoinf.2012.08.001
+}
 
 \keyword{soundecology}
 \keyword{ndsi}

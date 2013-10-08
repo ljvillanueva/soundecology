@@ -1,5 +1,5 @@
-#Original Matlab code
-# providede courtesy of S Gage on Oct 2013
+%Original Matlab code
+% providede courtesy of S Gage on Oct 2013
 
 %************************************************************
 % Calculate the 'Average power spectral density (PSD) for each 1 kHz

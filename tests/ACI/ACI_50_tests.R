@@ -12,14 +12,14 @@ vals <- data.frame(matrix(ncol=5, nrow=250))
 
 names(vals) <- c("filename", "ACI_orig", "ACI_soundecology", "ACIIf_orig", "ACIIf_soundecology")
 
-files <- dir("tests/sounds50/")
+files <- dir("sounds50/")
 
 for (i in 1:length(files)){
 #for (i in 1:10){
 	cat(files[i])
 	cat("\n")
 	
-	res_dir <- paste("tests/ACI_50/results/", strsplit(files[i], ".wav"), "/", sep="")
+	res_dir <- paste("ACI_50/results/", strsplit(files[i], ".wav"), "/", sep="")
 	res_file_ACItot <- paste(res_dir, strsplit(files[i], ".wav"), "_AciTot.csv", sep="")
 	res_file_ACIif <- paste(res_dir, strsplit(files[i], ".wav"), "_AciIfTot.csv", sep="")
 	
@@ -29,7 +29,7 @@ for (i in 1:length(files)){
 	ACIif_vals <- read.csv(res_file_ACIif, header=FALSE, sep="\t")
 	ACIif <- sum(ACIif_vals)
 	
-	this_file <- paste("tests/sounds50/", unlist(files[i]), sep="")
+	this_file <- paste("sounds50/", unlist(files[i]), sep="")
 	soundfile <- readWave(this_file)
 	ind_vals <- acoustic_complexity(soundfile, j=5, fft_w=512)
 		

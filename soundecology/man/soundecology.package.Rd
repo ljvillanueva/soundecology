@@ -6,19 +6,19 @@
 
 \title{Soundscape ecology}
 
-\description{Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings. Still working on the algorithms, not all have been tested.}
+\description{Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.}
 
 \details{
 	\tabular{ll}{
 		Package: \tab soundecology\cr
 		Type: \tab Package\cr
-		Version: \tab 0.1alpha\cr
-		Date: \tab 2013-06-29\cr
+		Version: \tab 0.2\cr
+		Date: \tab 2013-10-08\cr
 		License: \tab GPLv3\cr
 		}
 	}
 \author{
-Luis J. Villanueva-Rivera
+Luis J. Villanueva-Rivera and Bryan C. Pijanowski
 }
 
 \keyword{ soundecology }

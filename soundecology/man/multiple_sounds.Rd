@@ -4,7 +4,7 @@
 
 \title{Multiple sound files}
 
-\description{Function to extract the specified index from all the wav files in a directory. The results are saved to a csv file.}
+\description{Function to extract the specified index from all the wav files in a directory. The results are saved to a csv file. If the computer has multiple cores, it can run files in parallel.}
 
 \usage{
 multiple_sounds(directory, resultfile, soundindex, no_cores=1, ...)
@@ -26,7 +26,9 @@ multiple_sounds(directory, resultfile, soundindex, no_cores=1, ...)
 	\item{...}{ additional variables to pass to the selected function. See each function's help for details.}
 	}
 
-\author{Luis J. Villanueva-Rivera}
+\author{
+Luis J. Villanueva-Rivera and Bryan C. Pijanowski
+}
 
 \examples{
 	\dontrun{
