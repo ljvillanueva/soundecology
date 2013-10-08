@@ -1,4 +1,4 @@
-soundecol.Rproj
+*.Rproj
 .Rbuildignore
 .Rproj.user
 .RData
