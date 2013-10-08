@@ -248,7 +248,7 @@ sink()
   
 #Use parallel?
 if (no_cores>1){
-	require(parallel)
+	#require(parallel)
 	cat(paste("Running on ", length(wav_files), " files using ", no_cores, " cores", "\n\n", sep=""))
 	
   cl <- makeCluster(no_cores, type = "PSOCK")
