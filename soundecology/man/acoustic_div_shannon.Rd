@@ -31,10 +31,6 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}
 
-\author{
-Luis J. Villanueva-Rivera and Bryan C. Pijanowski
-}
-
 \examples{
 	data(tropicalsound)
 	ADI <- acoustic_diversity(tropicalsound)

@@ -13,7 +13,7 @@ Tested with Matlab code courtesy of S. Gage.}
 
 \usage{
 ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, 
-	bio_min=2000, bio_max=11000, hz_interval=1000)
+	bio_min=2000, bio_max=11000)
 }
 
 \arguments{
@@ -23,7 +23,6 @@ ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000,
 	\item{anthro_max}{ maximum value of the range of frequencies of the anthrophony.}
 	\item{bio_min}{ minimum value of the range of frequencies of the biophony.}
 	\item{bio_max}{ maximum value of the range of frequencies of the biophony.}
-	\item{hz_interval}{ frequency intervals used in the calculation, in Hertz. }
 	}
 
 \value{
@@ -32,9 +31,9 @@ ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000,
 	\item{ndsi_right}{ NDSI value for the left channel }
 	}
 
-\author{
-Luis J. Villanueva-Rivera and Bryan C. Pijanowski
-}
+\details{The bin size is determined as the difference between anthro_max and anthro_min, by default 1000Hz.
+}  
+
 
 \examples{
 	data(tropicalsound)

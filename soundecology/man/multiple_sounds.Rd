@@ -26,10 +26,6 @@ multiple_sounds(directory, resultfile, soundindex, no_cores=1, ...)
 	\item{...}{ additional variables to pass to the selected function. See each function's help for details.}
 	}
 
-\author{
-Luis J. Villanueva-Rivera and Bryan C. Pijanowski
-}
-
 \examples{
 	\dontrun{
 		#Calculate the ACI of all the wav

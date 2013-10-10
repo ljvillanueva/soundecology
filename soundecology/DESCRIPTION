@@ -5,6 +5,9 @@ Date: 2013-10-08
 Author: Luis J. Villanueva-Rivera and Bryan C. Pijanowski
 Maintainer: Luis J. Villanueva-Rivera <ljvillanueva@coquipr.com>
 Description: Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.
-Depends: R(>= 2.14.0), tuneR, ineq, vegan, seewave, pracma, oce, parallel
+Depends: R(>= 2.14.0), tuneR, ineq, vegan, parallel, seewave, pracma, oce
+Suggests: knitr
 License: GPL-3
 URL: http://ljvillanueva.github.io/soundecology/
+BugReports: http://github.com/ljvillanueva/soundecology/issues
+VignetteBuilder: knitr

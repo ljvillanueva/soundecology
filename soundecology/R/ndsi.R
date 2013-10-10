@@ -45,9 +45,11 @@
 # REQUIRES the packages tuneR, seewave, pracma, oce
 #
 
-ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=11000, hz_interval=1000){
+ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_min=2000, bio_max=11000){
 	
 	#Some general values
+	hz_interval = anthro_max - anthro_min
+	
 	#Get sampling rate
 	samplingrate <- soundfile@samp.rate
 	duration <- length(soundfile@left)/soundfile@samp.rate
@@ -83,10 +85,10 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		
 		#LEFT CHANNEL
 		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)
+		#Compute the Welch periodogram
 		specA_left <- pwelch(left1, fs=samplingrate, nfft=fft_w, plot=FALSE)
 		rm(soundfile)
 		
-		#with pwelch
 		specA_left <- specA_left$spec
 		specA_rows <- length(specA_left)
 		
@@ -105,33 +107,42 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		bio_min_row <- round(bio_min * freq_per_row)
 		bio_max_row <- bio_min_row + bio_step_range
 		
-		#Anthrophony		
-		for (i in 1:length(anthro_bins)){
-		  anthro_bins[i] <- trapz(specA_left[anthro_min_row:anthro_max_row])
-		}
 		
-		#Biophony  	
-		for (i in 1:length(bio_bins)){
-
-		  bio_bins[i] <- trapz(specA_left[bio_min_row:bio_max_row])
-		  
-		  bio_min_row <- bio_min_row + bio_step_range
-		  bio_max_row <- bio_max_row + bio_step_range
-		}
+		#Get the area for each bin of anthrophony and biophony
+			#Anthrophony		
+			for (i in 1:length(anthro_bins)){
+			  anthro_bins[i] <- trapz(specA_left[anthro_min_row:anthro_max_row])
+			}
+			
+			#Biophony  	
+			for (i in 1:length(bio_bins)){
+				
+				if (bio_max_row >= specA_rows){
+					bio_max_row <- specA_rows
+				}
+				
+			  bio_bins[i] <- trapz(specA_left[bio_min_row:bio_max_row])
+			  
+			  bio_min_row <- bio_min_row + bio_step_range
+			  bio_max_row <- bio_max_row + bio_step_range
+			}
 		
 		freqbins <- rep(NA, sum(length(anthro_bins), length(bio_bins)))
 		freqbins <- c(anthro_bins, bio_bins)
+		#Normalize
 		freqbins = freqbins / norm(as.matrix(freqbins), "F");
 		
-		
+		#All bins
 		freqbins.SumAll <- sum(freqbins)
+		#All biophony bins
 		freqbins.SumBio <- sum(freqbins[2:length(freqbins)])
+		#Single anthrophony bin
 		freqbins.Anthro <- freqbins[1]
 		
+		#Result
 		NDSI_left <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
 		
 		#Right channel
-		#LEFT CHANNEL
 		right1 <- cutw(left, from=0, to=length(right@left)/right@samp.rate)
 		specA_right <- pwelch(right1, fs=samplingrate, nfft=fft_w, plot=FALSE)
 		rm(soundfile)
@@ -162,6 +173,11 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		
 		#Biophony  	
 		for (i in 1:length(bio_bins)){
+			
+			if (bio_max_row >= specA_rows){
+				bio_max_row <- specA_rows
+			}
+			
 		  bio_bins[i] <- trapz(specA_right[bio_min_row:bio_max_row])
 		  
 		  bio_min_row <- bio_min_row + bio_step_range
@@ -224,6 +240,10 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		
 		#Biophony  	
 		for (i in 1:length(bio_bins)){
+			
+			if (bio_max_row >= specA_rows){
+				bio_max_row <- specA_rows
+				}
 
 		  bio_bins[i] <- trapz(specA_left[bio_min_row:bio_max_row])
 		  

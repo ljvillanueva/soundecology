@@ -10,11 +10,7 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 		stop(paste("The directory specified does not exist or this user is not autorized to read it:\n    ", directory))
 		}
 	
-	#is it windows?
-	#if (.Platform$OS.type == "windows"){
-	#	no_cores = 1
-	#	}
-	
+	#How many cores this machine has?
 	thismachine_cores <- detectCores()
 	
 	if (no_cores == 0){
@@ -27,7 +23,8 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 		no_cores = thismachine_cores - 1
 	}else if (no_cores > thismachine_cores){
 		#Don't try to use more than the number of cores in the machine
-		warning(paste(" The number of cores to use can not be larger than the cores in the computer:", detectCores()), immediate.=TRUE)
+		warning(paste(" The number of cores to use can not be more than the
+					  cores in this computer: ", detectCores()), immediate.=TRUE)
 		no_cores <- thismachine_cores
 		}
 		

@@ -1,0 +1,32 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{An Introduction to the soundecology package}
+-->
+
+# An Introduction to **soundecology** package #
+
+## Introduction ##
+
+The  **soundecology** package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.
+
+
+## Indices ##
+
+The package **soundecology** can calculate several indices:
+
+### ACI ###
+
+The ACI is based on the "observation that many biotic sounds, such as bird songs, are 
+characterized by an intrinsic variability of intensities, while some types
+of human generated noise (such as car passing or airplane transit)
+present very constant intensity values" (Pieretti, et al. 2011).
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+
+data(tropicalsound)
+	ACI <- acoustic_complexity(tropicalsound)
+	print(ACI$AciTotAll_left)
+	
+	summary(ACI)
+```
+
