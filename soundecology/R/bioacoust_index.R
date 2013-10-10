@@ -33,7 +33,7 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		right<-channel(soundfile, which = c("right"))
 		
 		#Get values
-		cat("\n Getting values from file... Please wait... \n")
+		#cat("\n Getting values from file... Please wait... \n")
 		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
 		spec_right <- spectro(right, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
 		#Clear from memory

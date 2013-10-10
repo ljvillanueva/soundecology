@@ -45,7 +45,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		right <- channel(soundfile, which = c("right"))
 				
 		#matrix of values
-		cat("\n Getting values from spectrogram... Please wait... \n")
+		#cat("\n Getting values from spectrogram... Please wait... \n")
 		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
 		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
 		

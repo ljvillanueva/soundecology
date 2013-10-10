@@ -41,7 +41,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		rm(soundfile)
 		
 		#matrix of values
-		cat("\n Getting values from spectrogram... Please wait... \n")
+		#cat("\n Getting values from spectrogram... Please wait... \n")
 		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE)$amp
 		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE)$amp
 		
