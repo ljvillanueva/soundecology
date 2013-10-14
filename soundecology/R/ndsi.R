@@ -83,11 +83,12 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		right <- channel(soundfile, which = c("right"))
 		rm(soundfile)
 		
+		cat("\n Calculating index. Please wait... \n\n")
+		
 		#LEFT CHANNEL
 		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)
 		#Compute the Welch periodogram
 		specA_left <- pwelch(left1, fs=samplingrate, nfft=fft_w, plot=FALSE)
-		rm(soundfile)
 		
 		specA_left <- specA_left$spec
 		specA_rows <- length(specA_left)
@@ -143,12 +144,11 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		NDSI_left <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
 		
 		#Right channel
-		right1 <- cutw(left, from=0, to=length(right@left)/right@samp.rate)
+		right1 <- cutw(right, from=0, to=length(right@left)/right@samp.rate)
 		specA_right <- pwelch(right1, fs=samplingrate, nfft=fft_w, plot=FALSE)
-		rm(soundfile)
 		
 		#with pwelch
-		specA_left <- specA_left$spec
+		specA_right <- specA_right$spec
 		specA_rows <- length(specA_right)
 		
 		freq_per_row <- specA_rows/nyquist_freq
@@ -210,11 +210,12 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		left<-channel(soundfile, which = c("left"))
 		rm(soundfile)
 		
+		cat("\n Calculating index. Please wait... \n\n")
+		
 		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)
 		specA_left <- pwelch(left1, fs=samplingrate, nfft=fft_w, plot=FALSE)
-		rm(soundfile)
     
-    #with pwelch
+		#with pwelch
 		specA_left <- specA_left$spec
 		specA_rows <- length(specA_left)
 		

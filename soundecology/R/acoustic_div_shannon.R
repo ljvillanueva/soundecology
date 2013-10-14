@@ -41,7 +41,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		rm(soundfile)
 		
 		#matrix of values
-		#cat("\n Getting values from spectrogram... Please wait... \n")
+		cat("\n Calculating index. Please wait... \n\n")
 		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE)$amp
 		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE)$amp
 		
@@ -166,13 +166,13 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		cat("\n  Acoustic diversity: \n")
+		cat("\n  Original Acoustic Diversity Index: \n")
 		cat(paste("   Left channel: ", round(Score_left,6), "\n", sep=""))
 		cat(paste("   Right channel: ", round(Score_right,6), "\n", sep=""))
 		left_adi_return = round(Score_left,6)
 		right_adi_return = round(Score_right,6)
 		
-		cat("  Acoustic Diversity Index (Shannon Index): ")
+		cat("  Acoustic Diversity Index using Shannon Index: ")
 		cat(paste("   Left channel: ", round(Shannon_left, 6), "\n", sep=""))
 		cat(paste("   Right channel: ", round(Shannon_right, 6), "\n", sep=""))
 		
@@ -187,7 +187,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		cat("\n This is a mono file.\n")
 		
 		#matrix of values
-		cat("\n Getting values from spectrogram... Please wait... \n")
+		cat("\n Calculating index. Please wait... \n\n")
 		specA_left <- spectro(soundfile, f=samplingrate, wl=wlen, plot=FALSE)$amp
 		
 		rm(soundfile)
@@ -261,12 +261,12 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		cat("\n  Acoustic Diversity Index: ")
+		cat("\n  Original Acoustic Diversity Index: ")
 		cat(paste(round(Score_left,6), "\n", sep=""))
 		left_adi_return = round(Score_left,6)
 		right_adi_return = 0
 		
-		cat("  Acoustic Diversity Index (Shannon Index): ")
+		cat("  Acoustic Diversity Index using Shannon Index: ")
 		cat(paste(round(Shannon_left, 6), "\n", sep=""))
 				
 		cat("  Band Eveness (Gini coefficient): ")

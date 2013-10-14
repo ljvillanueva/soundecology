@@ -9,6 +9,7 @@
 
 The  **soundecology** package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.
 
+For mono files, the results are stored as for the left channel while the right channel returns NA.
 
 ## Indices ##
 
@@ -42,8 +43,26 @@ data(tropicalsound)
 acoustic_complexity(tropicalsound)
 ```
 
+To use values other than the defaults:
+```{r results='show', message=FALSE, warning=FALSE}
+#Analyze the file only for the frequencies below 8000 Hz
+acoustic_complexity(tropicalsound, max_freq = 8000)
+```
+
+```{r results='show', message=FALSE, warning=FALSE}
+#Analyze the file with a cluster size of 10 seconds
+acoustic_complexity(tropicalsound, j = 10)
+```
+
+```{r results='show', message=FALSE, warning=FALSE}
+#Analyze the file with a cluster size of 10 seconds and limiting to 6000 Hz
+acoustic_complexity(tropicalsound, j = 10, max_freq = 6000)
+```
+
+
 Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
 #Download a wave file from the web
 download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
 
@@ -53,12 +72,21 @@ soundfile <- readWave("SM87_20080420_000000.wav")
 #Delete the downloaded wave file
 unlink("SM87_20080420_000000.wav")
 
-#Run the function on this object and save the results in a new variable called soundfile.aci
+#Run the function on this object and save the results in a new variable called "soundfile.aci"
 soundfile.aci <- acoustic_complexity(soundfile)
 
 #Print the ACI value for that file, stored in the soundfile.aci variable
 print(soundfile.aci$AciTotAll_left)
 ```
+
+For more details on the function, type:
+```
+library(soundecology)
+
+?acoustic_complexity
+```
+
+
 
 
 
@@ -79,6 +107,37 @@ print(NDSI$ndsi_left)
 summary(NDSI)
 ```
 
+Example with wav file:
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+#Download a wave file from the web
+download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+
+#Load file as an object called soundfile
+soundfile <- readWave("SM87_20080420_000000.wav")
+
+#Delete the downloaded wave file
+unlink("SM87_20080420_000000.wav")
+
+#Run the function on this object and save the results in a new variable called "soundfile.ndsi"
+soundfile.ndsi <- ndsi(soundfile)
+
+#Print the ACI value for that file, stored in the soundfile.aci variable
+print(soundfile.ndsi$ndsi_left)
+```
+
+
+For more details on the function, type:
+```
+library(soundecology)
+
+?ndsi
+```
+
+
+
+
+
 ### Bioacoustic Index ###
 
 The Bioacoustic Index, from Boelman *et al.* 2007, is calculated as the "area under each curve included all frequency bands associated
@@ -93,3 +152,102 @@ print(bioindex$left_area)
 
 summary(bioindex)
 ```
+
+
+Example with wav file:
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+#Download a wave file from the web
+download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+
+#Load file as an object called soundfile
+soundfile <- readWave("SM87_20080420_000000.wav")
+
+#Delete the downloaded wave file
+unlink("SM87_20080420_000000.wav")
+
+#Run the function on this object and save the results in a new variable called "soundfile.bioindex"
+soundfile.bioindex <- bioacoustic_index(soundfile)
+
+#Print the ACI value for that file, stored in the soundfile.bioindex variable
+print(soundfile.bioindex$left_area)
+```
+
+
+For more details on the function, type:
+```
+library(soundecology)
+
+?bioacoustic_index
+```
+
+
+
+
+
+
+
+
+### Acoustic Diversity Index (ADI) ###
+
+The Acoustic Diversity Index (ADI), from Villanueva-Rivera *et al.* 2011, is calculated by diving the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
+
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+data(tropicalsound)
+
+ADI <- acoustic_diversity(tropicalsound)
+print(ADI$shannon_left)
+
+summary(ADI)
+```
+
+
+
+Example with wav file:
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+#Download a wave file from the web
+download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+
+#Load file as an object called soundfile
+soundfile <- readWave("SM87_20080420_000000.wav")
+
+#Delete the downloaded wave file
+unlink("SM87_20080420_000000.wav")
+
+#Run the function on this object and save the results in a new variable called "soundfile.adiv"
+soundfile.adiv <- acoustic_diversity(soundfile)
+
+#Print the ACI value for that file, stored in the soundfile.adiv variable
+print(soundfile.adiv$shannon_left)
+```
+
+
+For more details on the function, type:
+```
+library(soundecology)
+
+?acoustic_diversity
+```
+
+
+
+## A word of caution ##
+
+Dr. P. Zollner reminded me of the problem with FRAGSTATS and the same should be said with this package: having these indices in the same place is for convenience and to further the study of soundscape ecology and related fields. However, calculating all the indices without **a priori** reasoning must be avoided since it is bad science and raises the probability of Type I errors.
+
+Quoting from the [FRAGSTATS website](http://www.umass.edu/landeco/research/fragstats/fragstats.html "FRAGSTATS Website"):
+
+>the "garbage in- garbage out" axiom applies here. We have done our best in the documentation to stress the importance of defining the landscape at a scale and in a manner that is relevant and meaningful to the phenomenon under consideration. Moreover, we have stressed the importance of understanding the exact meaning of each metric before it is used.
+
+
+
+## Package website ##
+
+Please visit the package website for more information, and updates: http://ljvillanueva.github.io/soundecology/
+
+For suggestions or to report bugs or problems: https://github.com/ljvillanueva/soundecology/issues
+
+The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
+

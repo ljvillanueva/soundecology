@@ -28,17 +28,16 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 	
 	#Stereo file
 	if (soundfile@stereo==TRUE) {
-		cat("\n Stereo file.\n")
+		cat("\n This is a stereo file. Results will be given for each channel.\n")
 		left<-channel(soundfile, which = c("left"))
 		right<-channel(soundfile, which = c("right"))
 		
 		#Get values
-		#cat("\n Getting values from file... Please wait... \n")
+		cat("\n Calculating index. Please wait... \n\n")
 		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
 		spec_right <- spectro(right, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
 		#Clear from memory
-		rm(left)
-		rm(right)
+		rm(left, right)
 		
 		#Get average in time
 		specA_left <- apply(spec_left, 1, meandB)
@@ -62,7 +61,7 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		
 		#left_area <- trapz(freqs, specA_left_segment_normalized)
 		left_area <- sum(specA_left_segment_normalized * rows_width)
-		right_area <- sum(specA_left_segment_normalized * rows_width)
+		right_area <- sum(specA_right_segment_normalized * rows_width)
 		
 		cat("\n")
 		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
@@ -74,12 +73,12 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		cat("\n\n")
 	} else 
 	{
-		cat("\n Mono file.\n")
+		cat("\n This is a mono file.\n")
 		#Get left channel
 		left<-channel(soundfile, which = c("left"))
 		
 		#Get values
-		cat("\n Getting values from file... Please wait... \n")
+		cat("\n Calculating index. Please wait... \n\n")
 		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
 		#Clear from memory
 		rm(left)
