@@ -235,7 +235,7 @@ library(soundecology)
 
 ## A word of caution ##
 
-Dr. P. Zollner reminded me of the problem with FRAGSTATS and the same should be said with this package: having these indices in the same place is for convenience and to further the study of soundscape ecology and related fields. However, calculating all the indices without **a priori** reasoning must be avoided since it is bad science and raises the probability of Type I errors.
+Dr. P. Zollner reminded me of the problem with FRAGSTATS and the same should be said with this package: "Garbage In, Garbage Out". Having these indices in the same place is for convenience and to further the study of soundscape ecology and related fields. Calculating all the indices without *a priori* reasoning must be avoided since it is bad science and raises the probability of Type I errors.
 
 Quoting from the [FRAGSTATS website](http://www.umass.edu/landeco/research/fragstats/fragstats.html "FRAGSTATS Website"):
 
