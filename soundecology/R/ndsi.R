@@ -3,19 +3,14 @@
 # From REAL - Remote Environmental Assessment Laboratory
 # http://www.real.msu.edu/
 #
-# Also from: Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. 
-#  Measuring and interpreting the temporal variability in the soundscape
-#  at four places in Sequoia National Park. Landscape Ecol. DOI 10.1007/s10980-011-9639-6
-#
 # Also from: Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
 #  The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
 #  Studying Soundscape Ecology. Ecological Informatics 12: 50–67. doi:10.1016/j.ecoinf.2012.08.001.
 #
-# "The samples were converted to 22 kHz monaural. A normalized Power Spectrum
-#  Density value (PSD in Watt/Hz) (Welch 1967) was
-#  computed for each 1 kHz interval for all recordings
-#  by running a script programmed by Gage and Joo
-#  using MATLAB (Gilat 2004)."
+# And
+#  Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. 
+#  Measuring and interpreting the temporal variability in the soundscape
+#  at four places in Sequoia National Park. Landscape Ecol. DOI 10.1007/s10980-011-9639-6
 #
 # "Normalized Difference Soundscape Index (NDSI) is a numeric indicator of a
 #  soundscape's relative biological composition to human disturbance based

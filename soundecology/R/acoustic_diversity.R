@@ -274,5 +274,5 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		left_gini_return = round(Gini(left_vals),6)
 		right_gini_return = 0
 	}
-	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, shannon_left=Shannon_left, shannon_right=Shannon_right, gini_left=left_gini_return, gini_right=right_gini_return, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
+	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, adis_left=Shannon_left, adis_right=Shannon_right, gini_left=left_gini_return, gini_right=right_gini_return, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
 }

@@ -4,7 +4,8 @@
 
 \title{Acoustic Diversity Index}
 
-\description{Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011.}
+\description{Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011. 
+The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.}
 
 \usage{
 acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
@@ -21,8 +22,8 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 	Returns a list with five objects per channel
 	\item{adi_left}{ original ADI value for the left channel }
 	\item{adi_right}{ original ADI value for the right channel }
-	\item{shannon_left}{ ADI value calculated with the Shannon index equation for the left channel }
-	\item{shannon_right}{ ADI value calculated with the Shannon index equation for the right channel }
+	\item{adis_left}{ ADI value calculated with the Shannon index equation for the left channel }
+	\item{adis_right}{ ADI value calculated with the Shannon index equation for the right channel }
 	\item{gini_left}{ Gini index for the left channel }
 	\item{gini_right}{ Gini index for the right channel }
 	\item{left_band_values}{ vector of ocupancy values for each band for the left channel }
@@ -34,7 +35,7 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 \examples{
 	data(tropicalsound)
 	ADI <- acoustic_diversity(tropicalsound)
-	print(ADI$shannon_left)
+	print(ADI$adis_left)
 	
 	summary(ADI)
 	}

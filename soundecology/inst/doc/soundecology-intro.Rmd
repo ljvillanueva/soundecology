@@ -190,14 +190,14 @@ library(soundecology)
 
 ### Acoustic Diversity Index (ADI) ###
 
-The Acoustic Diversity Index (ADI), from Villanueva-Rivera *et al.* 2011, is calculated by diving the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
+The Acoustic Diversity Index (ADI), from Villanueva-Rivera *et al.* 2011, is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
 
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 data(tropicalsound)
 
 ADI <- acoustic_diversity(tropicalsound)
-print(ADI$shannon_left)
+print(ADI$adis_left)
 
 summary(ADI)
 ```
