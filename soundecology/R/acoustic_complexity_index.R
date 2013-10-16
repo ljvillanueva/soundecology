@@ -11,7 +11,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 	if (is.na(max_freq)){
 		max_freq <- soundfile@samp.rate / 2
 	}
-	
+
 	#function that gets the difference of values
 	get_d <- function(spectrum, freq_row, min_col, max_col){
 		D = 0
@@ -54,8 +54,16 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		specA_rows <- dim(specA_left)[1]
 		specA_cols <- dim(specA_left)[2]
 		
+		freq_per_row <- specA_rows/nyquist_freq
+				
+		max_row <- round(max_freq * freq_per_row)
+		
+		specA_left <- specA_left[1:max_row,]
+		specA_right <- specA_right[1:max_row,]
+		specA_rows <- dim(specA_left)[1]
+		
 		fl <- rep(NA, specA_rows)
-		delta_fl <- nyquist_freq / specA_rows
+		delta_fl <- max_freq / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 				
 		#m <- floor(duration / j)
@@ -135,8 +143,15 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		specA_rows <- dim(specA_left)[1]
 		specA_cols <- dim(specA_left)[2]
 		
+		freq_per_row <- specA_rows/nyquist_freq
+				
+		max_row <- round(max_freq * freq_per_row)
+		
+		specA_left <- specA_left[1:max_row,]
+		specA_rows <- dim(specA_left)[1]
+		
 		fl <- rep(NA, specA_rows)
-		delta_fl <- nyquist_freq / specA_rows
+		delta_fl <- max_freq / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 		
 		no_j <- floor(duration / j)

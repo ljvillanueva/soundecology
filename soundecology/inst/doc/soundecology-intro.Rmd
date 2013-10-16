@@ -3,13 +3,15 @@
 %\VignetteIndexEntry{An Introduction to the soundecology package}
 -->
 
-# An Introduction to soundecology package #
+# An Introduction to *soundecology* Package #
 
 ## Introduction ##
 
-The  **soundecology** package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.
+The  *soundecology* package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings. This introduction will provide a brief overview of the indices calculated and the way to use the functions in this package. For more details, please see the literature cited for each index.
 
-For mono files, the results are stored as for the left channel while the right channel returns NA.
+*soundecology* requires version 2.14, or newer, of R and depends on the packages *tuneR*, *ineq*, *vegan*, *parallel*, *seewave*, *pracma*, and *oce*. These packages are installed automatically. 
+
+For single-channel files (mono), the results are stored in the left channel while the right channel returns *NA*.
 
 ## Indices ##
 
@@ -34,7 +36,7 @@ present very constant intensity values" (Pieretti, et al. 2011).
 To calculate the ACI of the example Wave object **tropicalsound**, use these commands:
 ```{r results='show', message=FALSE, warning=FALSE}
 #Load the package
-require(soundecology)
+library(soundecology)
 
 #Call the Wave object into memory
 data(tropicalsound)
@@ -79,7 +81,7 @@ soundfile.aci <- acoustic_complexity(soundfile)
 print(soundfile.aci$AciTotAll_left)
 ```
 
-For more details on the function, type:
+For more details on the function and reference literature, type:
 ```
 library(soundecology)
 
@@ -127,7 +129,7 @@ print(soundfile.ndsi$ndsi_left)
 ```
 
 
-For more details on the function, type:
+For more details on the function and reference literature, type:
 ```
 library(soundecology)
 
@@ -174,7 +176,7 @@ print(soundfile.bioindex$left_area)
 ```
 
 
-For more details on the function, type:
+For more details on the function and reference literature, type:
 ```
 library(soundecology)
 
@@ -224,7 +226,7 @@ print(soundfile.adiv$shannon_left)
 ```
 
 
-For more details on the function, type:
+For more details on the function and reference literature, type:
 ```
 library(soundecology)
 
@@ -232,15 +234,38 @@ library(soundecology)
 ```
 
 
+## Analysis of many files ##
 
-## A word of caution ##
+The package includes a function that allows you to easily obtain an index for many wav files using a single command. The function *multiple_sounds()* takes all the wav files in a specified folder and saves the desired index value for each file to a comma-separated file. 
 
-Dr. P. Zollner reminded me of the problem with FRAGSTATS and the same should be said with this package: "Garbage In, Garbage Out". Having these indices in the same place is for convenience and to further the study of soundscape ecology and related fields. Calculating all the indices without *a priori* reasoning must be avoided since it is bad science and raises the probability of Type I errors.
+In addition, the function can parallelize this task in computers with multiple cores using the *parallel* package. For example, in a computer with 4 CPU cores, the function can run the analysis in 4 files at a time, which should reduce the total time it takes. However, this does not mean it will take 1/4 of the time since parallel takes some time to set up but it will be faster than running one file at a time. By default, the function runs in one file at a time in a single core, to specify to use all available cores, set *no_cores* to "max". To allow the function to use all but one core, set *no_cores* to "-1". 
+
+*multiple_sounds()* can use the four functions in this package (*ndsi()*, *acoustic_complexity()*, *acoustic_diversity()*, *bioacoustic_index()*) and the *H()* function in *seewave* to calculate the H Index. Set the variable *soundindex* to the name of the function you want to run in all files.
+
+For example, to calculate the NDSI of files in the folder "wave_files" using all the cores and saving the results to a file called ndsi_results.csv, type:
+```
+multiple_sounds(directory = "wave_files", resultfile = "ndsi_results.csv", soundindex = "ndsi", no_cores=max)
+```
+
+You can also provide variable values of the specific index function. To change the maximum frequency of the biophony of NDSI to 10000 Hz from the default of 11000 and save the results to a file ndsi_results_10k.csv, type:
+```
+multiple_sounds(directory = "wave_files", resultfile = "ndsi_results_10k.csv", soundindex = "ndsi", no_cores = "max", bio_max = 10000)
+```
+
+To calculate the H index from *seewave*, type:
+```
+multiple_sounds(directory = "wave_files", resultfile = "H_results.csv", soundindex = "H")
+```
+
+Please note that the csv file will be overwriten if it exists.
+
+### "Garbage In, Garbage Out" ###
+
+Having these indices in the same place is for convenience and to further the study of soundscape ecology and related fields. Calculating all the indices without *a priori* reasoning must be avoided since it is bad science and raises the probability of Type I errors.
 
 Quoting from the [FRAGSTATS website](http://www.umass.edu/landeco/research/fragstats/fragstats.html "FRAGSTATS Website"):
 
 >the "garbage in- garbage out" axiom applies here. We have done our best in the documentation to stress the importance of defining the landscape at a scale and in a manner that is relevant and meaningful to the phenomenon under consideration. Moreover, we have stressed the importance of understanding the exact meaning of each metric before it is used.
-
 
 
 ## Package website ##
@@ -251,3 +276,8 @@ For suggestions or to report bugs or problems: https://github.com/ljvillanueva/s
 
 The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
+- - -
+
+Vignette "An Introduction to *soundecology* Package" by LJ Villanueva-Rivera
+
+*Version 1.0 (16 October 2013)*
