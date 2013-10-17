@@ -1,2 +1,5 @@
-import("tuneR", "vegan", "parallel","seewave", "ineq", "pracma", "oce")
+importFrom(pracma, trapz)
+importFrom(oce, pwelch)
+import("tuneR", "vegan", "parallel", "seewave", "ineq")
+
 exportPattern("^[[:alpha:]]+")

@@ -3,24 +3,25 @@
 %\VignetteIndexEntry{An Introduction to the soundecology package}
 -->
 
-# An Introduction to *soundecology* Package #
+# An Introduction to the *soundecology* Package #
 
 ## Introduction ##
 
-The  *soundecology* package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings. This introduction will provide a brief overview of the indices calculated and the way to use the functions in this package. For more details, please see the literature cited for each index.
+The *soundecology* package has functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings. This introduction will provide a brief overview of the indices calculated and the way to use the functions in this package. For more details, please see the literature cited for each index.
 
-*soundecology* requires version 2.14, or newer, of R and depends on the packages *tuneR*, *ineq*, *vegan*, *parallel*, *seewave*, *pracma*, and *oce*. These packages are installed automatically. 
+*soundecology* requires R version 2.14, or newer, and depends on the packages *tuneR*, *ineq*, *vegan*, *parallel*, *seewave*, *pracma*, and *oce*. These packages are installed automatically. 
 
 For single-channel files (mono), the results are stored in the left channel while the right channel returns *NA*.
 
 ## Indices ##
 
-The package **soundecology** can calculate several indices:
+The package *soundecology* can calculate several indices:
 
  - Acoustic Complexity Index (ACI) from Pieretti *et al.* 2011
  - Normalized Difference Soundscape Index (NDSI) from REAL (http://www.real.msu.edu) and Kasten *et al.* 2012
  - Boiacoustic Index from Boelman *et al.* 2007.
  - Acoustic Diversity Index (ADI) from Villanueva-Rivera *et al.* 2011
+ - Acoustic Eveness Index (AEI) from Villanueva-Rivera *et al.* 2011
 
 The examples below use two sound recordings to illustrate the use of the functions:
  - A Wave object included in the package (tropicalsound)
@@ -33,7 +34,7 @@ characterized by an intrinsic variability of intensities, while some types
 of human generated noise (such as car passing or airplane transit)
 present very constant intensity values" (Pieretti, et al. 2011).
 
-To calculate the ACI of the example Wave object **tropicalsound**, use these commands:
+To calculate the ACI of the example Wave object *tropicalsound*, use these commands:
 ```{r results='show', message=FALSE, warning=FALSE}
 #Load the package
 library(soundecology)
@@ -44,6 +45,7 @@ data(tropicalsound)
 #Run the function
 acoustic_complexity(tropicalsound)
 ```
+
 
 To use values other than the defaults:
 ```{r results='show', message=FALSE, warning=FALSE}
@@ -103,10 +105,10 @@ computing the ratio of human-generated (anthrophony) to biological
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 data(tropicalsound)
-NDSI <- ndsi(tropicalsound)
-print(NDSI$ndsi_left)
+result <- ndsi(tropicalsound)
+print(result$ndsi_left)
 
-summary(NDSI)
+summary(result)
 ```
 
 Example with wav file:
@@ -124,7 +126,7 @@ unlink("SM87_20080420_000000.wav")
 #Run the function on this object and save the results in a new variable called "soundfile.ndsi"
 soundfile.ndsi <- ndsi(soundfile)
 
-#Print the ACI value for that file, stored in the soundfile.aci variable
+#Print the ACI value for that file, stored in the soundfile.ndsi variable
 print(soundfile.ndsi$ndsi_left)
 ```
 
@@ -198,10 +200,10 @@ The Acoustic Diversity Index (ADI), from Villanueva-Rivera *et al.* 2011, is cal
 library(soundecology)
 data(tropicalsound)
 
-ADI <- acoustic_diversity(tropicalsound)
-print(ADI$adis_left)
+result <- acoustic_diversity(tropicalsound)
+print(result$adi_left)
 
-summary(ADI)
+summary(result)
 ```
 
 
@@ -218,11 +220,11 @@ soundfile <- readWave("SM87_20080420_000000.wav")
 #Delete the downloaded wave file
 unlink("SM87_20080420_000000.wav")
 
-#Run the function on this object and save the results in a new variable called "soundfile.adiv"
-soundfile.adiv <- acoustic_diversity(soundfile)
+#Run the function on this object and save the results in a new variable called "soundfile.adi"
+soundfile.adi <- acoustic_diversity(soundfile)
 
-#Print the ACI value for that file, stored in the soundfile.adiv variable
-print(soundfile.adiv$shannon_left)
+#Print the ACI value for that file, stored in the soundfile.adi variable
+print(soundfile.adi$adi_left)
 ```
 
 
@@ -234,17 +236,78 @@ library(soundecology)
 ```
 
 
+
+
+
+
+
+
+
+### Acoustic Eveness Index (AEI) ###
+
+The Acoustic Eveness Index (AEI), from Villanueva-Rivera *et al.* 2011 (band eveness using the Gini index), is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The AEI is the result of the Gini index applied to these bins.
+
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+data(tropicalsound)
+
+result <- acoustic_eveness(tropicalsound)
+print(result$aei_left)
+
+summary(result)
+```
+
+
+
+Example with wav file:
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+#Download a wave file from the web
+download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+
+#Load file as an object called soundfile
+soundfile <- readWave("SM87_20080420_000000.wav")
+
+#Delete the downloaded wave file
+unlink("SM87_20080420_000000.wav")
+
+#Run the function on this object and save the results in a new variable called "soundfile.aei"
+soundfile.aei <- acoustic_eveness(soundfile)
+
+#Print the AEI value for that file, stored in the soundfile.aei variable
+print(soundfile.aei$aei_left)
+```
+
+
+For more details on the function and reference literature, type:
+```
+library(soundecology)
+
+?acoustic_eveness
+```
+
+
+
+
+
+
+
 ## Analysis of many files ##
 
 The package includes a function that allows you to easily obtain an index for many wav files using a single command. The function *multiple_sounds()* takes all the wav files in a specified folder and saves the desired index value for each file to a comma-separated file. 
 
-In addition, the function can parallelize this task in computers with multiple cores using the *parallel* package. For example, in a computer with 4 CPU cores, the function can run the analysis in 4 files at a time, which should reduce the total time it takes. However, this does not mean it will take 1/4 of the time since parallel takes some time to set up but it will be faster than running one file at a time. By default, the function runs in one file at a time in a single core, to specify to use all available cores, set *no_cores* to "max". To allow the function to use all but one core, set *no_cores* to "-1". 
+In addition, the function can parallelize this task in computers with multiple cores using the *parallel* package. For example, in a computer with 4 CPU cores, the function can run the analysis in 4 files at a time, which should reduce the total time it takes. By default, the function runs in one file at a time in a single core, to specify to use all available cores, set *no_cores* to "max". To allow the function to use all but one core, set *no_cores* to "-1". 
 
-*multiple_sounds()* can use the four functions in this package (*ndsi()*, *acoustic_complexity()*, *acoustic_diversity()*, *bioacoustic_index()*) and the *H()* function in *seewave* to calculate the H Index. Set the variable *soundindex* to the name of the function you want to run in all files.
+*multiple_sounds()* can use the five functions in this package (*ndsi()*, *acoustic_complexity()*, *acoustic_diversity()*, *acoustic_eveness()*, and *bioacoustic_index()*) and the *H()* function in *seewave* to calculate the H Index. Set the variable *soundindex* to the name of the function you want to run in all files.
 
 For example, to calculate the NDSI of files in the folder "wave_files" using all the cores and saving the results to a file called ndsi_results.csv, type:
 ```
-multiple_sounds(directory = "wave_files", resultfile = "ndsi_results.csv", soundindex = "ndsi", no_cores=max)
+multiple_sounds(directory = "wave_files", resultfile = "ndsi_results.csv", soundindex = "ndsi", no_cores = "max")
+```
+
+To calculate the ADI of files in the folder "wave_files" using 2 cores and saving the results to a file called adi_results.csv, type:
+```
+multiple_sounds(directory = "wave_files", resultfile = "adi_results.csv", soundindex = "acoustic_diversity", no_cores = 2)
 ```
 
 You can also provide variable values of the specific index function. To change the maximum frequency of the biophony of NDSI to 10000 Hz from the default of 11000 and save the results to a file ndsi_results_10k.csv, type:
@@ -280,4 +343,4 @@ The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
 Vignette "An Introduction to *soundecology* Package" by LJ Villanueva-Rivera
 
-*Version 1.0 (16 October 2013)*
+*Version 1.0beta (17 October 2013)*

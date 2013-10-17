@@ -12,8 +12,8 @@
 	\tabular{ll}{
 		Package: \tab soundecology\cr
 		Type: \tab Package\cr
-		Version: \tab 0.3\cr
-		Date: \tab 2013-10-14\cr
+		Version: \tab 0.4\cr
+		Date: \tab 2013-10-17\cr
 		License: \tab GPLv3\cr
 		}
 	}

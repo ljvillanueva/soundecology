@@ -1,7 +1,7 @@
-#Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011. 
-# The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
+#Acoustic Eveness Index from Villanueva-Rivera \emph{et al.} 2011. 
+# The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Gini index applied to these bins.
 
-acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000){
+acoustic_eveness<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000){
 	
 	#to add later, save each step to files, for all indices
 	#if (save_to_text==TRUE & is.na(file_prefix)){
@@ -57,8 +57,6 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		Freq<-seq(from=0, to=max_freq-freq_step, by=freq_step)
 		
 		#LEFT CHANNEL
-		
-		#Score=seq(from=0, to=0, length=length(Freq))
 		Score <- rep(NA, length(Freq))
 		
 		for (j in 1:length(Freq)) {
@@ -67,18 +65,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		
 		left_vals=Score
 		
-		Score1=0
-		for (i in 1:length(Freq)) {
-			Score1=Score1 + (Score[i] * log(Score[i]+0.0000001))
-		}
-		
-		#Average
-		Score_left=(-(Score1))/length(Freq)
-		Shannon_left <- diversity(Score, index = "shannon")
-		
 		#RIGHT CHANNEL
-		
-		#Score=seq(from=0, to=0, length=length(Freq))
 		Score <- rep(NA, length(Freq))
 		
 		for (j in 1:length(Freq)) {
@@ -86,15 +73,6 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		}
 		
 		right_vals=Score
-		
-		Score1=0
-		for (i in 1:length(Freq)) {
-			Score1=Score1 + (Score[i] * log(Score[i]+0.0000001))
-		}
-		
-		#Average
-		Score_right=(-(Score1))/length(Freq)
-		Shannon_right <- diversity(Score, index = "shannon")
 		
 		cat(" ==============================================\n")
 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
@@ -168,17 +146,13 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		#cat("\n  Original Acoustic Diversity Index: \n")
-		cat("\n  Acoustic Diversity Index: \n")
-		cat(paste("   Left channel: ", round(Score_left,6), "\n", sep=""))
-		cat(paste("   Right channel: ", round(Score_right,6), "\n", sep=""))
-		left_adi_return = round(Score_left,6)
-		right_adi_return = round(Score_right,6)
+		cat("\n")
+		cat("  Acoustic Eveness Index: \n")
+		cat(paste("   Left channel: ", round(Gini(left_vals),6), "\n", sep=""))
+		cat(paste("   Right channel: ", round(Gini(right_vals),6), "\n\n", sep=""))
+		left_gini_return = round(Gini(left_vals),6)
+		right_gini_return = round(Gini(right_vals),6)
 		
-		#cat("  Acoustic Diversity Index using Shannon Index: ")
-		#cat(paste("   Left channel: ", round(Shannon_left, 6), "\n", sep=""))
-		#cat(paste("   Right channel: ", round(Shannon_right, 6), "\n", sep=""))
-				
 	} else 
 	{
 		cat("\n This is a mono file.\n")
@@ -205,15 +179,6 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		
 		left_vals=Score
 		
-		Score1=0
-		for (i in 1:length(Freq)) {
-			Score1=Score1 + (Score[i] * log(Score[i]+0.0000001))
-		}
-		
-		#Average
-		Score_left=(-(Score1))/length(Freq)
-		Shannon_left <- diversity(Score, index = "shannon")
-		Shannon_right <- NA
 		
 		cat(" ==============================================\n")
 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
@@ -258,16 +223,11 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		#cat("\n  Original Acoustic Diversity Index: ")
-		cat("\n  Acoustic Diversity Index: ")
-		cat(paste(round(Score_left,6), "\n", sep=""))
-		left_adi_return = round(Score_left,6)
-		right_adi_return = 0
-		
-		#cat("  Acoustic Diversity Index using Shannon Index: ")
-		#cat(paste(round(Shannon_left, 6), "\n", sep=""))
-
+		cat("\n")
+		cat("  Acoustic Eveness Index: ")
+		cat(paste(round(Gini(left_vals),6), "\n", sep=""))
+		left_gini_return = round(Gini(left_vals),6)
+		right_gini_return = 0
 	}
-#	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, adis_left=Shannon_left, adis_right=Shannon_right, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
-	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
+	invisible(list(aei_left=left_gini_return, aei_right=right_gini_return))
 }

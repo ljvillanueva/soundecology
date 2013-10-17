@@ -22,22 +22,23 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 	Returns a list with five objects per channel
 	\item{adi_left}{ original ADI value for the left channel }
 	\item{adi_right}{ original ADI value for the right channel }
-	\item{adis_left}{ ADI value calculated with the Shannon index equation for the left channel }
-	\item{adis_right}{ ADI value calculated with the Shannon index equation for the right channel }
-	\item{gini_left}{ Gini index for the left channel }
-	\item{gini_right}{ Gini index for the right channel }
+	%\item{adis_left}{ ADI value calculated with the Shannon index equation for the left channel }
+	%\item{adis_right}{ ADI value calculated with the Shannon index equation for the right channel }
 	\item{left_band_values}{ vector of ocupancy values for each band for the left channel }
 	\item{right_band_values}{ vector of ocupancy values for each band for the right channel }
 	\item{left_bandrange_values}{ vector of frequency values for each band for the left channel }
 	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}
 
+\note{For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
+
 \examples{
 	data(tropicalsound)
-	ADI <- acoustic_diversity(tropicalsound)
-	print(ADI$adis_left)
+	result <- acoustic_diversity(tropicalsound)
+	%print(result$adis_left)
+	print(result$adi_left)
 	
-	summary(ADI)
+	summary(result)
 	}
 
 \references{

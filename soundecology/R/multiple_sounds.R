@@ -4,7 +4,7 @@
 # the requested index to a .csv file.
 #
 
-multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "bioacoustic_index", "H"), no_cores=1, ...){
+multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H"), no_cores=1, ...){
 
 	if (file.access(directory) == -1) {
 		stop(paste("The directory specified does not exist or this user is not autorized to read it:\n    ", directory))
@@ -101,7 +101,7 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
 			return_list <- acoustic_diversity(this_soundfile, ...)
 		
-			cat(paste(soundfile, ",", soundindex, ",", max_freq, ",", db_threshold, ",", freq_step, ",", return_list$shannon_left, ",", return_list$shannon_right, "\n", sep=""), file=resultfile, append=TRUE)
+			cat(paste(soundfile, ",", soundindex, ",", max_freq, ",", db_threshold, ",", freq_step, ",", return_list$adi_left, ",", return_list$adi_right, "\n", sep=""), file=resultfile, append=TRUE)
 			}
 	}else if (soundindex == "acoustic_complexity"){
     
@@ -234,7 +234,45 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			
 			cat(paste(soundfile, ",", soundindex, ",", wl, ",", envt, ",", msmooth, ",", ksmooth, ",", left_res, ",", right_res, "\n", sep=""), file=resultfile, append=TRUE)
 			}
+	}else if (soundindex == "acoustic_eveness"){
+		
+		fileheader <- c("FILENAME,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL\n")
+		
+		getindex <- function(soundfile, ...){
+			library(soundecology)
+			
+			#Get args
+			args <- list(...)
+			
+			if(!is.null(args[['db_threshold']])) {
+				db_threshold = args[['db_threshold']]
+			}else{
+				db_threshold = formals(acoustic_eveness)$db_threshold
+			}
+			if(!is.null(args[['max_freq']])) {
+				max_freq = args[['max_freq']]
+			}else{
+				max_freq = formals(acoustic_eveness)$max_freq
+			}
+			if(!is.null(args[['freq_step']])) {
+				freq_step = args[['freq_step']]
+			}else{
+				freq_step = formals(acoustic_eveness)$freq_step
+			}
+			
+			# 			if (file.access(resultfile) == -1) {
+			# 				cat("FILENAME,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL\n", file=resultfile, append=TRUE)
+			# 			}
+			this_soundfile <- readWave(paste(directory, soundfile, sep=""))
+			return_list <- acoustic_eveness(this_soundfile, ...)
+			
+			cat(paste(soundfile, ",", soundindex, ",", max_freq, ",", db_threshold, ",", freq_step, ",", return_list$aei_left, ",", return_list$aei_right, "\n", sep=""), file=resultfile, append=TRUE)
 		}
+	}
+	
+	
+	
+	
 
   
 #open results file

@@ -18,6 +18,7 @@ multiple_sounds(directory, resultfile, soundindex, no_cores=1, ...)
          \item \code{ndsi}
          \item \code{acoustic_complexity}
          \item \code{acoustic_diversity}
+         \item \code{acoustic_eveness}
          \item \code{bioacoustic_index}
          \item \code{H} from the \code{seewave} package
        }
