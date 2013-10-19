@@ -1,0 +1,1 @@
+Test of old ADI index with Shannon version using the ~38k files from Tippecanoe 2008 from the BioScience paper.

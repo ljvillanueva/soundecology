@@ -78,7 +78,7 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		right <- channel(soundfile, which = c("right"))
 		rm(soundfile)
 		
-		cat("\n Calculating index. Please wait... \n\n")
+		cat("\n Calculating index. Please wait... \n")
 		
 		#LEFT CHANNEL
 		left1 <- cutw(left, from=0, to=length(left@left)/left@samp.rate)

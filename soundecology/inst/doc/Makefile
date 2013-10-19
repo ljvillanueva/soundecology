@@ -1,4 +1,4 @@
-VIGS= soundecology-intro.html
+VIGS= 0intro.html changeADI.html
 
 all: $(VIGS)
 

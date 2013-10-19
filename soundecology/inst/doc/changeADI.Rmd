@@ -1,0 +1,48 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Changes in the Acoustic Diversity Index}
+-->
+
+# Changes in the Acoustic Diversity Index #
+
+The Acoustic Diversity Index (ADI), first used by us in Pijanowski *et al.* 2011 and then explored in Villanueva-Rivera *et al.* 2011, divided the spectrogram of an audio file in 10 bins of 1kHz each, up to 10 kHz. Then, the proportion of signals above a threshold in each bin was calculated. These proportions were used to calculate the ADI.
+
+When revising the code, we found that there was an error in the code. The ADI was supposed to apply the Shannon's Diversity Index to the values of the bins, but the code had a different equation. It was the average of the sum of the logs:
+
+```
+Score1=0
+for (i in 1:length(Freq)) {
+	#Add a small amount to avoid log(0)
+	Score1=Score1 + (Score[i] * log(Score[i]+0.0000001))
+}
+
+#Average
+Score_left=(-(Score1))/length(Freq)
+```
+
+It seems that this draft code was erroneously kept in the script and was not changed to properly calculate the index or used a function of a package that did this. The *acoustic_diversity()* function now uses the *diversity()* function from the package *vegan* to calculate the Shannon's Diversity Index for the bins. However, to maintain backwards compatibility, you can obtain the result using the old code by setting the *shannon* parameter to *FALSE*.
+
+```{r results='show', message=FALSE, warning=FALSE}
+library(soundecology)
+data(tropicalsound)
+
+#Using Shannon's Diversity Index:
+acoustic_diversity(tropicalsound)
+
+#Using the original code:
+acoustic_diversity(tropicalsound, shannon = FALSE)
+```
+
+The results from both the original equation and the Shannon's Index from the sound recordings used in Pijanowski *et al.* 2011 are highly correlated (p < 2.2e-16), with values between 0.71 and 0.95 in each site. The shape of the figures did not change, only the magnitude of the values, so our conclusions were not affected.
+
+# References #
+
+Pijanowski, B.C., L. J. Villanueva-Rivera, S Dumyahn, A. Farina, B. Krause, B. Napoletano, S. Gage and N. Pieretti. 2011. Soundscape Ecology: The Science of Sound in Landscapes. BioScience 61: 203-216. doi:[10.1525/bio.2011.61.3.6](http://www.jstor.org/stable/10.1525/bio.2011.61.3.6).
+
+Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi:[10.1007/s10980-011-9636-9](http://dx.doi.org/10.1007/s10980-011-9636-9).
+
+- - -
+
+Vignette "Changes in the Acoustic Diversity Index" by LJ Villanueva-Rivera
+
+*Version 1.0beta (18 October 2013)*

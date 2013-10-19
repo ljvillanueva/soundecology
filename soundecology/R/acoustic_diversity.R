@@ -1,8 +1,8 @@
 #Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
 
-acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000){
-	
+acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000, shannon=TRUE){
+
 	#to add later, save each step to files, for all indices
 	#if (save_to_text==TRUE & is.na(file_prefix)){
 	#	stop(" To be able to save the results to files, file_prefix must not be NA.")
@@ -168,17 +168,18 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		#cat("\n  Original Acoustic Diversity Index: \n")
-		cat("\n  Acoustic Diversity Index: \n")
-		cat(paste("   Left channel: ", round(Score_left,6), "\n", sep=""))
-		cat(paste("   Right channel: ", round(Score_right,6), "\n", sep=""))
-		left_adi_return = round(Score_left,6)
-		right_adi_return = round(Score_right,6)
 		
-		#cat("  Acoustic Diversity Index using Shannon Index: ")
-		#cat(paste("   Left channel: ", round(Shannon_left, 6), "\n", sep=""))
-		#cat(paste("   Right channel: ", round(Shannon_right, 6), "\n", sep=""))
-				
+		if (shannon == TRUE){
+			left_adi_return = round(Shannon_left, 6)
+			right_adi_return = round(Shannon_right, 6)
+		}else{
+			left_adi_return = round(Score_left,6)
+			right_adi_return = round(Score_right,6)
+		}
+		cat("\n  Acoustic Diversity Index: \n")
+		cat(paste("   Left channel: ", left_adi_return, "\n", sep=""))
+		cat(paste("   Right channel: ", right_adi_return, "\n", sep=""))
+		
 	} else 
 	{
 		cat("\n This is a mono file.\n")
@@ -258,16 +259,17 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			rm(temp_val)
 		}
 		
-		#cat("\n  Original Acoustic Diversity Index: ")
-		cat("\n  Acoustic Diversity Index: ")
-		cat(paste(round(Score_left,6), "\n", sep=""))
-		left_adi_return = round(Score_left,6)
-		right_adi_return = 0
 		
-		#cat("  Acoustic Diversity Index using Shannon Index: ")
-		#cat(paste(round(Shannon_left, 6), "\n", sep=""))
-
+		cat("\n  Acoustic Diversity Index: ")
+		right_adi_return = NA
+		if (shannon == TRUE){
+			cat(paste(round(Shannon_left, 6), "\n", sep=""))
+			left_adi_return = round(Shannon_left, 6)
+		}else{
+			cat(paste(round(Score_left,6), "\n", sep=""))
+			left_adi_return = round(Score_left,6)
+		}
+		
 	}
-#	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, adis_left=Shannon_left, adis_right=Shannon_right, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
 	invisible(list(adi_left=left_adi_return, adi_right=right_adi_return, left_band_values=left_bandvals_return, right_band_values=right_bandvals_return, left_bandrange_values=left_bandrange_return, right_bandrange_values=right_bandrange_return))
 }

@@ -8,7 +8,7 @@
 The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.}
 
 \usage{
-acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
+acoustic_diversity(soundfile, max_freq = 10000, db_threshold = -50, freq_step = 1000, shannon = TRUE)
 }
 
 \arguments{
@@ -16,21 +16,22 @@ acoustic_diversity(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{db_threshold}{ threshold to use in the calculation. }
 	\item{freq_step}{ size of frequency bands. }
+	\item{shannon}{ TRUE to use the Shannon's diversity index to calculate the ADI (default). }
 	}
 
 \value{
 	Returns a list with five objects per channel
-	\item{adi_left}{ original ADI value for the left channel }
-	\item{adi_right}{ original ADI value for the right channel }
-	%\item{adis_left}{ ADI value calculated with the Shannon index equation for the left channel }
-	%\item{adis_right}{ ADI value calculated with the Shannon index equation for the right channel }
+	\item{adi_left}{ ADI value for the left channel }
+	\item{adi_right}{ ADI value for the right channel }
 	\item{left_band_values}{ vector of ocupancy values for each band for the left channel }
 	\item{right_band_values}{ vector of ocupancy values for each band for the right channel }
 	\item{left_bandrange_values}{ vector of frequency values for each band for the left channel }
 	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}
 
-\note{For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
+\note{The code to calculate the ADI has changed due to an error we detected in the original scripts in which the value was calculated using a different equation. In a test of ~38k files, both ways to calculate were highly correlated. This version of the function uses the Shannon's Diversity Index. To obtain a result using the old calculation, set the argument \code{shannon} to \code{FALSE}. Please check the vignette "Changes in the Acoustic Diversity Index" included in the package for more details.
+
+For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
 
 \examples{
 	data(tropicalsound)

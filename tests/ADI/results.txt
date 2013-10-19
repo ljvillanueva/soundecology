@@ -1,0 +1,135 @@
+All Sites:
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 356.815, df = 35947, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8807788 0.8853312
+sample estimates:
+      cor 
+0.8830758 
+
+
+
+Site:Martell Forest
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 183.7874, df = 5215, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9270061 0.9342694
+sample estimates:
+      cor 
+0.9307295 
+
+
+
+Site:Purdue Wildlife Area
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 148.6181, df = 5393, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8911561 0.9016360
+sample estimates:
+      cor 
+0.8965214 
+
+
+
+Site:Ross Reserve
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 113.0608, df = 5195, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8351859 0.8509076
+sample estimates:
+     cor 
+0.843227 
+
+
+
+Site:FNR Farm
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 173.7434, df = 4942, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9229682 0.9308167
+sample estimates:
+      cor 
+0.9269938 
+
+
+
+Site:McCormick Woods
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 183.905, df = 5182, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9274918 0.9347302
+sample estimates:
+      cor 
+0.9312027 
+
+
+
+Site:Ag Fields 1
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 67.0506, df = 4420, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.6951809 0.7244186
+sample estimates:
+      cor 
+0.7101058 
+
+
+
+Site:Ag Fields 2
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 120.3796, df = 4419, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8683243 0.8821108
+sample estimates:
+      cor 
+0.8753954 
+
+
+
+Site:Purdue University
+
+	Pearson's product-moment correlation
+
+data:  data1$adi and data1$shannon
+t = 100.3835, df = 1167, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9403913 0.9523281
+sample estimates:
+      cor 
+0.9466836 
+
+
+
