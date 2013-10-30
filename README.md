@@ -10,4 +10,6 @@ R package with functions to calculate indices for soundscape ecology and other e
 
 The package also includes a function to get an index value from all the wav files in a directory, the results are stored in a csv file.
 
+The package has been submitted to CRAN, it should appear in the official mirrors soon.
+
 http://ljvillanueva.github.io/soundecology/
