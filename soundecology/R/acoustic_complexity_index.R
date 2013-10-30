@@ -121,10 +121,11 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		
 		ACI_tot_right <- sum(ACI_fl_right_vector)
 		
-		cat(" ACI total left channel: ")
+		cat("  Acoustic Complexity Index (total):\n")
+		cat("   Left channel: ")
 		cat(ACI_tot_left)
 		cat("\n")
-		cat(" ACI total right channel: ")
+		cat("   Right channel: ")
 		cat(ACI_tot_right)
 		cat("\n\n")
 		
@@ -191,7 +192,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		
 		ACI_tot_right <- NA
 		
-		cat(" ACI total: ")
+		cat("  Acoustic Complexity Index (total):")
 		cat(ACI_tot_left)
 		cat("\n\n")
 	}

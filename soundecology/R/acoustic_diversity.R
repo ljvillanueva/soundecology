@@ -1,8 +1,9 @@
 #Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
 
-acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000, shannon=TRUE){
+acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000, shannon=TRUE){
 
+	db_threshold <- as.numeric(db_threshold)
 	#to add later, save each step to files, for all indices
 	#if (save_to_text==TRUE & is.na(file_prefix)){
 	#	stop(" To be able to save the results to files, file_prefix must not be NA.")
@@ -96,27 +97,27 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		Score_right=(-(Score1))/length(Freq)
 		Shannon_right <- diversity(Score, index = "shannon")
 		
-		cat(" ==============================================\n")
-		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
+# 		cat(" ==============================================\n")
+# 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
 		
 		left_bandvals_return <- rep(NA, length(Freq))
 		right_bandvals_return <- rep(NA, length(Freq))
 		left_bandrange_return <- rep(NA, length(Freq))
 		right_bandrange_return <- rep(NA, length(Freq))
 		
-		cat(" Proportion over threshold for each frequency band (in csv format): \n\n")
-		cat("Frequency range (Hz), left channel proportion, right channel proportion\n")
+# 		cat(" Proportion over threshold for each frequency band (in csv format): \n\n")
+# 		cat("Frequency range (Hz), left channel proportion, right channel proportion\n")
 		for (j in seq(length(Freq),1,by=-1)) {
-			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), ",", round(right_vals[j],6), "\n", sep=""))
+# 			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), ",", round(right_vals[j],6), "\n", sep=""))
 			left_bandvals_return[j] = round(left_vals[j],6)
 			right_bandvals_return[j] = round(right_vals[j],6)
 			left_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
 			right_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
 		}
 		
-		cat("\n Plot of proportions in each band: \n\n")
-		cat("  Left channel\n")
-		cat("   Freq. range (Hz) |--------------------|\n")
+# 		cat("\n Plot of proportions in each band: \n\n")
+# 		cat("  Left channel\n")
+# 		cat("   Freq. range (Hz) |--------------------|\n")
 		
 		#printed in inverse order to keep the low frequencies in the bottom, like in a spectrogram
 		for (j in seq(length(Freq),1,by=-1)) {
@@ -130,19 +131,19 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 				this_row_spaces = paste(this_row_spaces, " ", sep="")
 			}
 			
-			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
-			temp_val=round(left_vals[j],2)*20
-			if (temp_val>0){
-				for (i in 1:temp_val) {
-					cat("*")
-				}
-			}
-			cat("\n")
-			rm(temp_val)
+#  			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
+# 			temp_val=round(left_vals[j],2)*20
+# 			if (temp_val>0){
+# 				for (i in 1:temp_val) {
+# 					cat("*")
+# 				}
+# 			}
+# 			cat("\n")
+# 			rm(temp_val)
 		}
 		
-		cat("\n  Right channel\n")
-		cat("   Freq. range (Hz) |--------------------|\n")
+# 		cat("\n  Right channel\n")
+# 		cat("   Freq. range (Hz) |--------------------|\n")
 		
 		#printed in inverse order to keep the low frequencies in the bottom, like in a spectrogram
 		for (j in seq(length(Freq),1,by=-1)) {
@@ -156,16 +157,16 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 				this_row_spaces = paste(this_row_spaces, " ", sep="")
 			}
 			
-			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
-			
-			temp_val=round(right_vals[j],2)*20
-			if (temp_val>0){
-				for (i in 1:temp_val) {
-					cat("*")
-				}
-			}
-			cat("\n")
-			rm(temp_val)
+# 			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
+# 			
+# 			temp_val=round(right_vals[j],2)*20
+# 			if (temp_val>0){
+# 				for (i in 1:temp_val) {
+# 					cat("*")
+# 				}
+# 			}
+# 			cat("\n")
+# 			rm(temp_val)
 		}
 		
 		
@@ -176,7 +177,7 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 			left_adi_return = round(Score_left,6)
 			right_adi_return = round(Score_right,6)
 		}
-		cat("\n  Acoustic Diversity Index: \n")
+		cat("  Acoustic Diversity Index: \n")
 		cat(paste("   Left channel: ", left_adi_return, "\n", sep=""))
 		cat(paste("   Right channel: ", right_adi_return, "\n", sep=""))
 		
@@ -216,11 +217,11 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		Shannon_left <- diversity(Score, index = "shannon")
 		Shannon_right <- NA
 		
-		cat(" ==============================================\n")
-		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
-		
-		cat(" Proportion over threshold for each frequency band (in csv format): \n\n")
-		cat("Frequency range (Hz), proportion\n")
+# 		cat(" ==============================================\n")
+# 		cat(paste(" Results (with a dB threshold of ", db_threshold, ")\n\n", sep=""))
+# 		
+# 		cat(" Proportion over threshold for each frequency band (in csv format): \n\n")
+# 		cat("Frequency range (Hz), proportion\n")
 		
 		#printed in inverse order to keep the low frequencies in the bottom, like in a spectrogram
 		left_bandvals_return <- rep(NA, length(Freq))
@@ -228,13 +229,13 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 		left_bandrange_return <- rep(NA, length(Freq))
 		right_bandrange_return <- rep(NA, length(Freq))
 		for (j in seq(length(Freq),1,by=-1)) {
-			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), "\n", sep=""))
+# 			cat(paste(Freq[j], "-", (Freq[j]+freq_step), ",", round(left_vals[j],6), "\n", sep=""))
 			left_bandvals_return[j] = round(left_vals[j],6)
 			left_bandrange_return[j] = paste(Freq[j], "-", (Freq[j]+freq_step), " Hz", sep="")
 		}
 		
-		cat("\n Plot of proportions in each band: \n\n")
-		cat("   Freq. range (Hz) |--------------------|\n")
+# 		cat("\n Plot of proportions in each band: \n\n")
+# 		cat("   Freq. range (Hz) |--------------------|\n")
 		
 		#printed in inverse order to keep the low frequencies in the bottom, like in a spectrogram
 		for (j in seq(length(Freq),1,by=-1)) {
@@ -248,19 +249,19 @@ acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold=-50, freq_s
 				this_row_spaces = paste(this_row_spaces, " ", sep="")
 			}
 			
-			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
-			temp_val=round(left_vals[j],2)*20
-			if (temp_val>0){
-				for (i in 1:temp_val) {
-					cat("*")
-				}
-			}
-			cat("\n")
-			rm(temp_val)
+# 			cat(paste("   ", this_row_name, this_row_spaces, "|", sep=""))
+# 			temp_val=round(left_vals[j],2)*20
+# 			if (temp_val>0){
+# 				for (i in 1:temp_val) {
+# 					cat("*")
+# 				}
+# 			}
+# 			cat("\n")
+# 			rm(temp_val)
 		}
 		
 		
-		cat("\n  Acoustic Diversity Index: ")
+		cat("  Acoustic Diversity Index: ")
 		right_adi_return = NA
 		if (shannon == TRUE){
 			cat(paste(round(Shannon_left, 6), "\n", sep=""))

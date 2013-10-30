@@ -193,7 +193,7 @@ hr {
 
 <p><em>soundecology</em> requires R version 2.14, or newer, and depends on the packages <em>tuneR</em>, <em>ineq</em>, <em>vegan</em>, <em>parallel</em>, <em>seewave</em>, <em>pracma</em>, and <em>oce</em>. These packages are installed automatically. </p>
 
-<p>For single-channel files (mono), the results are stored in the left channel while the right channel returns <em>NA</em>.</p>
+<p>For single-channel files (mono), the results are stored in the left channel, the right channel returns <em>NA</em>.</p>
 
 <h2>Indices</h2>
 
@@ -238,7 +238,7 @@ acoustic_complexity(tropicalsound)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ACI total: 660.1
+##   Acoustic Complexity Index (total):660.1
 </code></pre>
 
 <p>To use values other than the defaults:</p>
@@ -252,7 +252,7 @@ acoustic_complexity(tropicalsound, max_freq = 8000)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ACI total: 469.5
+##   Acoustic Complexity Index (total):469.5
 </code></pre>
 
 <pre><code class="r"># Analyze the file with a cluster size of 10 seconds
@@ -264,7 +264,7 @@ acoustic_complexity(tropicalsound, j = 10)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ACI total: 332.7
+##   Acoustic Complexity Index (total):332.7
 </code></pre>
 
 <pre><code class="r"># Analyze the file with a cluster size of 10 seconds and limiting to 6000 Hz
@@ -276,7 +276,7 @@ acoustic_complexity(tropicalsound, j = 10, max_freq = 6000)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ACI total: 176.1
+##   Acoustic Complexity Index (total):176.1
 </code></pre>
 
 <p>Example with wav file:</p>
@@ -302,8 +302,9 @@ soundfile.aci &lt;- acoustic_complexity(soundfile)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ACI total left channel: 1967
-##  ACI total right channel: 1900
+##   Acoustic Complexity Index (total):
+##    Left channel: 1967
+##    Right channel: 1900
 </code></pre>
 
 <pre><code class="r">
@@ -337,8 +338,7 @@ result &lt;- ndsi(tropicalsound)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-## 
-##  NDSI: 0.7661
+##   Normalized Difference Soundscape Index: 0.7661
 </code></pre>
 
 <pre><code class="r">print(result$ndsi_left)
@@ -378,9 +378,10 @@ soundfile.ndsi &lt;- ndsi(soundfile)
 ##  This is a stereo file. Results will be given for each channel.
 ## 
 ##  Calculating index. Please wait... 
+##   Normalized Difference Soundscape Index:
 ## 
-##  NDSI left channel: 0.9857
-##  NDSI right channel: 0.9926
+##    Left channel: 0.9857
+##    Right channel: 0.9926
 </code></pre>
 
 <pre><code class="r">
@@ -413,9 +414,7 @@ bioindex &lt;- bioacoustic_index(tropicalsound)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-## 
-##  Bioacoustic Index (Frequency range: 2000-8000 Hz; FFT window of 512):
-##   Mono channel: 96.99
+##   Bioacoustic Index: 96.99
 </code></pre>
 
 <pre><code class="r">print(bioindex$left_area)
@@ -456,10 +455,9 @@ soundfile.bioindex &lt;- bioacoustic_index(soundfile)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-## 
-##  Bioacoustic Index (Frequency range: 2000-8000 Hz; FFT window of 512):
-##   Left channel: 14.29
-##   Right channel: 14.81
+##   Bioacoustic Index:
+##    Left channel: 14.29
+##    Right channel: 14.81
 </code></pre>
 
 <pre><code class="r">
@@ -490,37 +488,6 @@ result &lt;- acoustic_diversity(tropicalsound)
 ##  This is a mono file.
 ## 
 ##  Calculating index. Please wait... 
-## 
-##  ==============================================
-##  Results (with a dB threshold of -50)
-## 
-##  Proportion over threshold for each frequency band (in csv format): 
-## 
-## Frequency range (Hz), proportion
-## 9000-10000,0
-## 8000-9000,0
-## 7000-8000,0
-## 6000-7000,0.007811
-## 5000-6000,0.261207
-## 4000-5000,0.289716
-## 3000-4000,0.517289
-## 2000-3000,0.841136
-## 1000-2000,0.596149
-## 0-1000,0.498945
-## 
-##  Plot of proportions in each band: 
-## 
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |*
-##    5000-6000        |*****
-##    4000-5000        |*****
-##    3000-4000        |**********
-##    2000-3000        |****************
-##    1000-2000        |************
-##    0-1000           |**********
 ## 
 ##   Acoustic Diversity Index: 1.729869
 </code></pre>
@@ -567,51 +534,6 @@ soundfile.adi &lt;- acoustic_diversity(soundfile)
 ## 
 ##  Calculating index. Please wait... 
 ## 
-##  ==============================================
-##  Results (with a dB threshold of -50)
-## 
-##  Proportion over threshold for each frequency band (in csv format): 
-## 
-## Frequency range (Hz), left channel proportion, right channel proportion
-## 9000-10000,0,0.000215
-## 8000-9000,0,0
-## 7000-8000,0.000314,1.7e-05
-## 6000-7000,0.00076,0.002116
-## 5000-6000,0.02367,0.031323
-## 4000-5000,0.065505,0.12749
-## 3000-4000,0.726508,0.776972
-## 2000-3000,0.315691,0.375329
-## 1000-2000,0.463413,0.51981
-## 0-1000,0.163606,0.215225
-## 
-##  Plot of proportions in each band: 
-## 
-##   Left channel
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |
-##    5000-6000        |*
-##    4000-5000        |*
-##    3000-4000        |**************
-##    2000-3000        |******
-##    1000-2000        |*********
-##    0-1000           |***
-## 
-##   Right channel
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |
-##    5000-6000        |*
-##    4000-5000        |**
-##    3000-4000        |***************
-##    2000-3000        |*******
-##    1000-2000        |**********
-##    0-1000           |****
-## 
 ##   Acoustic Diversity Index: 
 ##    Left channel: 1.431103
 ##    Right channel: 1.508265
@@ -645,37 +567,6 @@ result &lt;- acoustic_eveness(tropicalsound)
 ##  This is a mono file.
 ## 
 ##  Calculating index. Please wait... 
-## 
-##  ==============================================
-##  Results (with a dB threshold of -50)
-## 
-##  Proportion over threshold for each frequency band (in csv format): 
-## 
-## Frequency range (Hz), proportion
-## 9000-10000,0
-## 8000-9000,0
-## 7000-8000,0
-## 6000-7000,0.007811
-## 5000-6000,0.261207
-## 4000-5000,0.289716
-## 3000-4000,0.517289
-## 2000-3000,0.841136
-## 1000-2000,0.596149
-## 0-1000,0.498945
-## 
-##  Plot of proportions in each band: 
-## 
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |*
-##    5000-6000        |*****
-##    4000-5000        |*****
-##    3000-4000        |**********
-##    2000-3000        |****************
-##    1000-2000        |************
-##    0-1000           |**********
 ## 
 ##   Acoustic Eveness Index: 0.525574
 </code></pre>
@@ -717,51 +608,6 @@ soundfile.aei &lt;- acoustic_eveness(soundfile)
 ##  This is a stereo file. Results will be given for each channel.
 ## 
 ##  Calculating index. Please wait... 
-## 
-##  ==============================================
-##  Results (with a dB threshold of -50)
-## 
-##  Proportion over threshold for each frequency band (in csv format): 
-## 
-## Frequency range (Hz), left channel proportion, right channel proportion
-## 9000-10000,0,0.000215
-## 8000-9000,0,0
-## 7000-8000,0.000314,1.7e-05
-## 6000-7000,0.00076,0.002116
-## 5000-6000,0.02367,0.031323
-## 4000-5000,0.065505,0.12749
-## 3000-4000,0.726508,0.776972
-## 2000-3000,0.315691,0.375329
-## 1000-2000,0.463413,0.51981
-## 0-1000,0.163606,0.215225
-## 
-##  Plot of proportions in each band: 
-## 
-##   Left channel
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |
-##    5000-6000        |*
-##    4000-5000        |*
-##    3000-4000        |**************
-##    2000-3000        |******
-##    1000-2000        |*********
-##    0-1000           |***
-## 
-##   Right channel
-##    Freq. range (Hz) |--------------------|
-##    9000-10000       |
-##    8000-9000        |
-##    7000-8000        |
-##    6000-7000        |
-##    5000-6000        |*
-##    4000-5000        |**
-##    3000-4000        |***************
-##    2000-3000        |*******
-##    1000-2000        |**********
-##    0-1000           |****
 ## 
 ##   Acoustic Eveness Index: 
 ##    Left channel: 0.675757
@@ -834,7 +680,7 @@ print(soundfile.aei$aei_left)
 
 <p>Vignette &ldquo;An Introduction to <em>soundecology</em> Package&rdquo; by LJ Villanueva-Rivera</p>
 
-<p><em>Version 1.0beta3 (18 October 2013)</em></p>
+<p><em>Version 1.0 (24 October 2013)</em></p>
 
 </body>
 

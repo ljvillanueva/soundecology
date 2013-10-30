@@ -8,7 +8,8 @@
 The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.}
 
 \usage{
-acoustic_diversity(soundfile, max_freq = 10000, db_threshold = -50, freq_step = 1000, shannon = TRUE)
+acoustic_diversity(soundfile, max_freq = 10000, db_threshold = -50, 
+freq_step = 1000, shannon = TRUE)
 }
 
 \arguments{
@@ -29,7 +30,7 @@ acoustic_diversity(soundfile, max_freq = 10000, db_threshold = -50, freq_step = 
 	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}
 
-\note{The code to calculate the ADI has changed due to an error we detected in the original scripts in which the value was calculated using a different equation. In a test of ~38k files, both ways to calculate were highly correlated. This version of the function uses the Shannon's Diversity Index. To obtain a result using the old calculation, set the argument \code{shannon} to \code{FALSE}. Please check the vignette "Changes in the Acoustic Diversity Index" included in the package for more details.
+\note{The code to calculate the ADI has changed due to an error we detected in the original scripts in which the value was calculated using a different equation. In a test of ~38k files, both ways to calculate were highly correlated. This version of the function uses the Shannon's Diversity Index. To obtain a result using the old calculation, set the argument \code{shannon} to \code{FALSE}. Please check the vignette "Changes in the Acoustic Diversity Index", included in the package, for more details.
 
 For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
 

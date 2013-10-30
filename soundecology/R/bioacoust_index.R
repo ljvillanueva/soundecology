@@ -63,12 +63,12 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		left_area <- sum(specA_left_segment_normalized * rows_width)
 		right_area <- sum(specA_right_segment_normalized * rows_width)
 		
-		cat("\n")
-		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
+		#cat("\n")
+		cat("  Bioacoustic Index:\n")
 		
-		cat("  Left channel: ")
+		cat("   Left channel: ")
 		cat(left_area)
-		cat("\n  Right channel: ")
+		cat("\n   Right channel: ")
 		cat(right_area)
 		cat("\n\n")
 	} else 
@@ -102,10 +102,11 @@ bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 		#left_area <- trapz(freqs, specA_left_segment_normalized)
 		left_area <- sum(specA_left_segment_normalized * rows_width)
 		
-		cat("\n")
-		cat(paste(" Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
+		#cat("\n")
+		#cat(paste("  Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
+		cat("  Bioacoustic Index: ")
 		
-		cat("  Mono channel: ")
+		#cat("  Mono channel: ")
 		cat(left_area)
 		cat("\n\n")
 		right_area <- NA

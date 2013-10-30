@@ -11,7 +11,7 @@ The *soundecology* package has functions to calculate indices for soundscape eco
 
 *soundecology* requires R version 2.14, or newer, and depends on the packages *tuneR*, *ineq*, *vegan*, *parallel*, *seewave*, *pracma*, and *oce*. These packages are installed automatically. 
 
-For single-channel files (mono), the results are stored in the left channel while the right channel returns *NA*.
+For single-channel files (mono), the results are stored in the left channel, the right channel returns *NA*.
 
 ## Indices ##
 
@@ -333,4 +333,4 @@ The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
 Vignette "An Introduction to *soundecology* Package" by LJ Villanueva-Rivera
 
-*Version 1.0beta3 (18 October 2013)*
+*Version 1.0 (24 October 2013)*

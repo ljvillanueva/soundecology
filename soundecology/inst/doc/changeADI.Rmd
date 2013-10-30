@@ -7,7 +7,7 @@
 
 The Acoustic Diversity Index (ADI), first used by us in Pijanowski *et al.* 2011 and then explored in Villanueva-Rivera *et al.* 2011, divided the spectrogram of an audio file in 10 bins of 1kHz each, up to 10 kHz. Then, the proportion of signals above a threshold in each bin was calculated. These proportions were used to calculate the ADI.
 
-When revising the code, we found that there was an error in the code. The ADI was supposed to apply the Shannon's Diversity Index to the values of the bins, but the code had a different equation. It was the average of the sum of the logs:
+When revising the code, we found that there was an error. The ADI was supposed to apply the Shannon's Diversity Index to the values of the bins, but the code had a different equation. It was the average of the sum of the logs:
 
 ```
 Score1=0
@@ -45,4 +45,4 @@ Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A p
 
 Vignette "Changes in the Acoustic Diversity Index" by LJ Villanueva-Rivera
 
-*Version 1.0beta (18 October 2013)*
+*Version 1.0 (24 October 2013)*

@@ -190,11 +190,11 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
 		
 		NDSI_right <- (freqbins.SumBio - freqbins.Anthro)/(freqbins.SumBio + freqbins.Anthro)
 				
-    
-		cat("\n NDSI left channel: ")
+    	cat("  Normalized Difference Soundscape Index:\n")
+		cat("\n   Left channel: ")
 		cat(NDSI_left)
 		cat("\n")
-		cat(" NDSI right channel: ")
+		cat("   Right channel: ")
 		cat(NDSI_right)
 		cat("\n\n")
 	} else 
@@ -261,7 +261,7 @@ ndsi <- function(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, bio_mi
     #Right channel
 		NDSI_right = NA
 		
-		cat("\n NDSI: ")
+		cat("  Normalized Difference Soundscape Index: ")
 		cat(NDSI_left)
 		cat("\n\n")
 	}
