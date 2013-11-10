@@ -5,6 +5,7 @@ soundecology.Rproj
 .RData
 soundecology.Rcheck
 *.wav
+!data/SM87_20080420_000000_10.wav
 #From https://github.com/github/gitignore/blob/master/R.gitignore
 # History files
 .Rhistory
