@@ -109,26 +109,6 @@ print(result$ndsi_left)
 summary(result)
 ```
 
-Example with wav file:
-```{r results='show', message=FALSE, warning=FALSE}
-library(soundecology)
-#Download a wave file from the web
-download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
-
-#Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000_10.wav")
-
-#Delete the downloaded wave file
-unlink("SM87_20080420_000000_10.wav")
-
-#Run the function on this object and save the results in a new variable called "soundfile.ndsi"
-soundfile.ndsi <- ndsi(soundfile)
-
-#Print the NDSI value for the left channel of the wav file, stored in soundfile.ndsi
-print(soundfile.ndsi$ndsi_left)
-```
-
-
 For more details on the function and reference literature, type:
 ```
 ?ndsi
@@ -152,27 +132,6 @@ print(bioindex$left_area)
 
 summary(bioindex)
 ```
-
-
-Example with wav file:
-```{r results='show', message=FALSE, warning=FALSE}
-library(soundecology)
-#Download a wave file from the web
-download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
-
-#Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000_10.wav")
-
-#Delete the downloaded wave file
-unlink("SM87_20080420_000000_10.wav")
-
-#Run the function on this object and save the results in a new variable called "soundfile.bioindex"
-soundfile.bioindex <- bioacoustic_index(soundfile)
-
-#Print the Bioacoustic Index value for the left channel of the wav file, stored in soundfile.bioindex
-print(soundfile.bioindex$left_area)
-```
-
 
 For more details on the function and reference literature, type:
 ```
@@ -201,27 +160,6 @@ summary(result)
 ```
 
 
-
-Example with wav file:
-```{r results='show', message=FALSE, warning=FALSE}
-library(soundecology)
-#Download a wave file from the web
-download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
-
-#Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000_10.wav")
-
-#Delete the downloaded wave file
-unlink("SM87_20080420_000000_10.wav")
-
-#Run the function on this object and save the results in a new variable called "soundfile.adi"
-soundfile.adi <- acoustic_diversity(soundfile)
-
-#Print the ADI value for the left channel of the wav file, stored in soundfile.adi
-print(soundfile.adi$adi_left)
-```
-
-
 For more details on the function and reference literature, type:
 ```
 ?acoustic_diversity
@@ -247,27 +185,6 @@ result <- acoustic_eveness(tropicalsound)
 print(result$aei_left)
 
 summary(result)
-```
-
-
-
-Example with wav file:
-```{r results='show', message=FALSE, warning=FALSE}
-library(soundecology)
-#Download a wave file from the web
-download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
-
-#Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000_10.wav")
-
-#Delete the downloaded wave file
-unlink("SM87_20080420_000000_10.wav")
-
-#Run the function on this object and save the results in a new variable called "soundfile.aei"
-soundfile.aei <- acoustic_eveness(soundfile)
-
-#Print the AEI value for the left channel of the wav file, stored in soundfile.aei
-print(soundfile.aei$aei_left)
 ```
 
 
@@ -333,4 +250,4 @@ The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
 Vignette "An Introduction to *soundecology* Package" by LJ Villanueva-Rivera
 
-*Version 1.0 (24 October 2013)*
+*Version 1.0 (10 November 2013)*

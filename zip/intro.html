@@ -354,41 +354,6 @@ summary(result)
 ## ndsi_right 1      -none- logical
 </code></pre>
 
-<p>Example with wav file:</p>
-
-<pre><code class="r">library(soundecology)
-# Download a wave file from the web
-download.file(&quot;http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav&quot;, 
-    destfile = &quot;SM87_20080420_000000_10.wav&quot;)
-
-# Load file as an object called soundfile
-soundfile &lt;- readWave(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Delete the downloaded wave file
-unlink(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Run the function on this object and save the results in a new variable
-# called &#39;soundfile.ndsi&#39;
-soundfile.ndsi &lt;- ndsi(soundfile)
-</code></pre>
-
-<pre><code>## 
-##  This is a mono file.
-## 
-##  Calculating index. Please wait... 
-## 
-##   Normalized Difference Soundscape Index: 0.9679
-</code></pre>
-
-<pre><code class="r">
-# Print the NDSI value for the left channel of the wav file, stored in
-# soundfile.ndsi
-print(soundfile.ndsi$ndsi_left)
-</code></pre>
-
-<pre><code>## [1] 0.9679
-</code></pre>
-
 <p>For more details on the function and reference literature, type:</p>
 
 <pre><code>?ndsi
@@ -426,41 +391,6 @@ summary(bioindex)
 <pre><code>##            Length Class  Mode   
 ## left_area  1      -none- numeric
 ## right_area 1      -none- logical
-</code></pre>
-
-<p>Example with wav file:</p>
-
-<pre><code class="r">library(soundecology)
-# Download a wave file from the web
-download.file(&quot;http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav&quot;, 
-    destfile = &quot;SM87_20080420_000000_10.wav&quot;)
-
-# Load file as an object called soundfile
-soundfile &lt;- readWave(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Delete the downloaded wave file
-unlink(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Run the function on this object and save the results in a new variable
-# called &#39;soundfile.bioindex&#39;
-soundfile.bioindex &lt;- bioacoustic_index(soundfile)
-</code></pre>
-
-<pre><code>## 
-##  This is a mono file.
-## 
-##  Calculating index. Please wait... 
-## 
-##   Bioacoustic Index: 51.73
-</code></pre>
-
-<pre><code class="r">
-# Print the Bioacoustic Index value for the left channel of the wav file,
-# stored in soundfile.bioindex
-print(soundfile.bioindex$left_area)
-</code></pre>
-
-<pre><code>## [1] 51.73
 </code></pre>
 
 <p>For more details on the function and reference literature, type:</p>
@@ -505,41 +435,6 @@ summary(result)
 ## right_bandrange_values 10     -none- logical
 </code></pre>
 
-<p>Example with wav file:</p>
-
-<pre><code class="r">library(soundecology)
-# Download a wave file from the web
-download.file(&quot;http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav&quot;, 
-    destfile = &quot;SM87_20080420_000000_10.wav&quot;)
-
-# Load file as an object called soundfile
-soundfile &lt;- readWave(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Delete the downloaded wave file
-unlink(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Run the function on this object and save the results in a new variable
-# called &#39;soundfile.adi&#39;
-soundfile.adi &lt;- acoustic_diversity(soundfile)
-</code></pre>
-
-<pre><code>## 
-##  This is a mono file.
-## 
-##  Calculating index. Please wait... 
-## 
-##   Acoustic Diversity Index: 1.737488
-</code></pre>
-
-<pre><code class="r">
-# Print the ADI value for the left channel of the wav file, stored in
-# soundfile.adi
-print(soundfile.adi$adi_left)
-</code></pre>
-
-<pre><code>## [1] 1.737
-</code></pre>
-
 <p>For more details on the function and reference literature, type:</p>
 
 <pre><code>?acoustic_diversity
@@ -576,41 +471,6 @@ summary(result)
 <pre><code>##           Length Class  Mode   
 ## aei_left  1      -none- numeric
 ## aei_right 1      -none- logical
-</code></pre>
-
-<p>Example with wav file:</p>
-
-<pre><code class="r">library(soundecology)
-# Download a wave file from the web
-download.file(&quot;http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav&quot;, 
-    destfile = &quot;SM87_20080420_000000_10.wav&quot;)
-
-# Load file as an object called soundfile
-soundfile &lt;- readWave(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Delete the downloaded wave file
-unlink(&quot;SM87_20080420_000000_10.wav&quot;)
-
-# Run the function on this object and save the results in a new variable
-# called &#39;soundfile.aei&#39;
-soundfile.aei &lt;- acoustic_eveness(soundfile)
-</code></pre>
-
-<pre><code>## 
-##  This is a mono file.
-## 
-##  Calculating index. Please wait... 
-## 
-##   Acoustic Eveness Index: 0.542949
-</code></pre>
-
-<pre><code class="r">
-# Print the AEI value for the left channel of the wav file, stored in
-# soundfile.aei
-print(soundfile.aei$aei_left)
-</code></pre>
-
-<pre><code>## [1] 0.5429
 </code></pre>
 
 <p>For more details on the function and reference literature, type:</p>
@@ -670,7 +530,7 @@ print(soundfile.aei$aei_left)
 
 <p>Vignette &ldquo;An Introduction to <em>soundecology</em> Package&rdquo; by LJ Villanueva-Rivera</p>
 
-<p><em>Version 1.0 (24 October 2013)</em></p>
+<p><em>Version 1.0 (10 November 2013)</em></p>
 
 </body>
 
