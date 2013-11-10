@@ -68,13 +68,13 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
+download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000.wav")
+soundfile <- readWave("SM87_20080420_000000_10.wav")
 
 #Delete the downloaded wave file
-unlink("SM87_20080420_000000.wav")
+unlink("SM87_20080420_000000_10.wav")
 
 #Run the function on this object and save the results in a new variable called "soundfile.aci"
 soundfile.aci <- acoustic_complexity(soundfile)
@@ -113,13 +113,13 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
+download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000.wav")
+soundfile <- readWave("SM87_20080420_000000_10.wav")
 
 #Delete the downloaded wave file
-unlink("SM87_20080420_000000.wav")
+unlink("SM87_20080420_000000_10.wav")
 
 #Run the function on this object and save the results in a new variable called "soundfile.ndsi"
 soundfile.ndsi <- ndsi(soundfile)
@@ -158,13 +158,13 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
+download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000.wav")
+soundfile <- readWave("SM87_20080420_000000_10.wav")
 
 #Delete the downloaded wave file
-unlink("SM87_20080420_000000.wav")
+unlink("SM87_20080420_000000_10.wav")
 
 #Run the function on this object and save the results in a new variable called "soundfile.bioindex"
 soundfile.bioindex <- bioacoustic_index(soundfile)
@@ -206,13 +206,13 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
+download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000.wav")
+soundfile <- readWave("SM87_20080420_000000_10.wav")
 
 #Delete the downloaded wave file
-unlink("SM87_20080420_000000.wav")
+unlink("SM87_20080420_000000_10.wav")
 
 #Run the function on this object and save the results in a new variable called "soundfile.adi"
 soundfile.adi <- acoustic_diversity(soundfile)
@@ -255,13 +255,13 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
+download.file("http://research.coquipr.com/soundecology/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
-soundfile <- readWave("SM87_20080420_000000.wav")
+soundfile <- readWave("SM87_20080420_000000_10.wav")
 
 #Delete the downloaded wave file
-unlink("SM87_20080420_000000.wav")
+unlink("SM87_20080420_000000_10.wav")
 
 #Run the function on this object and save the results in a new variable called "soundfile.aei"
 soundfile.aei <- acoustic_eveness(soundfile)
