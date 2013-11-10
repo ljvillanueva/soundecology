@@ -68,7 +68,7 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
 soundfile <- readWave("SM87_20080420_000000.wav")
@@ -113,7 +113,7 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
 soundfile <- readWave("SM87_20080420_000000.wav")
@@ -158,7 +158,7 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
 soundfile <- readWave("SM87_20080420_000000.wav")
@@ -206,7 +206,7 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
 soundfile <- readWave("SM87_20080420_000000.wav")
@@ -255,7 +255,7 @@ Example with wav file:
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 #Download a wave file from the web
-download.file("http://1159sequoia05.fnr.purdue.edu/primer/sounds/SM87_20080420_000000.wav", destfile="SM87_20080420_000000.wav")
+download.file("http://github.com/ljvillanueva/soundecology/raw/master/data/SM87_20080420_000000_10.wav", destfile="SM87_20080420_000000_10.wav")
 
 #Load file as an object called soundfile
 soundfile <- readWave("SM87_20080420_000000.wav")
@@ -325,7 +325,7 @@ Quoting from the [FRAGSTATS website](http://www.umass.edu/landeco/research/frags
 
 Please visit the package website for more information, and updates: http://ljvillanueva.github.io/soundecology/
 
-For suggestions or to report bugs or problems: https://github.com/ljvillanueva/soundecology/issues
+For suggestions or to report bugs or problems: http://github.com/ljvillanueva/soundecology/issues
 
 The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
