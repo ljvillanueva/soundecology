@@ -4,7 +4,7 @@
 
 \title{Multiple sound files}
 
-\description{Function to extract the specified index from all the wav files in a directory. The results, including the filename and wave technical details, are saved to a csv file. If the computer has multiple cores, it can run files in parallel.}
+\description{Function to extract the specified index from all the wav or flac files in a directory. The results, including the filename and wave technical details, are saved to a csv file. If the computer has multiple cores, it can run files in parallel.}
 
 \usage{
 multiple_sounds(directory, resultfile, soundindex, no_cores=1, flac = FALSE, ...)
@@ -23,8 +23,8 @@ multiple_sounds(directory, resultfile, soundindex, no_cores=1, flac = FALSE, ...
          \item \code{H} from the \code{seewave} package
        }
 	}
-	\item{no_cores}{ number of cores to use when calculating the indices. Can be \code{"max"} to use all cores, \code{"-1"} to use all but one core, or any positive integer. Default is 1. Uses the parallel package.}
-	\item{flac}{ logical variable to indicate that the files are in flac format. Flac must be installed in the system.}
+	\item{no_cores}{ number of cores to use when calculating the indices. Can be \code{max} to use all cores, \code{-1} to use all but one core, or any positive integer. Default is 1. Uses the \code{parallel} package.}
+	\item{flac}{ logical variable to indicate that the files are in flac format. Flac must be installed in the system. Uses the function \code{wav2flac} of \code{seewave}.}
 	\item{...}{ additional variables to pass to the selected function. See each function's help for details.}
 	}
 

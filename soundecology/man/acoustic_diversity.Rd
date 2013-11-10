@@ -13,7 +13,7 @@ freq_step = 1000, shannon = TRUE)
 }
 
 \arguments{
-	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
+	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{db_threshold}{ threshold to use in the calculation. }
 	\item{freq_step}{ size of frequency bands. }
@@ -32,7 +32,7 @@ freq_step = 1000, shannon = TRUE)
 
 \note{The code to calculate the ADI has changed due to an error we detected in the original scripts in which the value was calculated using a different equation. In a test of ~38k files, both ways to calculate were highly correlated. This version of the function uses the Shannon's Diversity Index. To obtain a result using the old calculation, set the argument \code{shannon} to \code{FALSE}. Please check the vignette "Changes in the Acoustic Diversity Index", included in the package, for more details.
 
-For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
+For audio files with one channel, the results are showed as the left channel, the right channel returns \code{NA}.} 
 
 \examples{
 	data(tropicalsound)

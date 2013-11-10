@@ -12,7 +12,7 @@ acoustic_eveness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 }
 
 \arguments{
-	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
+	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{db_threshold}{ threshold to use in the calculation. }
 	\item{freq_step}{ size of frequency bands. }
@@ -24,7 +24,7 @@ acoustic_eveness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 	\item{aei_right}{ AEI for the right channel }
 	}
 
-\note{For audio files with one channel, the results are showed as the left channel, the right channel returns \code{"NA"}.} 
+\note{For audio files with one channel, the results are showed as the left channel, the right channel returns \code{NA}.} 
   
 \examples{
 	data(tropicalsound)

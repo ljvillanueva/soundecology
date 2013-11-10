@@ -18,7 +18,7 @@ bioacoustic_index(soundfile, min_freq=2000, max_freq=8000, fft_w=512)
 }
 
 \arguments{
-	\item{soundfile}{ an object of class \code{"Wave"} loaded with the function readWave of the tuneR package. }
+	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
 	\item{min_freq}{ minimum frequency to use when calculating the value, in Hertz. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. }
 	\item{fft_w}{ FFT window size. }

@@ -1,4 +1,4 @@
-VIGS= 0intro.html changeADI.html
+VIGS= intro.html changeADI.html
 
 all: $(VIGS)
 

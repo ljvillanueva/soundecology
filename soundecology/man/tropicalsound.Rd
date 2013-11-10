@@ -10,7 +10,7 @@
 data(tropicalsound)
 }
 
-\format{A \code{"Wave"} object.}
+\format{A \code{Wave} object.}
 
 \details{
   Duration = 20 sec. Sampling rate = 22050 Hz.

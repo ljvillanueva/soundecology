@@ -17,7 +17,7 @@ The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.
 	}
 
 \arguments{
-	\item{soundfile}{ an object of class Wave loaded with the function readWave of the tuneR package. }
+	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. The default is the maximun for the file. }
 	\item{j}{ the cluster size, in seconds. }
 	\item{fft_w}{ FFT window to use. }

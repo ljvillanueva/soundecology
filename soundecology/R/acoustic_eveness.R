@@ -228,7 +228,7 @@ acoustic_eveness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_s
 		cat("  Acoustic Eveness Index: ")
 		cat(paste(round(Gini(left_vals),6), "\n", sep=""))
 		left_gini_return = round(Gini(left_vals),6)
-		right_gini_return = 0
+		right_gini_return = NA
 	}
 	invisible(list(aei_left=left_gini_return, aei_right=right_gini_return))
 }
