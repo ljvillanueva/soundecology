@@ -19,7 +19,7 @@ The package *soundecology* can calculate several indices:
 
  - Acoustic Complexity Index (ACI) from Pieretti *et al.* 2011
  - Normalized Difference Soundscape Index (NDSI) from REAL (http://www.real.msu.edu) and Kasten *et al.* 2012
- - Boiacoustic Index from Boelman *et al.* 2007.
+ - Bioacoustic Index from Boelman *et al.* 2007.
  - Acoustic Diversity Index (ADI) from Villanueva-Rivera *et al.* 2011
  - Acoustic Evenness Index (AEI) from Villanueva-Rivera *et al.* 2011
 
@@ -227,7 +227,7 @@ To calculate the H index from *seewave*, type:
 multiple_sounds(directory = "wave_files", resultfile = "H_results.csv", soundindex = "H")
 ```
 
-Note: the csv file will be overwriten if it exists.
+Note: the csv file will be overwritten if it exists.
 
 ### "Garbage In, Garbage Out" ###
 
@@ -250,4 +250,4 @@ The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
 
 Vignette "An Introduction to *soundecology* Package" by LJ Villanueva-Rivera
 
-*Version 1.0 (10 November 2013)*
+*Version 1.01 (16 November 2013)*

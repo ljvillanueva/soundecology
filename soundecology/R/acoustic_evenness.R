@@ -1,7 +1,7 @@
 #Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Gini index applied to these bins.
 
-acoustic_evenness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000){
+acoustic_evenness <- function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000){
 	
 	db_threshold <- as.numeric(db_threshold)
 	#to add later, save each step to files, for all indices
