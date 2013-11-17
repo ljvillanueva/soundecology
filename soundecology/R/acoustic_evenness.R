@@ -1,7 +1,7 @@
-#Acoustic Eveness Index from Villanueva-Rivera \emph{et al.} 2011. 
+#Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Gini index applied to these bins.
 
-acoustic_eveness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000){
+acoustic_evenness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000){
 	
 	db_threshold <- as.numeric(db_threshold)
 	#to add later, save each step to files, for all indices
@@ -148,7 +148,7 @@ acoustic_eveness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_s
 		}
 		
 		#cat("\n")
-		cat("  Acoustic Eveness Index: \n")
+		cat("  Acoustic Evenness Index: \n")
 		cat(paste("   Left channel: ", round(Gini(left_vals),6), "\n", sep=""))
 		cat(paste("   Right channel: ", round(Gini(right_vals),6), "\n\n", sep=""))
 		left_gini_return = round(Gini(left_vals),6)
@@ -225,7 +225,7 @@ acoustic_eveness<-function(soundfile, max_freq=10000, db_threshold="-50", freq_s
 		}
 		
 		#cat("\n")
-		cat("  Acoustic Eveness Index: ")
+		cat("  Acoustic Evenness Index: ")
 		cat(paste(round(Gini(left_vals),6), "\n", sep=""))
 		left_gini_return = round(Gini(left_vals),6)
 		right_gini_return = NA

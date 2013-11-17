@@ -21,7 +21,7 @@ The package *soundecology* can calculate several indices:
  - Normalized Difference Soundscape Index (NDSI) from REAL (http://www.real.msu.edu) and Kasten *et al.* 2012
  - Boiacoustic Index from Boelman *et al.* 2007.
  - Acoustic Diversity Index (ADI) from Villanueva-Rivera *et al.* 2011
- - Acoustic Eveness Index (AEI) from Villanueva-Rivera *et al.* 2011
+ - Acoustic Evenness Index (AEI) from Villanueva-Rivera *et al.* 2011
 
 The examples below use two sound recordings to illustrate the use of the functions:
  - A Wave object included in the package (tropicalsound)
@@ -173,15 +173,15 @@ For more details on the function and reference literature, type:
 
 
 
-### Acoustic Eveness Index (AEI) ###
+### Acoustic Evenness Index (AEI) ###
 
-The Acoustic Eveness Index (AEI), from Villanueva-Rivera *et al.* 2011 (band eveness using the Gini index), is calculated by dividing the spectrogram into bins (default 10, each one of 1000 Hz) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The AEI is the result of the Gini index applied to these bins.
+The Acoustic Evenness Index (AEI), from Villanueva-Rivera *et al.* 2011 (band evenness using the Gini index), is calculated by dividing the spectrogram into bins (default 10, each one of 1000 Hz) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The AEI is the result of the Gini index applied to these bins.
 
 ```{r results='show', message=FALSE, warning=FALSE}
 library(soundecology)
 data(tropicalsound)
 
-result <- acoustic_eveness(tropicalsound)
+result <- acoustic_evenness(tropicalsound)
 print(result$aei_left)
 
 summary(result)
@@ -190,7 +190,7 @@ summary(result)
 
 For more details on the function and reference literature, type:
 ```
-?acoustic_eveness
+?acoustic_evenness
 ```
 
 
@@ -205,7 +205,7 @@ The package includes a function that allows you to easily obtain an index for ma
 
 In addition, the function can parallelize this task in computers with multiple cores using the *parallel* package. For example, in a computer with 4 CPU cores, the function can run the analysis in 4 files at a time, which should reduce the total time it takes. By default, the function runs on one file at a time using a single core. To specify to use all available cores, set *no_cores* to "max". To allow the function to use all but one core, set *no_cores* to "-1". 
 
-*multiple_sounds()* can use the five functions for indices in this package (*ndsi()*, *acoustic_complexity()*, *acoustic_diversity()*, *acoustic_eveness()*, and *bioacoustic_index()*) and the *H()* function from *seewave*. Set the variable *soundindex* to the name of the function you want to run in all files.
+*multiple_sounds()* can use the five functions for indices in this package (*ndsi()*, *acoustic_complexity()*, *acoustic_diversity()*, *acoustic_evenness()*, and *bioacoustic_index()*) and the *H()* function from *seewave*. Set the variable *soundindex* to the name of the function you want to run in all files.
 
 For example, to calculate the NDSI of files in the folder "wave_files", using all the cores, and saving the results to a file called ndsi_results.csv, type:
 ```

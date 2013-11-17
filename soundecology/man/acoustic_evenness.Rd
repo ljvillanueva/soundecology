@@ -1,14 +1,14 @@
-\name{acoustic_eveness}
+\name{acoustic_evenness}
 
-\alias{acoustic_eveness}
+\alias{acoustic_evenness}
 
-\title{Acoustic Eveness Index}
+\title{Acoustic Evenness Index}
 
-\description{Acoustic Eveness Index from Villanueva-Rivera \emph{et al.} 2011 (band eveness using the Gini index). 
+\description{Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011 (band eveness using the Gini index). 
 The AEI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The AEI is the result of the Gini index applied to these bins.}
 
 \usage{
-acoustic_eveness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
+acoustic_evenness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 }
 
 \arguments{
@@ -28,7 +28,7 @@ acoustic_eveness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
   
 \examples{
 	data(tropicalsound)
-	result <- acoustic_eveness(tropicalsound)
+	result <- acoustic_evenness(tropicalsound)
 	print(result$aei_left)
 	
 	summary(result)
@@ -38,4 +38,4 @@ acoustic_eveness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
 Villanueva-Rivera, L. J., B. C. Pijanowski, J. Doucette, and B. Pekin. 2011. A primer of acoustic analysis for landscape ecologists. Landscape Ecology 26: 1233-1246. doi: 10.1007/s10980-011-9636-9.}
 
 \keyword{soundecology}
-\keyword{acoustic_eveness}
+\keyword{acoustic_evenness}
