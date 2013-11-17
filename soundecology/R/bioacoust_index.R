@@ -12,7 +12,7 @@
 #
 # Requires: tuneR, seewave
 
-bioacoustic_index<-function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
+bioacoustic_index <- function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
 	#Get sampling rate
 	samplingrate<-soundfile@samp.rate
 	freq_per_row = 10

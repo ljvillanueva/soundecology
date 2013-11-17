@@ -1,13 +1,9 @@
 #Acoustic Diversity Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Shannon index applied to these bins.
 
-acoustic_diversity<-function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000, shannon=TRUE){
+acoustic_diversity <- function(soundfile, max_freq=10000, db_threshold="-50", freq_step=1000, shannon=TRUE){
 
 	db_threshold <- as.numeric(db_threshold)
-	#to add later, save each step to files, for all indices
-	#if (save_to_text==TRUE & is.na(file_prefix)){
-	#	stop(" To be able to save the results to files, file_prefix must not be NA.")
-	#}
 	
 	#function that gets the proportion of values over a db value in a specific band
 	# of frequencies. Frequency is in Hz
