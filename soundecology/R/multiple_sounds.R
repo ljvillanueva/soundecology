@@ -5,7 +5,7 @@
 #
 #
 
-multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H"), no_cores=1, flac = FALSE, ...){
+multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H"), no_cores = 1, flac = FALSE, ...){
 
 	if (any(soundindex %in% c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H")) == FALSE){
 		stop(paste("Unknown function", soundindex))
