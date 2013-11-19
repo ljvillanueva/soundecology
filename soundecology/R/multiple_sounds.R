@@ -444,7 +444,7 @@ time0 <- proc.time()
   
 #open results file
 #sink(resultfile)
-cat(fileheader, file=resultfile)
+cat(fileheader, file=resultfile, append=FALSE)
 #Done writing results  
 #sink()
   
@@ -476,7 +476,7 @@ if (no_cores>1){
 	
 	for (soundfile in wav_files){
 		this_res <- getindex(soundfile, ...)
-		cat(this_res, file=resultfile)
+		cat(this_res, file=resultfile, append=TRUE)
 		}
 	}
 
