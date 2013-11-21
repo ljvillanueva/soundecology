@@ -6,7 +6,7 @@
 #
 #Tested with SoundscapeMeter 1.0.14.05.2012, courtesy of A. Farina
 #
-acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
+acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
 	
 	if (is.na(max_freq)){
 		max_freq <- soundfile@samp.rate / 2
@@ -15,7 +15,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 	#function that gets the difference of values
 	get_d <- function(spectrum, freq_row, min_col, max_col){
 		D = 0
-		for (k in min_col:(max_col-1)) {
+		for (k in min_col:(max_col - 1)) {
 			D = D + abs(spectrum[freq_row,k] - spectrum[freq_row,k + 1])
 			}
 			 		
@@ -30,7 +30,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 	#Get Nyquist frequency in Hz
 	nyquist_freq <- (samplingrate/2)
 	if (max_freq>nyquist_freq) {
-		cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep=""))
+		cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep = ""))
 		max_freq <- nyquist_freq
 		#break
 	}
@@ -39,15 +39,15 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 	wlen = fft_w
 	
 	#Stereo file
-	if (soundfile@stereo==TRUE) {
+	if (soundfile@stereo == TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
 		left <- channel(soundfile, which = c("left"))
 		right <- channel(soundfile, which = c("right"))
 				
 		#matrix of values
 		cat("\n Calculating index. Please wait... \n\n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
-		specA_right <- spectro(right, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
+		specA_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
+		specA_right <- spectro(right, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
 		
 		rm(left,right)
 		
@@ -111,7 +111,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 				max_col <- j_index * I_per_j				
 				
 				D <- get_d(specA_right, q_index, min_col, max_col)
-				sum_I <- sum(specA_right[q_index,min_col:max_col])
+				sum_I <- sum(specA_right[q_index, min_col:max_col])
 				ACI_right_vals[j_index] <- D / sum_I
 				ACI_right_matrix[q_index, j_index] <- D / sum_I
 			}
@@ -137,7 +137,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 				
 		#matrix of values
 		cat("\n Calculating index. Please wait... \n\n")
-		specA_left <- spectro(left, f=samplingrate, wl=wlen, plot=FALSE, norm=TRUE, dB=NULL, scale=FALSE, wn="hamming")$amp
+		specA_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
 		rm(left)
 		
 		#LEFT CHANNEL
@@ -180,7 +180,7 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 				max_col <- j_index * I_per_j
 								
 				D <- get_d(specA_left, q_index, min_col, max_col)
-				sum_I <- sum(specA_left[q_index,min_col:max_col])
+				sum_I <- sum(specA_left[q_index, min_col:max_col])
 				ACI_left_vals[j_index] <- D / sum_I
 				ACI_left_matrix[q_index, j_index] <- D / sum_I
 			}
@@ -197,9 +197,9 @@ acoustic_complexity <- function(soundfile, max_freq=NA, j=5, fft_w=512){
 		cat("\n\n")
 	}
 	
-	invisible(list(AciTotAll_left=ACI_tot_left, AciTotAll_right=ACI_tot_right, 
+	invisible(list(AciTotAll_left = ACI_tot_left, AciTotAll_right = ACI_tot_right, 
 				   #AciIfTotAll_left=ACIif_tot_left, AciIfTotAll_right=ACIif_tot_right, 
-				   aci_fl_left_vals=ACI_fl_left_vector, aci_fl_right_vals=ACI_fl_right_vector,
+				   aci_fl_left_vals = ACI_fl_left_vector, aci_fl_right_vals = ACI_fl_right_vector,
 				   #aci_if_left_vals=ACI_if_left_vector, aci_if_right_vals=ACI_if_right_vector,
-				   aci_left_matrix=ACI_left_matrix, aci_right_matrix=ACI_right_matrix))
+				   aci_left_matrix = ACI_left_matrix, aci_right_matrix = ACI_right_matrix))
 }

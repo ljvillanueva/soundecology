@@ -4,17 +4,16 @@
 
 \title{ASCII raster from sound file}
 
-\description{This function creates a raster file in ascii format from the spectrogram of a soundfile. This file can be opened in ArcGIS or any other GIS software. For more details see the tutorial of Villanueva-Rivera \emph{et al.} 2011.}
+\description{This function creates a raster file in ASCII format from the spectrogram of a soundfile. This file can be opened in ArcGIS or any other GIS software. For more details see the tutorial of Villanueva-Rivera \emph{et al.} 2011.}
 
 \usage{
-sound_raster(wavfile = NA, wav_directory = NA, max_freq = 10000)
+sound_raster(wavfile = NA, wav_directory = NA, max_freq = 10000, no_cores = 1)
 }
 
 \arguments{
 	\item{wavfile}{ a single sound file in wav format. }
 	\item{max_freq}{ maximum frequency to draw the spectrogram, in Hertz. }
 	\item{wav_directory}{ a directory that contains wav files. To specify the working directory, use \code{wav_directory="."} }
-	\item{max_freq}{ maximum frequency to draw the spectrogram, in Hertz. }
 	\item{no_cores}{ number of cores to use when working in a directory. Can be \code{max} to use all cores, \code{-1} to use all but one core, or any positive integer. Default is 1. Uses the \code{parallel} package.}
 	}
 

@@ -24,8 +24,8 @@ freq_step = 1000, shannon = TRUE)
 	Returns a list with five objects per channel
 	\item{adi_left}{ ADI value for the left channel }
 	\item{adi_right}{ ADI value for the right channel }
-	\item{left_band_values}{ vector of ocupancy values for each band for the left channel }
-	\item{right_band_values}{ vector of ocupancy values for each band for the right channel }
+	\item{left_band_values}{ vector of proportion values for each band for the left channel }
+	\item{right_band_values}{ vector of proportion values for each band for the right channel }
 	\item{left_bandrange_values}{ vector of frequency values for each band for the left channel }
 	\item{right_bandrange_values}{ vector of frequency values for each band for the right channel }
 	}

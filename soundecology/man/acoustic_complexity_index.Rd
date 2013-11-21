@@ -13,12 +13,12 @@ present very constant intensity values" (Pieretti, \emph{et al.} 2011).
 The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.2012, courtesy of A. Farina.}
 
 \usage{
-	acoustic_complexity(soundfile, max_freq=NA, j=5, fft_w=512)
+	acoustic_complexity(soundfile, max_freq = NA, j = 5, fft_w = 512)
 	}
 
 \arguments{
 	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
-	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. The default is the maximun for the file. }
+	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. The default is the maximum for the file. }
 	\item{j}{ the cluster size, in seconds. }
 	\item{fft_w}{ FFT window to use. }
 	}

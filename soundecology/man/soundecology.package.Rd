@@ -13,7 +13,7 @@
 		Package: \tab soundecology\cr
 		Type: \tab Package\cr
 		Version: \tab 1.1\cr
-		Date: \tab 2013-11-19\cr
+		Date: \tab 2013-11-20\cr
 		License: \tab GPLv3\cr
 		}
 	}

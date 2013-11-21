@@ -12,30 +12,30 @@
 #
 # Requires: tuneR, seewave
 
-bioacoustic_index <- function(soundfile, min_freq=2000, max_freq=8000, fft_w=512){
+bioacoustic_index <- function(soundfile, min_freq = 2000, max_freq = 8000, fft_w = 512){
 	#Get sampling rate
-	samplingrate<-soundfile@samp.rate
+	samplingrate <- soundfile@samp.rate
 	freq_per_row = 10
-	wlen=samplingrate/freq_per_row
+	wlen = samplingrate/freq_per_row
 	
 	#Get Nyquist frequency in Hz
-	nyquist_freq<-(samplingrate/2)
+	nyquist_freq <- samplingrate/2
 	
-	if (max_freq>nyquist_freq) {
-		cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep=""))
+	if (max_freq > nyquist_freq) {
+		cat(paste("\n ERROR: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz.\n\n", sep = ""))
 		break
 		}
 	
 	#Stereo file
-	if (soundfile@stereo==TRUE) {
+	if (soundfile@stereo == TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
-		left<-channel(soundfile, which = c("left"))
-		right<-channel(soundfile, which = c("right"))
+		left <- channel(soundfile, which = c("left"))
+		right <- channel(soundfile, which = c("right"))
 		
 		#Get values
 		cat("\n Calculating index. Please wait... \n\n")
-		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
-		spec_right <- spectro(right, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
+		spec_left <- spectro(left, f = samplingrate, wl = fft_w, plot = FALSE, dB = "max0")$amp
+		spec_right <- spectro(right, f = samplingrate, wl = fft_w, plot = FALSE, dB = "max0")$amp
 		#Clear from memory
 		rm(left, right)
 		
@@ -79,7 +79,7 @@ bioacoustic_index <- function(soundfile, min_freq=2000, max_freq=8000, fft_w=512
 		
 		#Get values
 		cat("\n Calculating index. Please wait... \n\n")
-		spec_left <- spectro(left, f=samplingrate, wl=fft_w, plot=FALSE, dB="max0")$amp
+		spec_left <- spectro(left, f = samplingrate, wl = fft_w, plot = FALSE, dB = "max0")$amp
 		#Clear from memory
 		rm(left)
 		
@@ -102,14 +102,10 @@ bioacoustic_index <- function(soundfile, min_freq=2000, max_freq=8000, fft_w=512
 		#left_area <- trapz(freqs, specA_left_segment_normalized)
 		left_area <- sum(specA_left_segment_normalized * rows_width)
 		
-		#cat("\n")
-		#cat(paste("  Bioacoustic Index (Frequency range: ", min_freq, "-", max_freq, " Hz; FFT window of ", fft_w, "):\n", sep=""))
 		cat("  Bioacoustic Index: ")
-		
-		#cat("  Mono channel: ")
 		cat(left_area)
 		cat("\n\n")
 		right_area <- NA
 	}
-	invisible(list(left_area=left_area, right_area=right_area))
+	invisible(list(left_area = left_area, right_area = right_area))
 }

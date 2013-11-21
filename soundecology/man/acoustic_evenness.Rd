@@ -4,11 +4,11 @@
 
 \title{Acoustic Evenness Index}
 
-\description{Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011 (band eveness using the Gini index). 
+\description{Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011 (band evenness using the Gini index). 
 The AEI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The AEI is the result of the Gini index applied to these bins.}
 
 \usage{
-acoustic_evenness(soundfile, max_freq=10000, db_threshold=-50, freq_step=1000)
+acoustic_evenness(soundfile, max_freq = 10000, db_threshold = -50, freq_step = 1000)
 }
 
 \arguments{

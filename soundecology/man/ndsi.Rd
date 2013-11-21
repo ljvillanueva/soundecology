@@ -12,8 +12,8 @@ computing the ratio of human-generated (anthrophony) to biological
 Tested with Matlab code courtesy of S. Gage.}
 
 \usage{
-ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000, 
-	bio_min=2000, bio_max=11000)
+ndsi(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
+	bio_min = 2000, bio_max = 11000)
 }
 
 \arguments{
@@ -31,7 +31,7 @@ ndsi(soundfile, fft_w=1024, anthro_min=1000, anthro_max=2000,
 	\item{ndsi_right}{ NDSI value for the left channel }
 	}
 
-\details{The bin size is determined as the difference between anthro_max and anthro_min, by default 1000Hz.
+\details{The bin size is determined as the difference between anthro_max and anthro_min, by default 1000 Hz.
 }  
 
 

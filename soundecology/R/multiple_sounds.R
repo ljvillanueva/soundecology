@@ -5,9 +5,9 @@
 #
 #
 
-multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H"), no_cores = 1, flac = FALSE, ...){
+multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_evenness", "bioacoustic_index", "H"), no_cores = 1, flac = FALSE, ...){
 
-	if (any(soundindex %in% c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_eveness", "bioacoustic_index", "H")) == FALSE){
+	if (any(soundindex %in% c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_evenness", "bioacoustic_index", "H")) == FALSE){
 		stop(paste("Unknown function", soundindex))
 		}
 	
@@ -34,33 +34,32 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 		no_cores <- thismachine_cores
 		}
 	
+	#Are the files flac
 	if (flac == TRUE){
-		wav_files <- dir(path = directory, pattern="flac$", ignore.case=TRUE)
-		if (length(wav_files)==0) {
+		wav_files <- dir(path = directory, pattern = "flac$", ignore.case = TRUE)
+		if (length(wav_files) == 0) {
 			stop(paste("Could not find any .flac files in the specified directory:\n    ", directory))
 		}
 	}else{
-		wav_files <- dir(path = directory, pattern="wav$", ignore.case=TRUE)
-		if (length(wav_files)==0) {
+		wav_files <- dir(path = directory, pattern = "wav$", ignore.case = TRUE)
+		if (length(wav_files) == 0) {
 			stop(paste("Could not find any .wav files in the specified directory:\n    ", directory))
 			}
 		}
-	
-	
 	
 	#Open flac files
 	get_wav <- function(directory, flacsoundfile){
 		#is it windows?
 		if (.Platform$OS.type == "windows"){
-			from_file = paste(directory, "\\", flacsoundfile, sep="")
+			from_file = paste(directory, "\\", flacsoundfile, sep = "")
 		}else{
-			from_file = paste(directory, "/", flacsoundfile, sep="")
+			from_file = paste(directory, "/", flacsoundfile, sep = "")
 		}
 		
-		wav_file = paste(strtrim(flacsoundfile, nchar(flacsoundfile)-5), "wav", sep=".")
-		
-		file.copy(from=from_file, to=flacsoundfile)
-		wav2flac(flacsoundfile, reverse=TRUE, overwrite=TRUE)
+		wav_file = paste(strtrim(flacsoundfile, nchar(flacsoundfile) - 5), "wav", sep = ".")
+
+		file.copy(from = from_file, to = flacsoundfile)
+		wav2flac(flacsoundfile, reverse = TRUE, overwrite = TRUE)
 		file.remove(flacsoundfile)
 		if (file.exists(wav_file)){
 				return(wav_file)
@@ -69,14 +68,17 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			}
 		}
 	
-
-  
+	#Bioacoustic index
 	if (soundindex == "bioacoustic_index"){
     
 	  fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,FFT_W,MIN_FREQ,MAX_FREQ,LEFT_CHANNEL,RIGHT_CHANNEL")
     
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
+			
 			#Get args
 			args <- list(...)
 	
@@ -127,12 +129,16 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			return(paste("\n", soundfile, ",", this_soundfile@samp.rate, ",", this_soundfile@bit, ",", round(length(this_soundfile@left)/this_soundfile@samp.rate, 2), ",", no_channels, ",", soundindex, ",", fft_w, ",", min_freq, ",", max_freq, ",", return_list$left_area, ",", return_list$right_area, sep=""))
 			}
 	}else if (soundindex == "acoustic_diversity"){
-    
+    #Acoustic Diversity
+		
 	  fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL")
 	      
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
-				
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
+							
 			#Get args
 			args <- list(...)
 			
@@ -182,11 +188,15 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			return(paste("\n", soundfile, ",", this_soundfile@samp.rate, ",", this_soundfile@bit, ",", round(length(this_soundfile@left)/this_soundfile@samp.rate, 2), ",", no_channels, ",", soundindex, ",", max_freq, ",", db_threshold, ",", freq_step, ",", return_list$adi_left, ",", return_list$adi_right, sep=""))
 			}
 	}else if (soundindex == "acoustic_complexity"){
-    
+    #Acoustic Complexity
+
 	  fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,FFT_W,MAX_FREQ,J,LEFT_CHANNEL,RIGHT_CHANNEL")
     
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
 			
 			#Get args
 			args <- list(...)
@@ -237,11 +247,15 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			return(paste("\n", soundfile, ",", this_soundfile@samp.rate, ",", this_soundfile@bit, ",", round(length(this_soundfile@left)/this_soundfile@samp.rate, 2), ",", no_channels, ",", soundindex, ",", fft_w, ",", max_freq, ",", j, ",", return_list$AciTotAll_left, ",", return_list$AciTotAll_right, sep=""))
 			}
 	}else if (soundindex == "ndsi"){
-    
+    #NDSI
+
 	  fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,FFT_W,ANTHRO_MIN,ANTHRO_MAX,BIO_MIN,BIO_MAX,LEFT_CHANNEL,RIGHT_CHANNEL")
     
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
 			
 			#Get args
 			args <- list(...)
@@ -302,11 +316,15 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			return(paste("\n", soundfile, ",", this_soundfile@samp.rate, ",", this_soundfile@bit, ",", round(length(this_soundfile@left)/this_soundfile@samp.rate, 2), ",", no_channels, ",", soundindex, ",", fft_w, ",", anthro_min, ",", anthro_max, ",", bio_min, ",", bio_max, ",", return_list$ndsi_left, ",", return_list$ndsi_right, sep=""))
 			}
 	}else if (soundindex == "H"){
-    
+    #H
+
 	  fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,WL,ENVT,MSMOOTH,KSMOOTH,LEFT_CHANNEL,RIGHT_CHANNEL")
     
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
 			
 			#Get args
 			args <- list(...)
@@ -356,7 +374,7 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			}
 			
 			this_soundfile <- readWave(soundfile_path)
-			if (this_soundfile@stereo==TRUE) {
+			if (this_soundfile@stereo == TRUE) {
 				left<-channel(this_soundfile, which = c("left"))
 				right<-channel(this_soundfile, which = c("right"))
 				left_res <- H(left, ...)
@@ -379,12 +397,16 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			
 			return(paste("\n", soundfile, ",", this_soundfile@samp.rate, ",", this_soundfile@bit, ",", round(length(this_soundfile@left)/this_soundfile@samp.rate, 2), ",", no_channels, ",", soundindex, ",", wl, ",", envt, ",", msmooth, ",", ksmooth, ",", left_res, ",", right_res, sep=""))
 			}
-	}else if (soundindex == "acoustic_eveness"){
-		
+	}else if (soundindex == "acoustic_evenness"){
+		#Acoustic evenness
+
 		fileheader <- c("FILENAME,SAMPLINGRATE,BIT,DURATION,CHANNELS,INDEX,MAX_FREQ,DB_THRESHOLD,FREQ_STEPS,LEFT_CHANNEL,RIGHT_CHANNEL")
 		
-		getindex <- function(soundfile, ...){
-			#library(soundecology)
+		getindex <- function(soundfile, inCluster = FALSE, ...){
+			#If launched in cluster, require the package for each node created
+			if (inCluster == TRUE){
+				require(soundecology)
+			}
 			
 			#Get args
 			args <- list(...)
@@ -392,17 +414,17 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			if(!is.null(args[['db_threshold']])) {
 				db_threshold = args[['db_threshold']]
 			}else{
-				db_threshold = formals(acoustic_eveness)$db_threshold
+				db_threshold = formals(acoustic_evenness)$db_threshold
 			}
 			if(!is.null(args[['max_freq']])) {
 				max_freq = args[['max_freq']]
 			}else{
-				max_freq = formals(acoustic_eveness)$max_freq
+				max_freq = formals(acoustic_evenness)$max_freq
 			}
 			if(!is.null(args[['freq_step']])) {
 				freq_step = args[['freq_step']]
 			}else{
-				freq_step = formals(acoustic_eveness)$freq_step
+				freq_step = formals(acoustic_evenness)$freq_step
 			}
 			
 			# 			if (file.access(resultfile) == -1) {
@@ -420,7 +442,7 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 			}
 			
 			this_soundfile <- readWave(soundfile_path)
-			return_list <- acoustic_eveness(this_soundfile, ...)
+			return_list <- acoustic_evenness(this_soundfile, ...)
 			
 			if (this_soundfile@stereo == TRUE){
 				no_channels = 2
@@ -444,7 +466,7 @@ time0 <- proc.time()
   
 #open results file
 #sink(resultfile)
-cat(fileheader, file=resultfile, append=FALSE)
+cat(fileheader, file = resultfile, append = FALSE)
 #Done writing results  
 #sink()
   
@@ -462,9 +484,9 @@ if (no_cores>1){
 	
   	cl <- makeCluster(no_cores, type = "PSOCK")
 	
-	res <- parLapply(cl, wav_files, getindex, ...)
+	res <- parLapply(cl, wav_files, getindex, inCluster = TRUE, ...)
 
-	write.table(res, file=resultfile, append=TRUE, quote=FALSE, col.names=FALSE, row.names = FALSE)
+	write.table(res, file = resultfile, append = TRUE, quote = FALSE, col.names = FALSE, row.names = FALSE)
 	#return(fileheader)
 	#pause to allow all to end
 	Sys.sleep(1)
@@ -476,11 +498,11 @@ if (no_cores>1){
 	
 	for (soundfile in wav_files){
 		this_res <- getindex(soundfile, ...)
-		cat(this_res, file=resultfile, append=TRUE)
+		cat(this_res, file = resultfile, append = TRUE)
 		}
 	}
 
 	#Stop timer
 	time1 <- proc.time() - time0
-	cat(paste(" The analysis of ", length(wav_files), " files took ", round(time1["elapsed"], 2), " seconds\n\n", sep=""))
+	cat(paste(" The analysis of ", length(wav_files), " files took ", round(time1["elapsed"], 2), " seconds\n\n", sep = ""))
 }
