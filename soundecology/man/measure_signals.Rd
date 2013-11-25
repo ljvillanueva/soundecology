@@ -26,7 +26,7 @@ measure_signals(wavfile, wl = 512, min_freq = NA, max_freq = NA, min_time = NA,
 	\item{channel}{ which channel to plot. }
 	}
 
-\value{The function will open a spectrogram plot to allow the user to click on the regions of interest. Once all the samples are selected, the function saves a file with the values measured in each sample. In addition, the results of the function \code{dfreq} of the package \code{seewave} are saved on a folder called \code{dfreq}, one file per sample. }
+\value{The function will open a spectrogram plot to allow the user to click on the regions of interest. Once all the samples are selected, the function saves a file with the values measured in each sample. In addition, the results of the function \code{dfreq} of the package \code{seewave} are saved on a folder named the same as the wavfile, without the .wav extension. }
 
 \note{ For the \code{dBFS_range} argument, the code uses the maximum of the values inside the selected region and saves as a resulting signal the values that fall between \code{(maximum - dBFS_range)} and the maximum. A selected region with a maximum value of -5 and \code{dBFS_range} set to 30 will consider the area with values between -35 and -5 dBFS as a signal. 
 
@@ -36,7 +36,7 @@ The function creates a folder \code{dfreq} where it saves csv files with the res
 \examples{
 \dontrun{
 #Take 5 samples of the file file.wav between 1 - 4 kHz, from 10 to 30 seconds.
-signal_limits(wavfile="file.wav", wl=2048, min_freq=1, max_freq=4,
+measure_signals(wavfile="file.wav", wl=2048, min_freq=1, max_freq=4,
   dBFS_range=30, min_time=10, max_time=30, sample_size=5,
   resultfile="results.csv", plot_range=70)
 	}

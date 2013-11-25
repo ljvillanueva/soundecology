@@ -10,6 +10,7 @@ measure_signals <- function(wavfile, wl = 512, min_freq = NA, max_freq = NA, min
 	
 	soundfile1 <- readWave(wavfile)
 
+	dir_to_save <- paste(strtrim(wavfile, nchar(wavfile) - 4), sep = "")
 	soundfile <- channel(soundfile1, which = channel)
 	rm(soundfile1)
 	
@@ -30,10 +31,10 @@ measure_signals <- function(wavfile, wl = 512, min_freq = NA, max_freq = NA, min
 	fileheader <- c("WAVFILE,WL,CHANNEL,SAMPLE,PEAK_DBFS,PEAK_TIME,PEAK_FREQ,SIGNAL_TIME_MIN,SIGNAL_TIME_MAX,SIGNAL_FREQ_MIN,SIGNAL_FREQ_MAX,SELECTION_BOX_MINX,SELECTION_BOX_MAXX,SELECTION_BOX_MINY,SELECTION_BOX_MAXY")
 	cat(fileheader, file = resultfile, append = FALSE)
 	
-	if (file.access("dfreq") == 0) {
-		unlink("dfreq", recursive = TRUE)
+	if (file.access(dir_to_save) == 0) {
+		unlink(dir_to_save, recursive = TRUE)
 		}
-	dir.create("dfreq")
+	dir.create(dir_to_save)
 	
 	specdata <- spectro(soundfile, wl = wl, flim=c(min_freq, max_freq), tlim=c(min_time, max_time), collevels = seq(-(abs(plot_range)), 0, length.out=16))
 	
@@ -80,7 +81,7 @@ measure_signals <- function(wavfile, wl = 512, min_freq = NA, max_freq = NA, min
 		lines(dfreqdata_rel, col="black")
 		
 		#write dfreq results to file
-		dfreq_file <- paste("dfreq/", basename(wavfile), ".", i, ".csv", sep="")
+		dfreq_file <- paste(dir_to_save, "/", basename(wavfile), ".", i, ".csv", sep="")
 		cat('"time (secs)", "frequency (kHz)"\n', file = dfreq_file)
 		write.table(dfreqdata_rel, file = dfreq_file, append = FALSE, quote = FALSE, col.names = FALSE, row.names = FALSE, sep=",")
 		
