@@ -61,14 +61,9 @@
 <li><em>sound_raster()</em> - This function creates a raster file in ASCII format from the spectrogram of a soundfile</li>
 </ul>
 
-<h2><a name="calculate-indices-for-many-files" class="anchor" href="#calculate-indices-for-many-files"><span class="octicon octicon-link"></span></a>Calculate indices for many files</h2>
+<h2><a name="calculate-indices-for-many-files-in-parallel" class="anchor" href="#calculate-indices-for-many-files-in-parallel"><span class="octicon octicon-link"></span></a>Calculate indices for many files in parallel</h2>
 
-<p>The function <em>multiple_sounds()</em> lets the user calculate an index for all the wav files in a directory.</p>
-
-<h3>
-<a name="parallel-processing" class="anchor" href="#parallel-processing"><span class="octicon octicon-link"></span></a>Parallel processing</h3>
-
-<p>The <em>multiple_sounds()</em> function has an optional argument, no_cores, that can be used to specify to run the function using several cores in the same computer. This argument uses the <em>parallel</em> package, standard in R since version 2.14. </p>
+<p>The function <em>multiple_sounds()</em> lets the user calculate an index for all the wav files in a directory. The function has an optional argument, <em>no_cores<em>, that can be used to specify to run the function using several cores in the same computer. This should reduce the running time significantly, in particular when analyzing a large number of files. This argument uses the <em>parallel</em> package, standard in R since version 2.14. </p>
 
 <h2>
 <a name="changes" class="anchor" href="#changes"><span class="octicon octicon-link"></span></a>Changes</h2>
@@ -76,11 +71,11 @@
 <p>New for version 1.1:</p>
 
 <ul>
-<li>Added a new function, measure_signals(), to select signals from spectrograms.</li>
-<li>Added a new function, sound_raster(), to save spectrograms as ASCII raster files for GIS software.</li>
-<li>The function ndsi() was rewritten to avoid the problem R has with for loops. Now the function subsets the data in 1-second segments and feeds the data to pwelch() using apply, reducing execution time significantly.</li>
-<li>The function acoustic_evenness() was incorrectly named acoustic_eveness() in version 1.0. This has been fixed.</li>
-<li>Fixed a bug in multiple_sounds() where the data was not appended to the results file correctly. This problem seems to have happened only in Windows.</li>
+<li>Added a new function, <em>measure_signals()</em>, to select signals from spectrograms.</li>
+<li>Added a new function, <em>sound_raster()</em>, to save spectrograms as ASCII raster files for GIS software.</li>
+<li>The function <em>ndsi()</em> was rewritten to avoid the problem R has with for loops. Now the function subsets the data in 1-second segments and feeds the data to <em>pwelch()</em> using apply, reducing execution time significantly.</li>
+<li>The function <em>acoustic_evenness()</em> was incorrectly named acoustic_eveness in version 1.0. This has been fixed.</li>
+<li>Fixed a bug in <em>multiple_sounds()</em> where the data was not appended to the results file correctly. This problem seems to have happened only in Windows.</li>
 <li>Other small bug fixes and typos.</li>
 </ul>
 
