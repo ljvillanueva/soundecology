@@ -81,11 +81,25 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		cat("\n Calculating index. Please wait... \n")
 		
 		#LEFT CHANNEL
-		left1 <- cutw(left, from = 0, to = length(left@left)/left@samp.rate)
-		#Compute the Welch periodogram
-		specA_left <- pwelch(left1, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		left1 <- as.vector(cutw(left, from = 0, to = length(left@left) / left@samp.rate))
+		left2 <- data.frame(matrix(NA, nrow = samplingrate, ncol = floor(duration)))
 		
-		specA_left <- specA_left$spec
+		for (i in 0:(floor(duration)-1)){
+			j <- i+1
+			start1 <- (i * samplingrate)+ 1
+			end <- start1 + samplingrate - 1
+			left2[, j] <- left1[start1:end]
+		}
+		
+		left3 <- data.frame(matrix(NA, nrow = fft_w/2, ncol = floor(duration)))
+		
+		left4 <- apply(left2, 2, pwelch, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		
+		for (i in 1:floor(duration)){
+			left3[, i] <- left4[[i]]$spec
+		}
+		
+		specA_left <- apply(left3, 1, mean)
 		specA_rows <- length(specA_left)
 		
 		freq_per_row <- specA_rows/nyquist_freq
@@ -139,11 +153,27 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		NDSI_left <- (freqbins.SumBio - freqbins.Anthro) / (freqbins.SumBio + freqbins.Anthro)
 		
 		#Right channel
-		right1 <- cutw(right, from = 0, to = length(right@left) / right@samp.rate)
-		specA_right <- pwelch(right1, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		#right1 <- cutw(right, from = 0, to = length(right@left) / right@samp.rate)
+		right1 <- as.vector(cutw(right, from = 0, to = length(right@left) / right@samp.rate))
 		
-		#with pwelch
-		specA_right <- specA_right$spec
+		right2 <- data.frame(matrix(NA, nrow = samplingrate, ncol = floor(duration)))
+		
+		for (i in 0:(floor(duration)-1)){
+			j <- i+1
+			start1 <- (i * samplingrate)+ 1
+			end <- start1 + samplingrate - 1
+			right2[, j] <- right1[start1:end]
+		}
+		
+		right3 <- data.frame(matrix(NA, nrow = fft_w/2, ncol = floor(duration)))
+		
+		right4 <- apply(right2, 2, pwelch, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		
+		for (i in 1:floor(duration)){
+			right3[, i] <- right4[[i]]$spec
+		}
+		
+		specA_right <- apply(right3, 1, mean)
 		specA_rows <- length(specA_right)
 		
 		freq_per_row <- specA_rows / nyquist_freq
@@ -207,11 +237,55 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		
 		cat("\n Calculating index. Please wait... \n\n")
 		
-		left1 <- cutw(left, from = 0, to = length(left@left) / left@samp.rate)
-		specA_left <- pwelch(left1, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		left1 <- as.vector(cutw(left, from = 0, to = length(left@left) / left@samp.rate))
+		
+# 		left2 <- left1[1:(floor((length(left1)/fft_w)) * fft_w)]
+# 		left2 <- matrix(left2, nrow = fft_w, ncol = floor(length(left1)/fft_w))
+		#x <- matrix(x, nrow = nwindows, byrow = TRUE)
+		
+		#psd <- matrix(psd, nrow = nrow, byrow = TRUE)/normalization
+		
+# 		specA_left <- pwelch(left1, fs = samplingrate, nfft = fft_w, plot = FALSE)$spec
+# 		
+# 		
+# 		specA_left2 <- pwelch(left2, fs = samplingrate, nfft = fft_w, plot=FALSE)
+# 		specA_left2 <- pwelch2(left2, fs = samplingrate, nfft = fft_w, plot=FALSE)
+		
+		left2 <- data.frame(matrix(NA, nrow = samplingrate, ncol = floor(duration)))
+		
+		#divide in 1-second segment to avoid a long for loop in pwelch
+		for (i in 0:(floor(duration)-1)){
+			j <- i+1
+			start1 <- (i * samplingrate)+ 1
+			end <- start1 + samplingrate - 1
+			left2[, j] <- left1[start1:end]
+			}
+		
+		left3 <- data.frame(matrix(NA, nrow = fft_w/2, ncol = floor(duration)))
+		
+# 		for (i in 1:floor(duration)){
+# 			left3[, i] <- pwelch(left2[, i], fs = samplingrate, nfft = fft_w, plot = FALSE)$spec
+# 		}
+		
+		left4 <- apply(left2, 2, pwelch, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		
+		for (i in 1:floor(duration)){
+			left3[, i] <- left4[[i]]$spec
+		}
+		
+		specA_left <- apply(left3, 1, mean)
+		
+		
+# 		left2 <- ts(data = left1, frequency = 44100)
+# 		specA_left1 <- welchPSD(left2, seglength = 1)
+# 		specA_left2 <- apply(left2, 2, pwelch, fs = samplingrate, nfft = fft_w, plot = FALSE)
+		
+	
+# 		specA_left3 <- apply(specA_left2, 1, normalize, fs = samplingrate, nfft = fft_w, plot = FALSE)
+# 		specA_left2 <- matrix(psd, nrow = nrow, byrow = TRUE)/normalization
     
 		#with pwelch
-		specA_left <- specA_left$spec
+		#specA_left <- specA_left$spec
 		specA_rows <- length(specA_left)
 		
 		freq_per_row <- specA_rows / nyquist_freq
