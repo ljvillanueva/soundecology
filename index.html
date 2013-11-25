@@ -36,7 +36,11 @@
 
 <p>R package with functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.</p>
 
+<p>Current version: 1.1</p>
+
 <p>The package is available at <a href="http://cran.r-project.org/web/packages/soundecology/">CRAN and its mirrors</a>. </p>
+
+<p>Introduction to the package <a href="intro.html"><em>soundecology</em></a>.</p>
 
 <h2>
 <a name="indices" class="anchor" href="#indices"><span class="octicon octicon-link"></span></a>Indices</h2>
@@ -49,7 +53,13 @@
 <li><em>acoustic_eveness()</em>: Acoustic Eveness Index (using the Gini index) (Villanueva-Rivera <em>et al.</em> 2011)</li>
 </ul>
 
-<p>Introduction to the package <a href="intro.html"><em>soundecology</em></a>.</p>
+<h2>
+<a name="other-functions" class="anchor" href="#other-functions"><span class="octicon octicon-link"></span></a>Other functions</h2>
+
+<ul>
+<li><em>measure_signals()</em> - This function lets the user select bounding boxes to get statistics of the signals of interest in a sound</li>
+<li><em>sound_raster()</em> - This function creates a raster file in ASCII format from the spectrogram of a soundfile</li>
+</ul>
 
 <h2><a name="calculate-indices-for-many-files" class="anchor" href="#calculate-indices-for-many-files"><span class="octicon octicon-link"></span></a>Calculate indices for many files</h2>
 
@@ -59,6 +69,20 @@
 <a name="parallel-processing" class="anchor" href="#parallel-processing"><span class="octicon octicon-link"></span></a>Parallel processing</h3>
 
 <p>The <em>multiple_sounds()</em> function has an optional argument, no_cores, that can be used to specify to run the function using several cores in the same computer. This argument uses the <em>parallel</em> package, standard in R since version 2.14. </p>
+
+<h2>
+<a name="changes" class="anchor" href="#changes"><span class="octicon octicon-link"></span></a>Changes</h2>
+
+<p>New for version 1.1:</p>
+
+<ul>
+<li>Added a new function, measure_signals(), to select signals from spectrograms.</li>
+<li>Added a new function, sound_raster(), to save spectrograms as ASCII raster files for GIS software.</li>
+<li>The function ndsi() was rewritten to avoid the problem R has with for loops. Now the function subsets the data in 1-second segments and feeds the data to pwelch() using apply, reducing execution time significantly.</li>
+<li>The function acoustic_evenness() was incorrectly named acoustic_eveness() in version 1.0. This has been fixed.</li>
+<li>Fixed a bug in multiple_sounds() where the data was not appended to the results file correctly. This problem seems to have happened only in Windows.</li>
+<li>Other small bug fixes and typos.</li>
+</ul>
 
 <h2>
 <a name="references" class="anchor" href="#references"><span class="octicon octicon-link"></span></a>References</h2>
