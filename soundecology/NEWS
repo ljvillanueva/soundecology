@@ -1,0 +1,9 @@
+
+Changes in soundecology 1.1
+=======================
+ - Added a new function, measure_signals(), to select signals from spectrograms.
+ - Added a new function, sound_raster(), to save spectrograms as ASCII raster files for GIS software.
+ - The function ndsi() was rewritten to avoid the problem R has with for loops. Now the function subsets the data in 1-second segments and feeds the data to pwelch() using apply, reducing execution time significantly.
+ - The function acoustic_evenness() was incorrectly named acoustic_eveness() in version 1.0. This has been fixed.
+ - Fixed a bug in multiple_sounds() where the data was not appended to the results file correctly. This problem seems to have happened only in Windows.
+ - Other small bug fixes and typos.
