@@ -1,7 +1,8 @@
-importFrom(pracma, trapz)
-importFrom(oce, pwelch)
-importFrom(ineq, Gini)
-importFrom(vegan, diversity)
-import("tuneR", "seewave")
+importFrom("pracma", trapz)
+importFrom("oce", pwelch)
+importFrom("ineq", Gini)
+importFrom("vegan", diversity)
+importFrom("tuneR", channel, readWave)
+importFrom("seewave", spectro, meandB, dfreq, wav2flac, H, cutw)
 
 exportPattern("^[[:alpha:]]+")

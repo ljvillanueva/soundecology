@@ -1,3 +1,6 @@
+Changes in soundecology 1.1.1 (2014-04-14)
+=======================
+ - Changing the import of functions from tuneR and seewave to avoid a clash between functions with similar names.
 
 Changes in soundecology 1.1
 =======================
