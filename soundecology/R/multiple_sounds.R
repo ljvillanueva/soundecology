@@ -5,7 +5,7 @@
 #
 #
 
-multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_evenness", "bioacoustic_index", "H"), no_cores = 1, flac = FALSE, ...){
+multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_evenness", "bioacoustic_index", "H"), no_cores = 1, flac = FALSE, from = NA, to = NA, units = NA, ...){
 
 	if (any(soundindex %in% c("ndsi", "acoustic_complexity", "acoustic_diversity", "acoustic_evenness", "bioacoustic_index", "H")) == FALSE){
 		stop(paste("Unknown function", soundindex))
@@ -15,6 +15,22 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 		stop(paste("The directory specified does not exist or this user is not autorized to read it:\n    ", directory))
 		}
 	
+	if (is.na(from)==FALSE){
+	  if (is.na(to) || is.na(units)){
+	    stop("All three arguments 'from', 'to', and 'units' must be specified.")
+	  }
+	}
+	if (is.na(to)==FALSE){
+	  if (is.na(from) || is.na(units)){
+	    stop("All three arguments 'from', 'to', and 'units' must be specified.")
+	  }
+	}
+	if (is.na(units)==FALSE){
+	  if (is.na(from) || is.na(to)){
+	    stop("All three arguments 'from', 'to', and 'units' must be specified.")
+	  }
+	}
+  
 	#How many cores this machine has?
 	require(parallel)
 	thismachine_cores <- detectCores()
@@ -112,7 +128,11 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+      if (is.na(from)==FALSE){
+        this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+      }else{
+        this_soundfile <- readWave(soundfile_path)
+      }
 			
 			return_list <- bioacoustic_index(this_soundfile, ...)
 			
@@ -172,7 +192,12 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+      if (is.na(from)==FALSE){
+        this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+      }else{
+        this_soundfile <- readWave(soundfile_path)
+      }			
+
 			return_list <- acoustic_diversity(this_soundfile, ...)
 		
 			if (this_soundfile@stereo == TRUE){
@@ -231,7 +256,12 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+      if (is.na(from)==FALSE){
+        this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+      }else{
+        this_soundfile <- readWave(soundfile_path)
+      }
+
 			return_list <- acoustic_complexity(this_soundfile, ...)
 			
 			if (this_soundfile@stereo == TRUE){
@@ -300,7 +330,12 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+      if (is.na(from)==FALSE){
+        this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+      }else{
+        this_soundfile <- readWave(soundfile_path)
+      }
+
 			return_list <- ndsi(this_soundfile, ...)
 			
 			if (this_soundfile@stereo == TRUE){
@@ -373,7 +408,13 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+
+      if (is.na(from)==FALSE){
+        this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+      }else{
+        this_soundfile <- readWave(soundfile_path)
+      }
+
 			if (this_soundfile@stereo == TRUE) {
 				left<-channel(this_soundfile, which = c("left"))
 				right<-channel(this_soundfile, which = c("right"))
@@ -441,7 +482,13 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 				}
 			}
 			
-			this_soundfile <- readWave(soundfile_path)
+			
+			if (is.na(from)==FALSE){
+			  this_soundfile <- readWave(soundfile_path, from = from, to = to, units = units)
+			}else{
+			  this_soundfile <- readWave(soundfile_path)
+			}
+      
 			return_list <- acoustic_evenness(this_soundfile, ...)
 			
 			if (this_soundfile@stereo == TRUE){

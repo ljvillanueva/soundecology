@@ -1,6 +1,12 @@
+Changes in soundecology 1.2 (2015-01-11)
+=======================
+ - Added arguments to multiple_sounds() to specify the range of time in the file to use for analysis. Fixing Issue #2.
+
+
 Changes in soundecology 1.1.1 (2014-04-14)
 =======================
  - Changing the import of functions from tuneR and seewave to avoid a clash between functions with similar names.
+
 
 Changes in soundecology 1.1
 =======================

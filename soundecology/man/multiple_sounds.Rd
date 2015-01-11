@@ -7,7 +7,7 @@
 \description{Function to extract the specified index from all the wav or flac files in a directory. The results, including the filename and wave technical details, are saved to a csv file. If the computer has multiple cores, it can run files in parallel.}
 
 \usage{
-multiple_sounds(directory, resultfile, soundindex, no_cores = 1, flac = FALSE, ...)
+multiple_sounds(directory, resultfile, soundindex, no_cores = 1, flac = FALSE, from = NA, to = NA, units = NA, ...)
 }
 
 \arguments{
@@ -25,6 +25,9 @@ multiple_sounds(directory, resultfile, soundindex, no_cores = 1, flac = FALSE, .
 	}
 	\item{no_cores}{ number of cores to use when calculating the indices. Can be \code{max} to use all cores, \code{-1} to use all but one core, or any positive integer. Default is 1. Uses the \code{parallel} package.}
 	\item{flac}{ logical variable to indicate that the files are in FLAC format. FLAC must be installed in the system (see note below). Uses the function \code{wav2flac} of \code{seewave}.}
+  \item{from}{ tells \code{readWave} where to start loading the files. All three arguments \code{from}, \code{to}, and \code{units} must be specified at the same time, if used.}
+  \item{to}{ tells \code{readWave} where to stop loading the files. All three arguments \code{from}, \code{to}, and \code{units} must be specified at the same time, if used.}
+  \item{units}{ tells \code{readWave} which units to use to determine the start and stop points to load the files. The options are \code{"samples"}, \code{"seconds"}, \code{"minutes"}, or \code{"hours"}. All three arguments \code{from}, \code{to}, and \code{units} must be specified at the same time, if used.}
 	\item{...}{ additional variables to pass to the selected function. See each function's help for details.}
 	}
 
