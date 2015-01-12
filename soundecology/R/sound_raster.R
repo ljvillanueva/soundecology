@@ -155,7 +155,7 @@ sound_raster <- function(wavfile = NA, wav_directory = NA, max_freq = 10000, no_
   	}
   	
   	#How many cores this machine has?
-  	require(parallel)
+  	#require(parallel)
   	thismachine_cores <- detectCores()
   	
   	if (no_cores == 0){

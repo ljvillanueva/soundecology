@@ -4,5 +4,5 @@ importFrom("ineq", Gini)
 importFrom("vegan", diversity)
 importFrom("tuneR", channel, readWave)
 importFrom("seewave", spectro, meandB, dfreq, wav2flac, H, cutw)
-
+importFrom("parallel", makeCluster, parLapply, detectCores, stopCluster)
 exportPattern("^[[:alpha:]]+")

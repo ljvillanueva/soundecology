@@ -32,7 +32,7 @@ multiple_sounds <- function(directory, resultfile, soundindex = c("ndsi", "acous
 	}
   
 	#How many cores this machine has?
-	require(parallel)
+	#require(parallel)
 	thismachine_cores <- detectCores()
 	
 	if (no_cores == 0){

@@ -7,7 +7,8 @@
 \description{Function to extract the specified index from all the wav or flac files in a directory. The results, including the filename and wave technical details, are saved to a csv file. If the computer has multiple cores, it can run files in parallel.}
 
 \usage{
-multiple_sounds(directory, resultfile, soundindex, no_cores = 1, flac = FALSE, from = NA, to = NA, units = NA, ...)
+multiple_sounds(directory, resultfile, soundindex, no_cores = 1, 
+flac = FALSE, from = NA, to = NA, units = NA, ...)
 }
 
 \arguments{
