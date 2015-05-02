@@ -27,8 +27,12 @@ ndsi(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000,
 
 \value{
 	Returns a list with one object per channel
-	\item{ndsi_left}{ NDSI value for the left channel }
-	\item{ndsi_right}{ NDSI value for the left channel }
+  \item{ndsi_left}{ NDSI value for the left channel }
+	\item{ndsi_right}{ NDSI value for the right channel }
+  \item{biophony_left}{ value for the biophony for the left channel }
+	\item{anthrophony_left}{ value for the anthrophony for the left channel }
+  \item{biophony_right}{ value for the biophony for the right channel }
+	\item{anthrophony_right}{ value for the anthrophony for the right channel }
 	}
 
 \details{The bin size is determined as the difference between anthro_max and anthro_min, by default 1000 Hz.
