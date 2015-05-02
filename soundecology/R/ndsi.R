@@ -4,8 +4,8 @@
 # http://www.real.msu.edu/
 #
 # Also from: Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
-#  The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
-#  Studying Soundscape Ecology. Ecological Informatics 12: 50–67. doi:10.1016/j.ecoinf.2012.08.001.
+#  The Remote Environmental Assessment Laboratory's Acoustic Library: An Archive for 
+#  Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi:10.1016/j.ecoinf.2012.08.001.
 #
 # And
 #  Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. 
@@ -22,9 +22,9 @@
 #  or Anthrophony (human-induced sounds) in a set of samples. 
 #  The equation for NDSI is: 
 #  
-#    NDSI = (β - α) / (β + α)
+#    NDSI = (Biophony - Anthrophony) / (Biophony + Anthrophony)
 #  
-#  where α, β represent the proportion of acoustic energy of Anthrophony and 
+#  where Anthrophony, Biophony represent the proportion of acoustic energy of Anthrophony and 
 #  Biophony, respectively. The value of the index ranges from -1 to 1. If the 
 #  value is negative, mechanical sounds dominate the soundscape. If the value 
 #  approaches 1, most of the soundscape consists of biological sounds at the site."

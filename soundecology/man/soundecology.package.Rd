@@ -4,7 +4,7 @@
 
 \docType{package}
 
-\title{Soundscape ecology}
+\title{Soundscape Ecology}
 
 \description{Functions to calculate indices for soundscape ecology and other ecology research that uses audio recordings.}
 
