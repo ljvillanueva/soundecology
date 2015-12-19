@@ -121,13 +121,21 @@ acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
 		
 		ACI_tot_right <- sum(ACI_fl_right_vector)
 		
-		cat("  Acoustic Complexity Index (total):\n")
-		cat("   Left channel: ")
+		ACI_tot_left_by_min <- round((ACI_tot_left/duration) * 60, 2)
+		ACI_tot_right_by_min <- round((ACI_tot_right/duration) * 60, 2)
+		
+		cat(paste("  Acoustic Complexity Index (total):\n", "   Left channel: ", sep=""))
 		cat(ACI_tot_left)
-		cat("\n")
-		cat("   Right channel: ")
+		cat(paste("\n", "   Right channel: ", sep=""))
 		cat(ACI_tot_right)
 		cat("\n\n")
+		if (duration > 60){
+  		cat(paste("  Acoustic Complexity Index (by minute):\n", "   Left channel: ", sep=""))
+  		cat(ACI_tot_left_by_min)
+  		cat(paste("\n", "   Right channel: ", sep=""))
+  		cat(ACI_tot_right_by_min)
+  		cat("\n\n")
+  		}
 		
 	} else 
 	{
@@ -189,15 +197,23 @@ acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
 		} 
 		
 		ACI_tot_left <- sum(ACI_fl_left_vector)
+		ACI_tot_left_by_min <- round((ACI_tot_left/duration) * 60, 2)
 		
 		ACI_tot_right <- NA
+		ACI_tot_right_by_min <- NA
 		
 		cat("  Acoustic Complexity Index (total): ")
 		cat(ACI_tot_left)
 		cat("\n\n")
+		if (duration > 60){
+  		cat("  Acoustic Complexity Index (by minute): ")
+  		cat(ACI_tot_left_by_min)
+  		cat("\n\n")
+		  }
 	}
 	
 	invisible(list(AciTotAll_left = ACI_tot_left, AciTotAll_right = ACI_tot_right, 
+	               AciTotAll_left_bymin = ACI_tot_left_by_min, AciTotAll_right_bymin = ACI_tot_right_by_min,
 				   #AciIfTotAll_left=ACIif_tot_left, AciIfTotAll_right=ACIif_tot_right, 
 				   aci_fl_left_vals = ACI_fl_left_vector, aci_fl_right_vals = ACI_fl_right_vector,
 				   #aci_if_left_vals=ACI_if_left_vector, aci_if_right_vals=ACI_if_right_vector,

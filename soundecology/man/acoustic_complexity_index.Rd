@@ -10,7 +10,9 @@ characterized by an intrinsic variability of intensities, while some types
 of human generated noise (such as car passing or airplane transit)
 present very constant intensity values" (Pieretti, \emph{et al.} 2011).
 
-The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.2012, courtesy of A. Farina.}
+The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.2012, courtesy of A. Farina.
+
+The results given are accumulative. Very long samples will return very large values for ACI. I recommend to divide by number of minutes to get a range of values easier to compare.}
 
 \usage{
 	acoustic_complexity(soundfile, max_freq = NA, j = 5, fft_w = 512)
@@ -27,6 +29,8 @@ The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.
 	Returns a list with three objects per channel
 	\item{AciTotAll_left}{ the ACI total for the left channel }
 	\item{AciTotAll_right}{ the ACI total for the right channel }
+	\item{AciTotAll_left_bymin}{ the ACI total for the left channel divided by the number of minutes }
+	\item{AciTotAll_right_bymin}{ the ACI total for the right channel divided by the number of minutes }
 	\item{aci_fl_left_vals}{ values of ACI(fl) for the left channel }
 	\item{aci_fl_right_vals}{ values of ACI(fl) for the right channel }
 	\item{aci_left_matrix}{ Matrix of all values before calculating ACI(fl) for the left channel }

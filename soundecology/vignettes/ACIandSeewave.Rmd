@@ -1,0 +1,66 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Differences of ACI values between seewave and soundecology}
+-->
+
+# Differences of ACI values between seewave and soundecology #
+
+The package *seewave* (Sueur et al. 2008) version 1.7.0 introduced the function ACI() to calculate the Acoustic Complexity Index (ACI). By then I was working on the last tests of my version of a function that would also calculate the ACI. So, I decided to keep my version in *soundecology* and let the community choose which version worked best for them. 
+
+The results of the functions do not match between the packages. I have received this question a few times, so I thought best to write a brief document about it since more people may wonder the same. After some tests, it seems that the differences are due to different assumptions or default values. The only way I can get the functions of both packages to agree was to set *nbwindows* in ACI() to a comparable value (duration of the file in seconds/seconds in each clump):
+
+```{r results='show', message=FALSE, warning=FALSE}
+library(seewave)
+library(soundecology)
+
+data(tropicalsound)
+duration <- length(tropicalsound@left)/tropicalsound@samp.rate # 20 seconds
+
+duration
+
+ACI(tropicalsound, nbwindows=(duration/5))
+
+acoustic_complexity(tropicalsound) # j is set to 5 by default
+
+```
+
+### Another example ###
+I also tried with a 50 second-long file (not included in this vignette):
+
+```
+sound1<-readWave("LINE_2003-10-30_20_00_34.wav")
+duration <- length(sound1@left)/sound1@samp.rate # 50 seconds
+
+ACI(sound1, nbwindows=(duration/5))
+> 1566.69
+
+acoustic_complexity(sound1) # j is set to 5 by default
+> 1567.414
+```
+
+Changing the cluster size *j* to 10 sec:
+
+```
+ACI(sound1, nbwindows=(duration/10))
+>783.8312
+
+acoustic_complexity(sound1, j=10)
+> 784.0986
+```
+
+The difference between the results from each package seems to come from how each function uses the clumping argument, *j*, which is set to 5 seconds as a default in both the SoundscapeMeter software and *soundecology*. 
+
+
+
+
+
+## References ##
+
+Sueur J., Aubin T., Simonis C. (2008). Seewave: a free modular tool for sound analysis and synthesis.
+  Bioacoustics, 18: 213-226.
+
+- - -
+
+Vignette "Differences of ACI values between seewave and soundecology" by LJ Villanueva-Rivera
+
+*Version 1.0 (21 December 2015)*
