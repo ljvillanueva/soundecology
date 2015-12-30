@@ -15,11 +15,12 @@ The index was tested to the ACItot calculated using SoundscapeMeter v 1.0.14.05.
 The results given are accumulative. Very long samples will return very large values for ACI. I recommend to divide by number of minutes to get a range of values easier to compare.}
 
 \usage{
-	acoustic_complexity(soundfile, max_freq = NA, j = 5, fft_w = 512)
+	acoustic_complexity(soundfile, min_freq = NA, max_freq = NA, j = 5, fft_w = 512)
 	}
 
 \arguments{
 	\item{soundfile}{ an object of class \code{Wave} loaded with the function readWave of the \code{tuneR} package. }
+	\item{min_freq}{ miminum frequency to use when calculating the value, in Hertz. The default is \code{NA}. }
 	\item{max_freq}{ maximum frequency to use when calculating the value, in Hertz. The default is the maximum for the file. }
 	\item{j}{ the cluster size, in seconds. }
 	\item{fft_w}{ FFT window to use. }

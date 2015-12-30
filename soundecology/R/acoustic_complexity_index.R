@@ -6,12 +6,16 @@
 #
 #Tested with SoundscapeMeter 1.0.14.05.2012, courtesy of A. Farina
 #
-acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
+acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, fft_w = 512){
 	
-	if (is.na(max_freq)){
-		max_freq <- soundfile@samp.rate / 2
-	}
-
+  if (is.na(max_freq)){
+    max_freq <- soundfile@samp.rate / 2
+  }
+  
+  if (is.na(min_freq)){
+    min_freq <- 0
+  }
+  
 	#function that gets the difference of values
 	get_d <- function(spectrum, freq_row, min_col, max_col){
 		D = 0
@@ -46,24 +50,54 @@ acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
 				
 		#matrix of values
 		cat("\n Calculating index. Please wait... \n\n")
-		specA_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
-		specA_right <- spectro(right, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
+		spec_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")
+		
+		specA_left <- spec_left$amp
+		
+		min_freq1k = min_freq/1000 
+		max_freq1k = max_freq/1000 
+		
+		which_min_freq <- which(abs(spec_left$freq - min_freq1k)==min(abs(spec_left$freq - min_freq1k)))
+		which_max_freq <- which(abs(spec_left$freq - max_freq1k)==min(abs(spec_left$freq - max_freq1k))) 
+		  
+		if (which_min_freq <1){
+		  which_min_freq = 1
+		}
+		
+		if (which_max_freq > dim(specA_left)[1]){
+		  which_max_freq = dim(specA_left)[1]-1
+		}
+		
+# 		cat(which_min_freq)
+# 		cat(",")
+# 		cat(which_max_freq)
+# 		cat(",")
+# 		cat(dim(specA_left))
+		specA_left <- spec_left$amp[which_min_freq:which_max_freq,]
+		rm(spec_left)
+		
+		spec_right <- spectro(right, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")
+		
+		specA_right <- spec_right$amp[which_min_freq:which_max_freq,]
+		
+		rm(spec_right)
 		
 		rm(left,right)
 		
+# 		specA_rows <- dim(specA_left)[1]
+# 		specA_cols <- dim(specA_left)[2]
+# 		
+# 		freq_per_row <- specA_rows/nyquist_freq
+# 				
+# 		max_row <- round(max_freq * freq_per_row)
+# 		
+# 		specA_left <- specA_left[1:max_row,]
+# 		specA_right <- specA_right[1:max_row,]
 		specA_rows <- dim(specA_left)[1]
 		specA_cols <- dim(specA_left)[2]
 		
-		freq_per_row <- specA_rows/nyquist_freq
-				
-		max_row <- round(max_freq * freq_per_row)
-		
-		specA_left <- specA_left[1:max_row,]
-		specA_right <- specA_right[1:max_row,]
-		specA_rows <- dim(specA_left)[1]
-		
 		fl <- rep(NA, specA_rows)
-		delta_fl <- max_freq / specA_rows
+		delta_fl <- ( max_freq - min_freq ) / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 				
 		#m <- floor(duration / j)
@@ -145,22 +179,34 @@ acoustic_complexity <- function(soundfile, max_freq = NA, j = 5, fft_w = 512){
 				
 		#matrix of values
 		cat("\n Calculating index. Please wait... \n\n")
-		specA_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")$amp
+		spec_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")
+		
+		specA_left <- spec_left$amp
+		
+		min_freq1k = min_freq/1000 
+		max_freq1k = max_freq/1000 
+		
+		which_min_freq <- which(abs(spec_left$freq - min_freq1k)==min(abs(spec_left$freq - min_freq1k)))
+		which_max_freq <- which(abs(spec_left$freq - max_freq1k)==min(abs(spec_left$freq - max_freq1k))) 
+		
+		specA_left <- specA_left[which_min_freq:which_max_freq,]
+		rm(spec_left)
+		
 		rm(left)
 		
 		#LEFT CHANNEL
 		specA_rows <- dim(specA_left)[1]
 		specA_cols <- dim(specA_left)[2]
-		
-		freq_per_row <- specA_rows/nyquist_freq
-				
-		max_row <- round(max_freq * freq_per_row)
-		
-		specA_left <- specA_left[1:max_row,]
-		specA_rows <- dim(specA_left)[1]
+# 		
+# 		freq_per_row <- specA_rows/nyquist_freq
+# 				
+# 		max_row <- round(max_freq * freq_per_row)
+# 		
+# 		specA_left <- specA_left[1:max_row,]
+# 		specA_rows <- dim(specA_left)[1]
 		
 		fl <- rep(NA, specA_rows)
-		delta_fl <- max_freq / specA_rows
+		delta_fl <- ( max_freq - min_freq ) / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
 		
 		no_j <- floor(duration / j)

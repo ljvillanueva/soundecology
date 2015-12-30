@@ -244,7 +244,7 @@ Please visit the package website for more information, and updates: http://ljvil
 
 For suggestions or to report bugs or problems: http://github.com/ljvillanueva/soundecology/issues
 
-The package page in CRAN is http://cran.r-project.org/web/packages/soundecology/
+The package page in CRAN is http://cran.r-project.org/package=soundecology
 
 - - -
 
