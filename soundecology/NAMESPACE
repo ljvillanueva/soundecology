@@ -1,3 +1,5 @@
+importFrom("graphics", "lines", "locator", "rect")
+importFrom("utils", "write.table")
 importFrom("pracma", trapz)
 importFrom("oce", pwelch)
 importFrom("ineq", Gini)
