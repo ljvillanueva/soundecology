@@ -1,0 +1,7 @@
+language: r
+before_install:
+  - cd soundecology
+r:
+  - oldrel
+  - release
+  - devel  

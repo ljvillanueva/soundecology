@@ -4,6 +4,19 @@
 
 sound_raster <- function(wavfile = NA, wav_directory = NA, max_freq = 10000, no_cores = 1){
 
+  #test arguments
+  if (is.numeric(as.numeric(max_freq))){
+    max_freq <- as.numeric(max_freq)
+  } else{
+    stop(" max_freq is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(no_cores))){
+    no_cores <- as.numeric(no_cores)
+  } else{
+    stop(" no_cores is not a number.")
+  }
+  
   if (is.na(wavfile) == TRUE && is.na(wav_directory) == TRUE){
     stop(" You have to provide a filename, in the argument wavfile, or a directory as the argument wav_directory.\n\n")
   }

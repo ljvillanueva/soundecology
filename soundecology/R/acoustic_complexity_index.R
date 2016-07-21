@@ -8,13 +8,42 @@
 #
 acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, fft_w = 512){
 	
+  #test arguments
   if (is.na(max_freq)){
     max_freq <- soundfile@samp.rate / 2
+    cat(paste("\n max_freq not set, using value of:", max_freq, "\n\n"))
   }
   
   if (is.na(min_freq)){
     min_freq <- 0
+    cat(paste("\n min_freq not set, using value of:", min_freq, "\n\n"))
   }
+  
+  if (is.numeric(as.numeric(min_freq))){
+    min_freq <- as.numeric(min_freq)
+  } else{
+    stop(" min_freq is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(max_freq))){
+    max_freq <- as.numeric(max_freq)
+  } else{
+    stop(" max_freq is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(j))){
+    j <- as.numeric(j)
+  } else{
+    stop(" j is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(fft_w))){
+    fft_w <- as.numeric(fft_w)
+  } else{
+    stop(" fft_w is not a number.")
+  }
+  
+  
   
 	#function that gets the difference of values
 	get_d <- function(spectrum, freq_row, min_col, max_col){

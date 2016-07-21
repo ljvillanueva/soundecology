@@ -1,10 +1,30 @@
 #Acoustic Evenness Index from Villanueva-Rivera \emph{et al.} 2011. 
 # The ADI is calculated by dividing the spectrogram into bins (default 10) and taking the proportion of the signals in each bin above a threshold (default -50 dBFS). The ADI is the result of the Gini index applied to these bins.
 
-acoustic_evenness <- function(soundfile, max_freq = 10000, db_threshold = "-50", freq_step = 1000){
+acoustic_evenness <- function(soundfile, max_freq = 10000, db_threshold = -50, freq_step = 1000){
 	
 	db_threshold <- as.numeric(db_threshold)
 		
+	#test arguments
+	if (is.numeric(as.numeric(max_freq))){
+	  max_freq <- as.numeric(max_freq)
+	} else{
+	  stop(" max_freq is not a number.")
+	}
+	
+	if (is.numeric(as.numeric(db_threshold))){
+	  db_threshold <- as.numeric(db_threshold)
+	} else{
+	  stop(" db_threshold is not a number.")
+	}
+	
+	if (is.numeric(as.numeric(freq_step))){
+	  freq_step <- as.numeric(freq_step)
+	} else{
+	  stop(" freq_step is not a number.")
+	}
+	
+	
 	#function that gets the proportion of values over a db
 	# value in a specific band of frequencies. 
 	# Frequency is in Hz

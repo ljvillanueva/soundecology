@@ -13,6 +13,27 @@
 # Requires: tuneR, seewave
 
 bioacoustic_index <- function(soundfile, min_freq = 2000, max_freq = 8000, fft_w = 512){
+  
+  #test arguments
+  if (is.numeric(as.numeric(min_freq))){
+    min_freq <- as.numeric(min_freq)
+  } else{
+    stop(" min_freq is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(max_freq))){
+    max_freq <- as.numeric(max_freq)
+  } else{
+    stop(" max_freq is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(fft_w))){
+    fft_w <- as.numeric(fft_w)
+  } else{
+    stop(" fft_w is not a number.")
+  }
+  
+  
 	#Get sampling rate
 	samplingrate <- soundfile@samp.rate
 	freq_per_row = 10

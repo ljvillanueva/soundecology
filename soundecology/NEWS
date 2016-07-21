@@ -1,3 +1,8 @@
+Changes in soundecology 1.3.2 (2016-07-21)
+=======================
+ - Added tests for numeric values in arguments, fixing Issue #7 (https://github.com/ljvillanueva/soundecology/issues/7).
+ 
+ 
 Changes in soundecology 1.3.1 (2015-12-30)
 =======================
  - Added the results for the ACI by minute to the returned list in acoustic_complexity().

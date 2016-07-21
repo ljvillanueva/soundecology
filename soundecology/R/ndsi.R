@@ -42,6 +42,38 @@
 
 ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, bio_min = 2000, bio_max = 11000){
 	
+  #test arguments
+  if (is.numeric(as.numeric(fft_w))){
+    fft_w <- as.numeric(fft_w)
+  } else{
+    stop(" fft_w is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(anthro_min))){
+    anthro_min <- as.numeric(anthro_min)
+  } else{
+    stop(" anthro_min is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(anthro_max))){
+    anthro_max <- as.numeric(anthro_max)
+  } else{
+    stop(" anthro_max is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(bio_min))){
+    bio_min <- as.numeric(bio_min)
+  } else{
+    stop(" bio_min is not a number.")
+  }
+  
+  if (is.numeric(as.numeric(bio_max))){
+    bio_max <- as.numeric(bio_max)
+  } else{
+    stop(" bio_max is not a number.")
+  }
+  
+  
 	#Some general values
 	hz_interval = anthro_max - anthro_min
 	
