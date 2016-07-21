@@ -1,6 +1,14 @@
 language: r
 before_install:
   - cd soundecology
+addons:
+  apt:
+    packages:
+      - libfftw3-3
+      - libfftw3-dev
+      - libsndfile1
+      - libsndfile1-dev
+      - r-cran-rgl
 r:
   - oldrel
   - release
