@@ -6,82 +6,103 @@
 #
 #Tested with SoundscapeMeter 1.0.14.05.2012, courtesy of A. Farina
 #
+
+
 acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, fft_w = 512){
+  
+ 
+  
+   #Helper Functions
+  
+  
+  checkParam <- function(soundfile, min_freq, max_freq,j,fft_w){
+    #Temp Values
+    MIN <-min_freq
+    MAX <-max_freq
+    J <- j
+    FFT_W <- fft_w
+    
+    #test arguments
+    if (is.na(MAX)){
+      MAX <- soundfile@samp.rate / 2
+      cat(paste("\n max_freq not set, using value of:", MAX, "\n\n"))
+    }else if (MAX>nyquist_freq) {
+      cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", MAX, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep = ""))
+      MAX <- nyquist_freq
+      #break
+    }
+    
+    if (is.na(MIN)){
+      MIN <- 0
+      cat(paste("\n min_freq not set, using value of:", MIN, "\n\n"))
+    }
+    
+    if (is.numeric(as.numeric(MIN))){
+      MIN <- as.numeric(MIN)
+    } else{
+      stop(" min_freq is not a number.")
+    }
+    
+    if (is.numeric(as.numeric(MAX))){
+      MAX <- as.numeric(MAX)
+    } else{
+      stop(" max_freq is not a number.")
+    }
+    
+    if (is.numeric(as.numeric(J))){
+      J <- as.numeric(J)
+    } else{
+      stop(" j is not a number.")
+    }
+    #TODO: This is temporary fix, make sure to elongate ACI value acccording to cut value.
+    if(duration < J){
+      J=1
+    }
+    
+    if (is.numeric(as.numeric(FFT_W))){
+      FFT_W <- as.numeric(FFT_W)
+    } else{
+      stop(" fft_w is not a number.")
+    }
+    
+    eval.parent(substitute(min_freq<-MIN))
+    eval.parent(substitute(max_freq<-MAX))
+    eval.parent(substitute(j<-J))
+    eval.parent(substitute(fft_w<-FFT_W))
+  }
+  
+  #function that gets the difference of values
+  get_d <- function(spectrum, freq_row, min_col, max_col){
+    return(sum(abs(spectrum[freq_row,min_col:(max_col-1)] - spectrum[freq_row,(min_col+1):max_col] )))
+  }
+  
+
+  
+  duration <- length(soundfile@left)/soundfile@samp.rate
+  
+  #Checking validity of parameters
+  checkParam(soundfile,min_freq,max_freq,j,fft_w)
 	
-  #test arguments
-  if (is.na(max_freq)){
-    max_freq <- soundfile@samp.rate / 2
-    cat(paste("\n max_freq not set, using value of:", max_freq, "\n\n"))
-  }
+  #Setting Window length, sampling rate, nyquist freq and duration respectively
+  wlen = fft_w
+  samplingrate <- soundfile@samp.rate
+  nyquist_freq <- (samplingrate/2)
   
-  if (is.na(min_freq)){
-    min_freq <- 0
-    cat(paste("\n min_freq not set, using value of:", min_freq, "\n\n"))
-  }
-  
-  if (is.numeric(as.numeric(min_freq))){
-    min_freq <- as.numeric(min_freq)
-  } else{
-    stop(" min_freq is not a number.")
-  }
-  
-  if (is.numeric(as.numeric(max_freq))){
-    max_freq <- as.numeric(max_freq)
-  } else{
-    stop(" max_freq is not a number.")
-  }
-  
-  if (is.numeric(as.numeric(j))){
-    j <- as.numeric(j)
-  } else{
-    stop(" j is not a number.")
-  }
-  
-  if (is.numeric(as.numeric(fft_w))){
-    fft_w <- as.numeric(fft_w)
-  } else{
-    stop(" fft_w is not a number.")
-  }
-  
-  
-  
-	#function that gets the difference of values
-	get_d <- function(spectrum, freq_row, min_col, max_col){
-		D = 0
-		for (k in min_col:(max_col - 1)) {
-			D = D + abs(spectrum[freq_row,k] - spectrum[freq_row,k + 1])
-			}
-			 		
-		return(D)
-		}
-	
-	#Some general values
-	#Get sampling rate
-	samplingrate <- soundfile@samp.rate
-	duration <- length(soundfile@left)/soundfile@samp.rate
-	
-	#Get Nyquist frequency in Hz
-	nyquist_freq <- (samplingrate/2)
-	if (max_freq>nyquist_freq) {
-		cat(paste("\n WARNING: The maximum acoustic frequency that this file can use is ", nyquist_freq, "Hz. But the script was set to measure up to ", max_freq, "Hz. The value of max_freq was changed to ", nyquist_freq, ".\n\n", sep = ""))
-		max_freq <- nyquist_freq
-		#break
-	}
-	
-	#window length for the spectro and spec functions
-	wlen = fft_w
-	
 	#Stereo file
 	if (soundfile@stereo == TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
-		left <- channel(soundfile, which = c("left"))
-		right <- channel(soundfile, which = c("right"))
+	  #TODO: Make sure the new code is the same as this code
+		#left <- channel(soundfile, which = c("left"))
+		#right <- channel(soundfile, which = c("right"))
+	  left <- soundfile@left
+	  right <-soundfile@right
 				
 		#matrix of values
 		cat("\n Calculating index. Please wait... \n\n")
 		spec_left <- spectro(left, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")
 		
 		specA_left <- spec_left$amp
+		
 		
 		min_freq1k = min_freq/1000 
 		max_freq1k = max_freq/1000 
@@ -104,14 +125,14 @@ acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, 
 # 		cat(dim(specA_left))
 		specA_left <- spec_left$amp[which_min_freq:which_max_freq,]
 		rm(spec_left)
+		rm(left)
 		
 		spec_right <- spectro(right, f = samplingrate, wl = wlen, plot = FALSE, norm = TRUE, dB = NULL, scale = FALSE, wn = "hamming")
 		
 		specA_right <- spec_right$amp[which_min_freq:which_max_freq,]
 		
 		rm(spec_right)
-		
-		rm(left,right)
+		rm(right)
 		
 # 		specA_rows <- dim(specA_left)[1]
 # 		specA_cols <- dim(specA_left)[2]
@@ -128,6 +149,7 @@ acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, 
 		fl <- rep(NA, specA_rows)
 		delta_fl <- ( max_freq - min_freq ) / specA_rows
 		delta_tk <- (length(soundfile@left)/soundfile@samp.rate) / specA_cols
+		
 				
 		#m <- floor(duration / j)
 		#q <- specA_rows
@@ -136,13 +158,13 @@ acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, 
 		#Number of values, in each row, for each j period (no. of columns)
 		I_per_j <- floor(j/delta_tk)
 		
-		ACI_left_vals <- rep(NA, no_j)
-		ACI_fl_left_vector <- rep(NA, no_j)
-		ACI_left_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
+		ACI_left_vals <- rep(no_j)
+		ACI_fl_left_vector <- rep(no_j)
+		ACI_left_matrix <- matrix(nrow = specA_rows, ncol = no_j)
 		
-		ACI_right_vals <- rep(NA, no_j)
-		ACI_fl_right_vector <- rep(NA, no_j)
-		ACI_right_matrix <- data.frame(matrix(NA, nrow = specA_rows, ncol = no_j))
+		ACI_right_vals <- rep(no_j)
+		ACI_fl_right_vector <- rep(no_j)
+		ACI_right_matrix <- matrix(nrow = specA_rows, ncol = no_j)
 		
 		#Left channel
 		#For each frequency bin fl
@@ -150,9 +172,11 @@ acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, 
 			
 			#For each j period of time
 			for (j_index in 1:no_j) {
-				min_col <- j_index * I_per_j - I_per_j + 1
+				min_col <- (j_index * I_per_j) - (I_per_j) + 1
 				max_col <- j_index * I_per_j
-								
+				
+		
+				
 				D <- get_d(specA_left, q_index, min_col, max_col)
 				sum_I <- sum(specA_left[q_index,min_col:max_col])
 				ACI_left_vals[j_index] <- D / sum_I
@@ -287,10 +311,16 @@ acoustic_complexity <- function(soundfile, min_freq = NA, max_freq = NA, j = 5, 
 		  }
 	}
 	
-	invisible(list(AciTotAll_left = ACI_tot_left, AciTotAll_right = ACI_tot_right, 
-	               AciTotAll_left_bymin = ACI_tot_left_by_min, AciTotAll_right_bymin = ACI_tot_right_by_min,
-				   #AciIfTotAll_left=ACIif_tot_left, AciIfTotAll_right=ACIif_tot_right, 
-				   aci_fl_left_vals = ACI_fl_left_vector, aci_fl_right_vals = ACI_fl_right_vector,
-				   #aci_if_left_vals=ACI_if_left_vector, aci_if_right_vals=ACI_if_right_vector,
-				   aci_left_matrix = ACI_left_matrix, aci_right_matrix = ACI_right_matrix))
+	invisible(list(AciTotAll_left = ACI_tot_left, 
+	               AciTotAll_right = ACI_tot_right, 
+	               AciTotAll_left_bymin = ACI_tot_left_by_min, 
+	               AciTotAll_right_bymin = ACI_tot_right_by_min,
+				         #AciIfTotAll_left=ACIif_tot_left, 
+				         #AciIfTotAll_right=ACIif_tot_right, 
+				         aci_fl_left_vals = ACI_fl_left_vector, 
+				         aci_fl_right_vals = ACI_fl_right_vector,
+				         #aci_if_left_vals=ACI_if_left_vector, 
+				         #aci_if_right_vals=ACI_if_right_vector,
+				         aci_left_matrix = ACI_left_matrix, 
+				         aci_right_matrix = ACI_right_matrix))
 }
