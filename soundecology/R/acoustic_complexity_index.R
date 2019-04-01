@@ -124,7 +124,7 @@ acoustic_complexity_new <- function(
     if (duration %% J != 0) {
       cat(
         paste(
-          ( duration %% j),
+          round( duration %% j,digits=2),
           " seconds have been discarded from output",
           sep = ""
         )
@@ -230,7 +230,7 @@ acoustic_complexity_new <- function(
     spec_amp_cols <- dim(spec_amp_left)[2]
 
     delta_tk <- (length(soundfile@left) / soundfile@samp.rate) / spec_amp_cols
-
+    rm(left)
     no_j <- floor(duration / j)
 
     # Number of values, in each row, for each j period (no. of columns)
@@ -399,22 +399,22 @@ acoustic_complexity_new <- function(
                 )
 
     spec_amp_left <- spec_left$amp
+    spec_left_freq <- spec_left$freq
+    rm(spec_left)
 
     min_freq1k <- min_freq / 1000
     max_freq1k <- max_freq / 1000
 
     which_min_freq <- which(
-                        abs(spec_left$freq - min_freq1k) ==
-                        min(abs(spec_left$freq - min_freq1k))
+                        abs(spec_left_freq - min_freq1k) ==
+                        min(abs(spec_left_freq - min_freq1k))
                       )
     which_max_freq <- which(
-                        abs(spec_left$freq - max_freq1k) ==
-                        min(abs(spec_left$freq - max_freq1k))
+                        abs(spec_left_freq - max_freq1k) ==
+                        min(abs(spec_left_freq - max_freq1k))
                       )
 
     spec_amp_left <- spec_amp_left[which_min_freq:which_max_freq, ]
-    rm(spec_left)
-
     rm(left)
 
     # LEFT CHANNEL
@@ -428,8 +428,6 @@ acoustic_complexity_new <- function(
     # 		spec_amp_left <- spec_amp_left[1:max_row,]
     # 		spec_amp_rows <- dim(spec_amp_left)[1]
 
-    fl <- rep(NA, spec_amp_rows)
-    delta_fl <- (max_freq - min_freq) / spec_amp_rows
     delta_tk <- (length(soundfile@left) / soundfile@samp.rate) / spec_amp_cols
 
     no_j <- floor(duration / j)
@@ -440,32 +438,61 @@ acoustic_complexity_new <- function(
     I_per_j <- floor(j / delta_tk)
 
     ACI_left_vals <- rep(NA, no_j)
-    ACI_fl_left_vector <- rep(NA, no_j)
-    ACI_left_matrix <- data.frame(matrix(NA, nrow = spec_amp_rows, ncol = no_j))
-
     ACI_right_vals <- rep(NA, no_j)
-    ACI_fl_right_vector <- rep(NA, no_j)
-    ACI_right_matrix <- data.frame(matrix(NA, nrow = spec_amp_rows, ncol = no_j))
 
+    if (matrix) {
+      ACI_left_matrix <- matrix(nrow = spec_amp_rows, ncol = no_j)
+      ACI_right_matrix <- matrix(nrow = spec_amp_rows, ncol = no_j)
+    }
+    if (bands) {
+      ACI_fl_left_vector <- rep(no_j)
+      ACI_fl_right_vector <- rep(no_j)
+    } else {
+      total_left <- 0
+      total_right <- 0
+    }
+
+    #create index vector
+    index_v <- 1:no_j
     # Left channel
     # For each frequency bin fl
     for (q_index in 1:spec_amp_rows) {
 
-      # For each j period of time
-      for (j_index in 1:no_j) {
-        min_col <- j_index * I_per_j - I_per_j + 1
-        max_col <- j_index * I_per_j
 
-        D <- get_d(spec_amp_left, q_index, min_col, max_col)
-        sum_I <- sum(spec_amp_left[q_index, min_col:max_col])
-        ACI_left_vals[j_index] <- D / sum_I
-        ACI_left_matrix[q_index, j_index] <- D / sum_I
+      D <- sapply(
+              index_v,
+              get_d,
+              spectrum = spec_amp_left,
+              freq_row = q_index,
+              min_col = min_col,
+              max_col = max_col,
+              I_per_j = I_per_j
+            )
+      sum_I <- sapply(
+                  index_v,
+                  sum_v,
+                  spectrum = spec_amp_left,
+                  q_index = q_index
+                )
+      ACI_left_vals <- D / sum_I
+
+      ACI_complex_left_vector <- ACI_complex_left_vector + ACI_left_vals
+      if (matrix) {
+        ACI_left_matrix[q_index, ] <- ACI_left_vals
       }
-
-      ACI_fl_left_vector[q_index] <- sum(ACI_left_vals)
+      if (bands) {
+        ACI_fl_left_vector[q_index] <- sum(ACI_left_vals)
+      } else {
+        total_left <- total_left + sum(ACI_left_vals)
+      }
     }
 
-    ACI_tot_left <- sum(ACI_fl_left_vector)
+    if (bands) {
+      ACI_tot_left <- sum(ACI_fl_left_vector)
+    } else {
+      ACI_tot_left <- total_left
+    }
+
     ACI_tot_left_by_min <- round( (ACI_tot_left / duration) * 60, 2)
 
     ACI_tot_right <- NA
@@ -486,8 +513,8 @@ acoustic_complexity_new <- function(
     AciTotAll_right = ACI_tot_right,
     AciTotAll_left_bymin = ACI_tot_left_by_min,
     AciTotAll_right_bymin = ACI_tot_right_by_min,
-    ACI_complex_right_vector = ACI_complex_right_vector,
-    ACI_complex_left_vector = ACI_complex_left_vector
+    aciOverTimeRight = ACI_complex_right_vector,
+    aciOverTimeLeft = ACI_complex_left_vector
   )
 
   if (matrix) {
