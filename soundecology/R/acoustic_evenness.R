@@ -246,5 +246,6 @@ acoustic_evenness <- function(soundfile, max_freq = 10000, db_threshold = -50, f
 		left_gini_return = round(Gini(left_vals), 6)
 		right_gini_return = NA
 	}
-	invisible(list(aei_left = left_gini_return, aei_right = right_gini_return, left_band_values = left_bandvals_return, right_band_values = right_bandvals_return, left_bandrange_values = left_bandrange_return, right_bandrange_values = right_bandrange_return))
+	invisible(list(aeiL = left_gini_return,
+	               aeiR = right_gini_return))
 }

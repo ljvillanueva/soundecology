@@ -1,4 +1,4 @@
-#Bioacoustic index
+ #Bioacoustic index
 #
 #Inspired from the "bioacoustic index" from the paper:
 # Boelman NT, Asner GP, Hart PJ, Martin RE. 2007. Multi-trophic invasion
@@ -128,9 +128,6 @@ bioacoustic_index <- function(soundfile, min_freq = 2000, max_freq = 8000, fft_w
 		cat("\n\n")
 		right_area <- NA
 	}
-	invisible(list(left_area = left_area, right_area = right_area,
-		  	left_vals = specA_left_segment, right_vals = specA_right_segment,
-			left_vals_normalized = specA_left_segment_normalized,
-			right_vals_normalized = specA_right_segment_normalized,
-			freq_vals = freqs))
+	invisible(list(areaL = left_area,
+	               areaR = right_area))
 }

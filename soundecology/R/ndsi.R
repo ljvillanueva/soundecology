@@ -380,5 +380,10 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		cat(NDSI_left)
 		cat("\n\n")
 	}
-	invisible(list(ndsi_left = NDSI_left, ndsi_right = NDSI_right, biophony_left = biophony_left, anthrophony_left = anthrophony_left, biophony_right = biophony_right, anthrophony_right = anthrophony_right))
+	invisible(list(ndsiL = NDSI_left,
+	               ndsiR = NDSI_right,
+	               biophonyL = biophony_left,
+	               anthrophonyL = anthrophony_left,
+	               biophonyR = biophony_right,
+	               anthrophonyR = anthrophony_right))
 }

@@ -287,5 +287,10 @@ acoustic_diversity <- function(soundfile, max_freq = 10000, db_threshold = -50, 
 		}
 		
 	}
-	invisible(list(adi_left = left_adi_return, adi_right = right_adi_return, left_band_values = left_bandvals_return, right_band_values = right_bandvals_return, left_bandrange_values = left_bandrange_return, right_bandrange_values = right_bandrange_return))
+	invisible(list(adiL = left_adi_return,
+	               adiR = right_adi_return,
+	               bandL = left_bandvals_return,
+	               bandR = right_bandvals_return,
+	               bandRangeL = left_bandrange_return,
+	               bandRangeR = right_bandrange_return))
 }
