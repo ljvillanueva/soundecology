@@ -528,12 +528,12 @@ acoustic_complexity_new <- function(
   }
 
   return <- list(
-    aciTotAllLeft = aciTotLeft,
-    aciTotAllRight = aciTotRight,
-    aciTotAllLeftByMin = aciTotLeftByMin,
-    aciTotAllRightByMin = aciTotRightByMin,
-    aciOverTimeLeft = aciComplexityLeft,
-    aciOverTimeRight = aciComplexityRight
+    aciTotAllL = aciTotLeft,
+    aciTotAllR = aciTotRight,
+    aciTotAllByMinL = aciTotLeftByMin,
+    aciTotAllByMinR = aciTotRightByMin,
+    aciOverTimeL = aciComplexityLeft,
+    aciOverTimeR = aciComplexityRight
   )
 
   if (matrix) {
